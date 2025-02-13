@@ -1,17 +1,4 @@
-#include <iomanip>
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <cmath>
-
-using std::cin;
-using std::cout;
-using std::endl;
-using std::string;
-using std::vector;
-using std::fixed;
-using std::setprecision;
+#include "mano_lib.h"
 
 struct Studentas {
     string vardas;
@@ -51,6 +38,7 @@ int main() {
         
     }
 
+    // loopina per visus studentus ir skaiciuoja galutini pazymi 
     for (int i = 0; i < n; i++) {
         cout << "Iveskite 1 jei norite skaiciuoti vidurki, 0 jei norite skaiciuoti mediana: ";
         cin >> vid;
