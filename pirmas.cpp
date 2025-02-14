@@ -10,6 +10,7 @@ struct Studentas {
 
 float Vidurkis(vector<int> pazymiai);
 float Mediana(vector<int> pazymiai);
+void GeneruotiPazymius(int pazymiuSk, vector<int>& pazymiai);
 
 int main() {
     bool vid; // ar naudoti vidurki ar mediana
@@ -22,13 +23,18 @@ int main() {
         if (studentas.vardas == "q") break;
         cout << "Iveskite studento pavarde: ";
         cin >> studentas.pavarde;
-        cout << "Iveskite pazymius (iveskite -1 norint baigti): ";
+
+        cout << "Iveskite pazymiu skaiciu: ";
+        int pazymiuSk;
+        cin >> pazymiuSk;
+        GeneruotiPazymius(pazymiuSk, studentas.pazymiai);
+        /*cout << "Iveskite pazymius (iveskite -1 norint baigti): ";
         int pazymys;
         while (true) {
             cin >> pazymys;
             if (pazymys == -1) break;
             studentas.pazymiai.push_back(pazymys);
-        }
+        }*/
         cout << "Iveskite studento egzamino pazymi: ";
         cin >> studentas.egzaminas;
         studentai.push_back(studentas);
@@ -65,4 +71,13 @@ float Mediana(vector<int> pazymiai) {
     } else {
         return pazymiai[pazSk / 2];
     }
+}
+
+void GeneruotiPazymius(int pazymiuSk, vector<int>& pazymiai) {
+
+    for(int i = 0; i < pazymiuSk; i++){
+        pazymiai.push_back(rand() % 10 + 1);
+        cout << pazymiai[i] << " ";
+    }
+    cout << endl;
 }
