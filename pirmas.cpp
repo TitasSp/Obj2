@@ -6,65 +6,62 @@ struct Studentas {
     vector<int> pazymiai;
     int egzaminas;
     float galutinis;
-    int pazSk; // pazymiu skaicius
 };
 
-float Vidurkis(vector<int> pazymiai, int pazSk);
-float Mediana(vector<int> pazymiai, int pazSk);
+float Vidurkis(vector<int> pazymiai);
+float Mediana(vector<int> pazymiai);
 
 int main() {
     bool vid; // ar naudoti vidurki ar mediana
-    int n; // studentu skaicius
-    
-    cout << "Iveskite studentu skaiciu: ";
-    cin >> n;
-    vector<Studentas> studentas(n);
+    vector<Studentas> studentai;
 
-    //loopina per visus studentus ir iveda ju duomenis
-    for (int i = 0; i < n; i++) {
-        cout << "Iveskite studento varda: ";
-        cin >> studentas[i].vardas;
+    while (true) {
+        Studentas studentas;
+        cout << "Iveskite studento varda(norint baigti iveskite: q): ";
+        cin >> studentas.vardas;
+        if (studentas.vardas == "q") break;
         cout << "Iveskite studento pavarde: ";
-        cin >> studentas[i].pavarde;
-        cout << "Iveskite pazymiu skaiciu: ";
-        cin >> studentas[i].pazSk;
-        studentas[i].pazymiai.resize(studentas[i].pazSk); // pazymiu vektoriui priskiriam dydi
-        cout << "Iveskite studento pazymius: ";
-        for (int j = 0; j < studentas[i].pazSk; j++) {
-            cin >> studentas[i].pazymiai[j];
+        cin >> studentas.pavarde;
+        cout << "Iveskite pazymius (iveskite -1 norint baigti): ";
+        int pazymys;
+        while (true) {
+            cin >> pazymys;
+            if (pazymys == -1) break;
+            studentas.pazymiai.push_back(pazymys);
         }
         cout << "Iveskite studento egzamino pazymi: ";
-        cin >> studentas[i].egzaminas;
-        
+        cin >> studentas.egzaminas;
+        studentai.push_back(studentas);
     }
 
-    // loopina per visus studentus ir skaiciuoja galutini pazymi 
-    for (int i = 0; i < n; i++) {
+    // loopina per kiekviena studenta studentu vektoriuje ir skaiciuoja galutini pazymi 
+    for (auto& studentas : studentai) {
         cout << "Iveskite 1 jei norite skaiciuoti vidurki, 0 jei norite skaiciuoti mediana: ";
         cin >> vid;
         if (vid) {
-            studentas[i].galutinis = 0.4 * Vidurkis(studentas[i].pazymiai, studentas[i].pazSk) + 0.6 * studentas[i].egzaminas;
+            studentas.galutinis = 0.4 * Vidurkis(studentas.pazymiai) + 0.6 * studentas.egzaminas;
         } else {
-            studentas[i].galutinis = 0.4 * Mediana(studentas[i].pazymiai, studentas[i].pazSk) + 0.6 * studentas[i].egzaminas;
+            studentas.galutinis = 0.4 * Mediana(studentas.pazymiai) + 0.6 * studentas.egzaminas;
         }
-        cout << fixed << setprecision(2) << studentas[i].vardas << " " << studentas[i].pavarde << " " << studentas[i].galutinis << endl;
+        cout << fixed << setprecision(2) << studentas.vardas << " " << studentas.pavarde << " " << studentas.galutinis << endl;
     }
 
     return 0;
 }
 
-float Vidurkis(vector<int> pazymiai, int pazSk) {
+float Vidurkis(vector<int> pazymiai) {
     float suma = 0;
-    for (int i = 0; i < pazSk; i++) {
-        suma += pazymiai[i];
+    for (int pazymys : pazymiai) {
+        suma += pazymys;
     }
-    return suma / pazSk;
+    return suma / pazymiai.size();
 }
 
-float Mediana(vector<int> pazymiai, int pazSk) {
+float Mediana(vector<int> pazymiai) {
     sort(pazymiai.begin(), pazymiai.end());
+    int pazSk = pazymiai.size();
     if (pazSk % 2 == 0) {
-        return (pazymiai[pazSk / 2 - 1] + pazymiai[pazSk / 2]) / 2;
+        return (pazymiai[pazSk / 2 - 1] + pazymiai[pazSk / 2]) / 2.0;
     } else {
         return pazymiai[pazSk / 2];
     }
