@@ -14,7 +14,7 @@ void GeneruotiPazymius(int pazymiuSk, vector<int>& pazymiai);
 void GeneruotiStudentus(int studentuSk, vector<Studentas>& studentai);
 
 int main() {
-    srand(time(0)); // Initialize random seed
+    srand(time(0)); // inicializuoja random seeda
     bool vid; // ar naudoti vidurki ar mediana
     vector<Studentas> studentai;
     int pasirinkimas;

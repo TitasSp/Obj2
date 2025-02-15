@@ -11,48 +11,76 @@ struct Studentas {
 
 float Vidurkis(int* pazymiai, int pazymiuSk);
 float Mediana(int* pazymiai, int pazymiuSk);
+void GeneruotiPazymius(int pazymiuSk, int*& pazymiai, int& pazymiuSkOut);
+void GeneruotiStudentus(int studentuSk, Studentas*& studentai, int& studentuSkOut);
 
 int main() {
+    srand(time(0)); // inicializuoja random seeda
     bool vid; // ar naudoti vidurki ar mediana
 
     Studentas* studentai = nullptr;
     int studentuSK = 0;
+    int pasirinkimas;
 
     while (true) {
-        Studentas studentas; // laikinas studentas
-        studentas.pazymiai = nullptr;
-        studentas.pazymiuSk = 0;
+        cout << "Pasirinkite veiksma:\n";
+        cout << "1 - Ivesti viska ranka\n";
+        cout << "2 - Generuoti pazymius\n";
+        cout << "3 - Generuoti ir pazymius ir studentu vardus, pavardes\n";
+        cout << "4 - Baigti darba\n";
+        cin >> pasirinkimas;
 
-        cout << "Iveskite studento varda(norint baigti iveskite: q): ";
-        cin >> studentas.vardas;
-        if (studentas.vardas == "q") break;
-        cout << "Iveskite studento pavarde: ";
-        cin >> studentas.pavarde;
-        cout << "Iveskite pazymius (iveskite -1 norint baigti): ";
-        int pazymys;
-        while (true) {
-            cin >> pazymys;
-            if (pazymys == -1) break;
-            int* temp = new int[studentas.pazymiuSk + 1];
-            for (int i = 0; i < studentas.pazymiuSk; i++) {
-                temp[i] = studentas.pazymiai[i];
+        if (pasirinkimas == 4) break;
+
+        if (pasirinkimas == 1 || pasirinkimas == 2) {
+            Studentas studentas; // laikinas studentas
+            studentas.pazymiai = nullptr;
+            studentas.pazymiuSk = 0;
+
+            cout << "Iveskite studento varda: ";
+            cin >> studentas.vardas;
+            cout << "Iveskite studento pavarde: ";
+            cin >> studentas.pavarde;
+
+            if (pasirinkimas == 1) {
+                cout << "Iveskite pazymius (iveskite -1 norint baigti): ";
+                int pazymys;
+                while (true) {
+                    cin >> pazymys;
+                    if (pazymys == -1) break;
+                    int* temp = new int[studentas.pazymiuSk + 1];
+                    for (int i = 0; i < studentas.pazymiuSk; i++) {
+                        temp[i] = studentas.pazymiai[i];
+                    }
+                    temp[studentas.pazymiuSk] = pazymys;
+                    delete[] studentas.pazymiai;
+                    studentas.pazymiai = temp;
+                    studentas.pazymiuSk++;
+                }
+            } else {
+                cout << "Iveskite pazymiu skaiciu: ";
+                int pazymiuSk;
+                cin >> pazymiuSk;
+                GeneruotiPazymius(pazymiuSk, studentas.pazymiai, studentas.pazymiuSk);
             }
-            temp[studentas.pazymiuSk] = pazymys;
-            delete[] studentas.pazymiai;
-            studentas.pazymiai = temp;
-            studentas.pazymiuSk++;
-        }
-        cout << "Iveskite studento egzamino pazymi: ";
-        cin >> studentas.egzaminas;
 
-        Studentas* tempStudentai = new Studentas[studentuSK + 1];
-        for (int i = 0; i < studentuSK; i++) {
-            tempStudentai[i] = studentai[i];
+            cout << "Iveskite studento egzamino pazymi: ";
+            cin >> studentas.egzaminas;
+
+            Studentas* tempStudentai = new Studentas[studentuSK + 1];
+            for (int i = 0; i < studentuSK; i++) {
+                tempStudentai[i] = studentai[i];
+            }
+            tempStudentai[studentuSK] = studentas;
+            delete[] studentai;
+            studentai = tempStudentai;
+            studentuSK++;
+        } else if (pasirinkimas == 3) {
+            int studentuSk;
+            cout << "Iveskite studentu skaiciu: ";
+            cin >> studentuSk;
+            GeneruotiStudentus(studentuSk, studentai, studentuSK);
         }
-        tempStudentai[studentuSK] = studentas;
-        delete[] studentai;
-        studentai = tempStudentai;
-        studentuSK++;
     }
 
     // loopina per kiekviena studenta studentu vektoriuje ir skaiciuoja galutini pazymi 
@@ -91,4 +119,37 @@ float Mediana(int* pazymiai, int pazymiuSk) {
     } else {
         return pazymiai[pazymiuSk / 2];
     }
+}
+
+void GeneruotiPazymius(int pazymiuSk, int*& pazymiai, int& pazymiuSkOut) {
+    pazymiai = new int[pazymiuSk];
+    for(int i = 0; i < pazymiuSk; i++){
+        pazymiai[i] = rand() % 10 + 1;
+        cout << pazymiai[i] << " ";
+    }
+    cout << endl;
+    pazymiuSkOut = pazymiuSk;
+}
+
+void GeneruotiStudentus(int studentuSk, Studentas*& studentai, int& studentuSkOut) {
+    vector<string> vardai = {"Jonas", "Petras", "Antanas", "Tomas", "Marius"};
+    vector<string> pavardes = {"Jonaitis", "Petraitis", "Antanaitis", "Tomaitis", "Maraitis"};
+
+    Studentas* tempStudentai = new Studentas[studentuSkOut + studentuSk];
+    for (int i = 0; i < studentuSkOut; i++) {
+        tempStudentai[i] = studentai[i];
+    }
+
+    for (int i = 0; i < studentuSk; i++) {
+        Studentas studentas;
+        studentas.vardas = vardai[rand() % vardai.size()];
+        studentas.pavarde = pavardes[rand() % pavardes.size()];
+        GeneruotiPazymius(rand() % 10 + 1, studentas.pazymiai, studentas.pazymiuSk);
+        studentas.egzaminas = rand() % 10 + 1;
+        tempStudentai[studentuSkOut + i] = studentas;
+    }
+
+    delete[] studentai;
+    studentai = tempStudentai;
+    studentuSkOut += studentuSk;
 }
