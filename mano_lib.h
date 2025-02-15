@@ -3,7 +3,8 @@
 #include <string>
 #include <vector>
 #include <algorithm>
-
+#include <cstdlib>
+#include <ctime>
 
 using std::cin;
 using std::cout;
@@ -13,3 +14,4 @@ using std::vector;
 using std::fixed;
 using std::setprecision;
 using std::sort;
+using std::to_string;
