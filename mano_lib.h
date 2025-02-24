@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <cstdlib>
 #include <ctime>
+#include <fstream>
 
 using std::cin;
 using std::cout;
@@ -19,3 +20,4 @@ using std::rand;
 using std::srand;
 using std::time;   
 using std::copy;
+using std::ifstream;

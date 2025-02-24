@@ -12,6 +12,7 @@ float Vidurkis(vector<int> pazymiai);
 float Mediana(vector<int> pazymiai);
 void GeneruotiPazymius(int pazymiuSk, vector<int>& pazymiai);
 void GeneruotiStudentus(int studentuSk, vector<Studentas>& studentai);
+void NuskaitytiStudentusIsFailo(string failas, vector<Studentas>& studentai);
 
 int main() {
     srand(time(0)); // inicializuoja random seeda
@@ -115,4 +116,22 @@ void GeneruotiStudentus(int studentuSk, vector<Studentas>& studentai) {
         studentas.egzaminas = rand() % 10 + 1;
         studentai.push_back(studentas);
     }
+}
+
+void NuskaitytiStudentusIsFailo(string failas, vector<Studentas>& studentai) {
+    ifstream in(failas);
+    string vardas, pavarde;
+    int pazymys;
+    while (in >> vardas >> pavarde) {
+        Studentas studentas;
+        studentas.vardas = vardas;
+        studentas.pavarde = pavarde;
+        while (in >> pazymys) {
+            if (pazymys == -1) break;
+            studentas.pazymiai.push_back(pazymys);
+        }
+        in >> studentas.egzaminas;
+        studentai.push_back(studentas);
+    }
+    in.close();
 }
