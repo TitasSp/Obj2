@@ -142,13 +142,14 @@ void NuskaitytiStudentusIsFailo(string failas, vector<Studentas>& studentai) {
         studentas.pavarde = pavarde;
         studentas.pazymiai.clear();
         
-        // nuskaito pazymius
-        for (int i = 0; i < 5; ++i) {
-            in >> pazymys;
-            studentas.pazymiai.push_back(pazymys);
+        // nuskaito pazymius iki egzamino pazymio
+        while (in >> pazymys) {
+            if (in.peek() == '\n' || in.peek() == EOF) {
+                studentas.egzaminas = pazymys;
+                break;
+            }
+        studentas.pazymiai.push_back(pazymys);
         }
-        in >> studentas.egzaminas;
-        
         studentai.push_back(studentas);
     }
     in.close();
