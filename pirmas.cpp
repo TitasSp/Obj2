@@ -25,10 +25,11 @@ int main() {
         cout << "1 - Ivesti viska ranka\n";
         cout << "2 - Generuoti pazymius\n";
         cout << "3 - Generuoti ir pazymius ir studentu vardus, pavardes\n";
-        cout << "4 - Baigti darba\n";
+        cout << "4 - Nuskaityti studentus is failo\n";
+        cout << "5 - Baigti darba\n";
         cin >> pasirinkimas;
 
-        if (pasirinkimas == 4) break;
+        if (pasirinkimas == 5) break;
 
         if (pasirinkimas == 1 || pasirinkimas == 2) {
             Studentas studentas;
@@ -60,6 +61,14 @@ int main() {
             cout << "Iveskite studentu skaiciu: ";
             cin >> studentuSk;
             GeneruotiStudentus(studentuSk, studentai);
+        }
+        else if (pasirinkimas == 4) {
+            string failas;
+            cout << "Iveskite failo pavadinima: ";
+            cin >> failas;
+            
+            NuskaitytiStudentusIsFailo(failas, studentai);
+            
         }
     }
 
@@ -122,15 +131,24 @@ void NuskaitytiStudentusIsFailo(string failas, vector<Studentas>& studentai) {
     ifstream in(failas);
     string vardas, pavarde;
     int pazymys;
+
+    // praleidzia pirma eilute
+    string pirmaEilute;
+    getline(in, pirmaEilute);
+
     while (in >> vardas >> pavarde) {
         Studentas studentas;
         studentas.vardas = vardas;
         studentas.pavarde = pavarde;
-        while (in >> pazymys) {
-            if (pazymys == -1) break;
+        studentas.pazymiai.clear();
+        
+        // nuskaito pazymius
+        for (int i = 0; i < 5; ++i) {
+            in >> pazymys;
             studentas.pazymiai.push_back(pazymys);
         }
         in >> studentas.egzaminas;
+        
         studentai.push_back(studentas);
     }
     in.close();

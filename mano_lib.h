@@ -21,3 +21,6 @@ using std::srand;
 using std::time;   
 using std::copy;
 using std::ifstream;
+using std::ofstream;
+using std::numeric_limits;
+using std::streamsize;
