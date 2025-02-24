@@ -63,9 +63,9 @@ int main() {
     }
 
     // loopina per kiekviena studenta studentu vektoriuje ir skaiciuoja galutini pazymi 
+    cout << "Iveskite 1 jei norite skaiciuoti vidurki, 0 jei norite skaiciuoti mediana: ";
+    cin >> vid;
     for (auto& studentas : studentai) {
-        cout << "Iveskite 1 jei norite skaiciuoti vidurki, 0 jei norite skaiciuoti mediana: ";
-        cin >> vid;
         if (vid) {
             studentas.galutinis = 0.4 * Vidurkis(studentas.pazymiai) + 0.6 * studentas.egzaminas;
         } else {

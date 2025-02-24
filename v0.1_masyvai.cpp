@@ -48,12 +48,12 @@ int main() {
                 while (true) {
                     cin >> pazymys;
                     if (pazymys == -1) break;
-                    int* temp = new int[studentas.pazymiuSk + 1];
+                    int* temp = new int[studentas.pazymiuSk + 1]; // laikinas masyvas pazymiams
                     for (int i = 0; i < studentas.pazymiuSk; i++) {
-                        temp[i] = studentas.pazymiai[i];
+                        temp[i] = studentas.pazymiai[i]; // nukopijuoja pazymius i laikina masyva
                     }
-                    temp[studentas.pazymiuSk] = pazymys;
-                    delete[] studentas.pazymiai;
+                    temp[studentas.pazymiuSk] = pazymys; // prideda nauja pazymi
+                    delete[] studentas.pazymiai; 
                     studentas.pazymiai = temp;
                     studentas.pazymiuSk++;
                 }
@@ -132,8 +132,8 @@ void GeneruotiPazymius(int pazymiuSk, int*& pazymiai, int& pazymiuSkOut) {
 }
 
 void GeneruotiStudentus(int studentuSk, Studentas*& studentai, int& studentuSkOut) {
-    vector<string> vardai = {"Jonas", "Petras", "Antanas", "Tomas", "Marius"};
-    vector<string> pavardes = {"Jonaitis", "Petraitis", "Antanaitis", "Tomaitis", "Maraitis"};
+    string vardai[] = {"Jonas", "Petras", "Antanas", "Tomas", "Marius"};
+    string pavardes[] = {"Jonaitis", "Petraitis", "Antanaitis", "Tomaitis", "Maraitis"};
 
     Studentas* tempStudentai = new Studentas[studentuSkOut + studentuSk];
     for (int i = 0; i < studentuSkOut; i++) {
@@ -142,8 +142,8 @@ void GeneruotiStudentus(int studentuSk, Studentas*& studentai, int& studentuSkOu
 
     for (int i = 0; i < studentuSk; i++) {
         Studentas studentas;
-        studentas.vardas = vardai[rand() % vardai.size()];
-        studentas.pavarde = pavardes[rand() % pavardes.size()];
+        studentas.vardas = vardai[rand() % 5];
+        studentas.pavarde = pavardes[rand() % 5];
         GeneruotiPazymius(rand() % 10 + 1, studentas.pazymiai, studentas.pazymiuSk);
         studentas.egzaminas = rand() % 10 + 1;
         tempStudentai[studentuSkOut + i] = studentas;
