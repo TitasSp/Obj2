@@ -25,3 +25,5 @@ using std::ofstream;
 using std::numeric_limits;
 using std::streamsize;
 using std::ios;
+using std::left;
+using std::setw;

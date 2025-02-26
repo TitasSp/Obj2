@@ -91,7 +91,12 @@ int main() {
     cout << "4 - Pagal galutini pazymi mazejancia tvarka\n";
     cin >> rikiavimoPasirinkimas;
 
-    
+    if (iFaila) {
+        out << left << setw(15) << "Vardas" << setw(20) << "Pavarde" << "Galutinis" << endl;
+    }
+    else{
+        cout << left << setw(15) << "Vardas" << setw(20) << "Pavarde" << "Galutinis" << endl;
+    }
     // loopina per kiekviena studenta studentu vektoriuje ir skaiciuoja galutini pazymi 
     for (auto& studentas : studentai) {
         if (vid) {
@@ -103,9 +108,9 @@ int main() {
         RikiuotiStudentus(studentai, rikiavimoPasirinkimas);
         
         if (iFaila) {
-        out << fixed << setprecision(2) << studentas.vardas << " " << studentas.pavarde << " " << studentas.galutinis << endl;
+            out << left << setw(15) << studentas.vardas << setw(20) << studentas.pavarde << fixed << setprecision(2) << studentas.galutinis << endl;
         } else {
-        cout << fixed << setprecision(2) << studentas.vardas << " " << studentas.pavarde << " " << studentas.galutinis << endl;
+            cout << left << setw(15) << studentas.vardas << setw(20) << studentas.pavarde << fixed << setprecision(2) << studentas.galutinis << endl;
         }
     }
 
