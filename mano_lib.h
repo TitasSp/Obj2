@@ -24,3 +24,4 @@ using std::ifstream;
 using std::ofstream;
 using std::numeric_limits;
 using std::streamsize;
+using std::ios;

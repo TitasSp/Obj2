@@ -72,16 +72,34 @@ int main() {
         }
     }
 
-    // loopina per kiekviena studenta studentu vektoriuje ir skaiciuoja galutini pazymi 
     cout << "Iveskite 1 jei norite skaiciuoti vidurki, 0 jei norite skaiciuoti mediana: ";
     cin >> vid;
+    cout << "Isvesti atsakymus i faila? (1 - taip, 0 - ne): ";
+    bool iFaila;
+    cin >> iFaila;
+    
+    ofstream out;
+    if (iFaila) {
+        out.open("rezultatai.txt", ios::trunc);
+    }
+    
+    // loopina per kiekviena studenta studentu vektoriuje ir skaiciuoja galutini pazymi 
     for (auto& studentas : studentai) {
         if (vid) {
-            studentas.galutinis = 0.4 * Vidurkis(studentas.pazymiai) + 0.6 * studentas.egzaminas;
+        studentas.galutinis = 0.4 * Vidurkis(studentas.pazymiai) + 0.6 * studentas.egzaminas;
         } else {
-            studentas.galutinis = 0.4 * Mediana(studentas.pazymiai) + 0.6 * studentas.egzaminas;
+        studentas.galutinis = 0.4 * Mediana(studentas.pazymiai) + 0.6 * studentas.egzaminas;
         }
+
+        if (iFaila) {
+        out << fixed << setprecision(2) << studentas.vardas << " " << studentas.pavarde << " " << studentas.galutinis << endl;
+        } else {
         cout << fixed << setprecision(2) << studentas.vardas << " " << studentas.pavarde << " " << studentas.galutinis << endl;
+        }
+    }
+
+    if (iFaila) {
+    out.close();
     }
 
     return 0;
