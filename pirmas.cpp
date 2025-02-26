@@ -13,6 +13,7 @@ float Mediana(vector<int> pazymiai);
 void GeneruotiPazymius(int pazymiuSk, vector<int>& pazymiai);
 void GeneruotiStudentus(int studentuSk, vector<Studentas>& studentai);
 void NuskaitytiStudentusIsFailo(string failas, vector<Studentas>& studentai);
+void RikiuotiStudentus(vector<Studentas>& studentai, int pasirinkimas);
 
 int main() {
     srand(time(0)); // inicializuoja random seeda
@@ -82,15 +83,25 @@ int main() {
     if (iFaila) {
         out.open("rezultatai.txt", ios::trunc);
     }
+    int rikiavimoPasirinkimas;
+    cout << "Pasirinkite rikiavimo buda:\n";
+    cout << "1 - Pagal varda\n";
+    cout << "2 - Pagal pavarde\n";
+    cout << "3 - Pagal galutini pazymi didejancia tvarka\n";
+    cout << "4 - Pagal galutini pazymi mazejancia tvarka\n";
+    cin >> rikiavimoPasirinkimas;
+
     
     // loopina per kiekviena studenta studentu vektoriuje ir skaiciuoja galutini pazymi 
     for (auto& studentas : studentai) {
         if (vid) {
-        studentas.galutinis = 0.4 * Vidurkis(studentas.pazymiai) + 0.6 * studentas.egzaminas;
+            studentas.galutinis = 0.4 * Vidurkis(studentas.pazymiai) + 0.6 * studentas.egzaminas;
         } else {
-        studentas.galutinis = 0.4 * Mediana(studentas.pazymiai) + 0.6 * studentas.egzaminas;
+            studentas.galutinis = 0.4 * Mediana(studentas.pazymiai) + 0.6 * studentas.egzaminas;
         }
-
+        
+        RikiuotiStudentus(studentai, rikiavimoPasirinkimas);
+        
         if (iFaila) {
         out << fixed << setprecision(2) << studentas.vardas << " " << studentas.pavarde << " " << studentas.galutinis << endl;
         } else {
@@ -171,4 +182,29 @@ void NuskaitytiStudentusIsFailo(string failas, vector<Studentas>& studentai) {
         studentai.push_back(studentas);
     }
     in.close();
+}
+
+void RikiuotiStudentus(vector<Studentas>& studentai, int pasirinkimas) {
+    switch (pasirinkimas) {
+        case 1:
+            sort(studentai.begin(), studentai.end(), [](const Studentas& a, const Studentas& b) {
+                return a.vardas < b.vardas;
+            });
+            break;
+        case 2:
+            sort(studentai.begin(), studentai.end(), [](const Studentas& a, const Studentas& b) {
+                return a.pavarde < b.pavarde;
+            });
+            break;
+        case 3:
+            sort(studentai.begin(), studentai.end(), [](const Studentas& a, const Studentas& b) {
+                return a.galutinis < b.galutinis;
+            });
+            break;
+        case 4:
+            sort(studentai.begin(), studentai.end(), [](const Studentas& a, const Studentas& b) {
+                return a.galutinis > b.galutinis;
+            });
+            break;
+    }
 }
