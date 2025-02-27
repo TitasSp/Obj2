@@ -1,5 +1,12 @@
 #include "mano_lib.h"
-#include "strukt_lib.h"
+
+struct Studentas {
+    string vardas;
+    string pavarde;
+    vector<int> pazymiai;
+    int egzaminas;
+    float galutinis;
+};
 
 float Vidurkis(vector<int> pazymiai);
 float Mediana(vector<int> pazymiai);

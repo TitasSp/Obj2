@@ -4,4 +4,3 @@ v0.1(vector, C masyvai, mišrus): Programos leidžia vartotojui gauti galutinį 
 
 v0.2 vector programos papildymas: galimas studentų duomenų nuskaitymas iš failo, galimas išvedimas į failą, išvesti duomenys gražiai struktūrizuoti, pridėtas duomenų rikiavimas pagal vardą, pavardę arba pažymį.
 
-66240 66485 59884
