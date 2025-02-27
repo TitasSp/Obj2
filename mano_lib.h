@@ -6,6 +6,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <fstream>
+#include <chrono>
 
 using std::cin;
 using std::cout;
@@ -27,3 +28,6 @@ using std::streamsize;
 using std::ios;
 using std::left;
 using std::setw;
+using std::chrono::high_resolution_clock;
+using std::chrono::duration_cast;
+using std::chrono::milliseconds;

@@ -20,7 +20,7 @@ int main() {
     bool vid; // ar naudoti vidurki ar mediana
     vector<Studentas> studentai;
     int pasirinkimas;
-
+    
     while (true) {
         cout << "Pasirinkite veiksma:\n";
         cout << "1 - Ivesti viska ranka\n";
@@ -67,9 +67,12 @@ int main() {
             string failas;
             cout << "Iveskite failo pavadinima: ";
             cin >> failas;
-            
+
+            auto startRead = high_resolution_clock::now();
             NuskaitytiStudentusIsFailo(failas, studentai);
-            
+            auto endRead = high_resolution_clock::now();
+            auto durationRead = duration_cast<milliseconds>(endRead - startRead);
+            cout << "Failo nuskaitymas uztruko: " << durationRead.count() << " ms" << endl;
         }
     }
 
@@ -85,6 +88,7 @@ int main() {
     }
     int rikiavimoPasirinkimas;
     cout << "Pasirinkite rikiavimo buda:\n";
+    cout << "0 - Nerikiuoti\n";
     cout << "1 - Pagal varda\n";
     cout << "2 - Pagal pavarde\n";
     cout << "3 - Pagal galutini pazymi didejancia tvarka\n";
@@ -97,6 +101,7 @@ int main() {
     else{
         cout << left << setw(15) << "Vardas" << setw(20) << "Pavarde" << "Galutinis" << endl;
     }
+
     // loopina per kiekviena studenta studentu vektoriuje ir skaiciuoja galutini pazymi 
     for (auto& studentas : studentai) {
         if (vid) {
@@ -115,8 +120,9 @@ int main() {
     }
 
     if (iFaila) {
-    out.close();
+        out.close();
     }
+
 
     return 0;
 }
@@ -191,6 +197,9 @@ void NuskaitytiStudentusIsFailo(string failas, vector<Studentas>& studentai) {
 
 void RikiuotiStudentus(vector<Studentas>& studentai, int pasirinkimas) {
     switch (pasirinkimas) {
+        case 0:
+            // nerikiuoti
+            break;
         case 1:
             sort(studentai.begin(), studentai.end(), [](const Studentas& a, const Studentas& b) {
                 return a.vardas < b.vardas;
