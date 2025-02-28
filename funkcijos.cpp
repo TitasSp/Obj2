@@ -12,6 +12,9 @@ float Vidurkis(vector<int> pazymiai) {
 }
 
 float Mediana(vector<int> pazymiai) {
+    if (pazymiai.empty()) {
+        throw invalid_argument("Pazymiu sarasas yra tuscias");
+    }
     sort(pazymiai.begin(), pazymiai.end());
     int pazSk = pazymiai.size();
     if (pazSk % 2 == 0) {
