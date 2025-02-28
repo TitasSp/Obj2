@@ -44,6 +44,7 @@ try {
                 while (true) {
                     cout << "Iveskite pazymi (iveskite -1 norint baigti): ";
                     cin >> pazymys;
+                    //tikrinam ar ivestas skaicius ir ar jis yra tarp -1 ir 10
                     if (cin.fail() || pazymys < -1 || pazymys > 10) {
                         cout << "Ivyko klaida: netinkama ivestis " << endl;
                         cin.clear();
@@ -51,29 +52,83 @@ try {
                         continue;
                     }
                     if (pazymys == -1) break;
+
                     studentas.pazymiai.push_back(pazymys);
                 }
             } else {
-                cout << "Iveskite pazymiu skaiciu: ";
-                int pazymiuSk;
-                cin >> pazymiuSk;
-                GeneruotiPazymius(pazymiuSk, studentas.pazymiai);
+                while(true){
+                    try {
+                        cout << "Iveskite pazymiu skaiciu: ";
+                        int pazymiuSk;
+                        cin >> pazymiuSk;
+                        if (cin.fail() || pazymiuSk <= 0) {
+                            throw invalid_argument("Neteisinga ivestis");
+                        }
+                        GeneruotiPazymius(pazymiuSk, studentas.pazymiai);
+                        break;
+                    } catch (const invalid_argument& e) {
+                        cerr << "Ivyko klaida: " << e.what() << endl;
+                        cin.clear();
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                        continue;
+                    }
+                }
             }
 
-            cout << "Iveskite studento egzamino pazymi: ";
-            cin >> studentas.egzaminas;
-            studentai.push_back(studentas);
+            while (true)
+            {
+                try {
+                    cout << "Iveskite studento egzamino pazymi: ";
+                    cin >> studentas.egzaminas;
+                    if (cin.fail() || studentas.egzaminas < 0 || studentas.egzaminas > 10) {
+                        throw invalid_argument("Neteisinga ivestis");
+                    }
+                    studentai.push_back(studentas);
+                    break;
+                } catch (const invalid_argument& e) {
+                    cerr << "Ivyko klaida: " << e.what() << endl;
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    continue;
+                }
+                
+            }
+            
         } else if (pasirinkimas == 3) {
-            int studentuSk;
-            cout << "Iveskite studentu skaiciu: ";
-            cin >> studentuSk;
-            GeneruotiStudentus(studentuSk, studentai);
+            while(true){
+                try {
+                    cout << "Iveskite studentu skaiciu: ";
+                    int studentuSk;
+                    cin >> studentuSk;
+                    if (cin.fail() || studentuSk <= 0) {
+                        throw invalid_argument("Neteisinga ivestis");
+                    }
+                    GeneruotiStudentus(studentuSk, studentai);
+                    break;
+                } catch (const invalid_argument& e) {
+                    cerr << "Ivyko klaida: " << e.what() << endl;
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    continue;
+                }
+            }
         }
         else if (pasirinkimas == 4) {
             string failas;
-            system("dir \b *.txt");
-            cout << "Iveskite failo pavadinima: ";
-            cin >> failas;
+            while(true){
+                cout << "Failai: " << endl;
+                system("dir \b *.txt");
+                cout << endl;
+                cout << "Iveskite failo pavadinima: ";
+                cin >> failas;
+                ifstream in(failas);
+                if (!in.is_open()) {
+                    cerr << "Nepavyko atidaryti failo" << endl;
+                    continue;
+                }
+                in.close();
+                break;
+            }
 
             auto startRead = high_resolution_clock::now(); // pradeda skaiciuoti laika
             NuskaitytiStudentusIsFailo(failas, studentai);
@@ -82,11 +137,29 @@ try {
             cout << "Failo nuskaitymas uztruko: " << durationRead.count() << " s" << endl;
         }
     }
-
-    cout << "Iveskite 1 jei norite skaiciuoti vidurki, 0 jei norite skaiciuoti mediana: ";
-    cin >> vid;
-    cout << "Isvesti atsakymus i faila? (1 - taip, 0 - ne): ";
-    cin >> iFaila;
+    while(true){
+        cout << "Iveskite 1 jei norite skaiciuoti vidurki, 0 jei norite skaiciuoti mediana: ";
+        cin >> vid;
+        if (cin.fail() || vid < 0 || vid > 1) {
+            cout << "Ivyko klaida: netinkama ivestis " << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            continue;
+        }
+        break;
+    }
+    while (true)
+    {
+        cout << "Isvesti atsakymus i faila? (1 - taip, 0 - ne): ";
+        cin >> iFaila;
+        if (cin.fail() || iFaila < 0 || iFaila > 1) {
+            cout << "Ivyko klaida: netinkama ivestis " << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            continue;
+        }
+        break;
+    }
     
     ofstream out; 
     if (iFaila) {
@@ -94,13 +167,27 @@ try {
     }
 
     int rikiavimoPasirinkimas;
-    cout << "Pasirinkite rikiavimo buda:\n";
-    cout << "0 - Nerikiuoti\n";
-    cout << "1 - Pagal varda\n";
-    cout << "2 - Pagal pavarde\n";
-    cout << "3 - Pagal galutini pazymi didejancia tvarka\n";
-    cout << "4 - Pagal galutini pazymi mazejancia tvarka\n";
-    cin >> rikiavimoPasirinkimas;
+    while (true)
+    {
+        try{
+            cout << "Pasirinkite rikiavimo buda:\n";
+            cout << "0 - Nerikiuoti\n";
+            cout << "1 - Pagal varda\n";
+            cout << "2 - Pagal pavarde\n";
+            cout << "3 - Pagal galutini pazymi didejancia tvarka\n";
+            cout << "4 - Pagal galutini pazymi mazejancia tvarka\n";
+            cin >> rikiavimoPasirinkimas;
+            if (cin.fail() || rikiavimoPasirinkimas < 0 || rikiavimoPasirinkimas > 4) {
+                throw invalid_argument("Neteisinga ivestis");
+            }
+            break;
+        } catch (const invalid_argument& e) {
+            cerr << "Ivyko klaida: " << e.what() << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            continue;
+        }
+    }
 
     if (iFaila) {
         out << left << setw(15) << "Vardas" << setw(20) << "Pavarde" << "Galutinis" << endl;
