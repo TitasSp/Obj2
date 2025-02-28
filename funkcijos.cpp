@@ -93,5 +93,7 @@ void RikiuotiStudentus(vector<Studentas>& studentai, int pasirinkimas) {
                 return a.galutinis > b.galutinis;
             });
             break;
+        default:
+            throw invalid_argument("Neteisingas rikiavimo pasirinkimas");
     }
 }

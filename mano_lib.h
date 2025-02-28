@@ -7,6 +7,7 @@
 #include <ctime>
 #include <fstream>
 #include <chrono>
+#include <stdexcept>
 
 using std::cin;
 using std::cout;
@@ -30,5 +31,8 @@ using std::left;
 using std::setw;
 using std::chrono::high_resolution_clock;
 using std::chrono::duration_cast;
-using std::chrono::milliseconds;
-
+using std::chrono::milliseconds; 
+using std::runtime_error;
+using std::invalid_argument;
+using std::cerr;
+using std::exception;

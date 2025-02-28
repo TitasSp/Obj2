@@ -2,6 +2,7 @@
 #include "funkcijos.h"
 
 int main() {
+try {
     srand(time(0)); // inicializuoja random seeda
     bool vid; // ar naudoti vidurki ar mediana
     vector<Studentas> studentai;
@@ -109,6 +110,8 @@ int main() {
         out.close();
     }
 
-
+} catch (const exception& e) {
+    cerr << "Ivyko klaida: " << e.what() << endl;
+}
     return 0;
 }
