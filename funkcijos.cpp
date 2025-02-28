@@ -54,6 +54,9 @@ void GeneruotiStudentus(int studentuSk, vector<Studentas>& studentai) {
 
 void NuskaitytiStudentusIsFailo(string failas, vector<Studentas>& studentai) {
     ifstream in(failas);
+    if (!in.is_open()) {
+        throw runtime_error("Nepavyko atidaryti failo");
+    }
     string vardas, pavarde;
     int pazymys;
 
