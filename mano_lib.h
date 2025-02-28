@@ -32,6 +32,7 @@ using std::setw;
 using std::chrono::high_resolution_clock;
 using std::chrono::duration_cast;
 using std::chrono::milliseconds; 
+using std::chrono::seconds;
 using std::runtime_error;
 using std::invalid_argument;
 using std::cerr;

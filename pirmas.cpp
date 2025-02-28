@@ -18,6 +18,18 @@ try {
         cout << "5 - Baigti darba\n";
         cin >> pasirinkimas;
 
+        // patikrina ar ivestas skaicius ir ar jis yra tarp 1 ir 5
+        try{
+            if (cin.fail() || pasirinkimas < 1 || pasirinkimas > 5) {
+                throw invalid_argument("Neteisingas pasirinkimas");
+            }
+        } catch (invalid_argument& e) {
+            cerr << "Ivyko klaida: " << e.what() << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            continue;
+        }
+
         if (pasirinkimas == 5) break;
 
         if (pasirinkimas == 1 || pasirinkimas == 2) {
@@ -28,10 +40,16 @@ try {
             cin >> studentas.pavarde;
 
             if (pasirinkimas == 1) {
-                cout << "Iveskite pazymius (iveskite -1 norint baigti): ";
                 int pazymys;
                 while (true) {
+                    cout << "Iveskite pazymi (iveskite -1 norint baigti): ";
                     cin >> pazymys;
+                    if (cin.fail() || pazymys < -1 || pazymys > 10) {
+                        cout << "Ivyko klaida: netinkama ivestis " << endl;
+                        cin.clear();
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                        continue;
+                    }
                     if (pazymys == -1) break;
                     studentas.pazymiai.push_back(pazymys);
                 }
@@ -53,14 +71,15 @@ try {
         }
         else if (pasirinkimas == 4) {
             string failas;
+            system("dir \b *.txt");
             cout << "Iveskite failo pavadinima: ";
             cin >> failas;
 
             auto startRead = high_resolution_clock::now(); // pradeda skaiciuoti laika
             NuskaitytiStudentusIsFailo(failas, studentai);
             auto endRead = high_resolution_clock::now();
-            auto durationRead = duration_cast<milliseconds>(endRead - startRead);
-            cout << "Failo nuskaitymas uztruko: " << durationRead.count() << " ms" << endl;
+            auto durationRead = duration_cast<seconds>(endRead - startRead);
+            cout << "Failo nuskaitymas uztruko: " << durationRead.count() << " s" << endl;
         }
     }
 
@@ -73,6 +92,7 @@ try {
     if (iFaila) {
         out.open("rezultatai.txt", ios::trunc);
     }
+
     int rikiavimoPasirinkimas;
     cout << "Pasirinkite rikiavimo buda:\n";
     cout << "0 - Nerikiuoti\n";
@@ -108,6 +128,7 @@ try {
 
     if (iFaila) {
         out.close();
+        system("notepad rezultatai.txt");
     }
 // pagauna klaida
 } catch (const exception& e) {
