@@ -1,6 +1,9 @@
 #include "funkcijos.h"
 
 float Vidurkis(vector<int> pazymiai) {
+    if (pazymiai.empty()) {
+        throw invalid_argument("Pazymiu sarasas yra tuscias");
+    }
     float suma = 0;
     for (int pazymys : pazymiai) {
         suma += pazymys;
