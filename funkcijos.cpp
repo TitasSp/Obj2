@@ -25,6 +25,9 @@ float Mediana(vector<int> pazymiai) {
 }
 
 void GeneruotiPazymius(int pazymiuSk, vector<int>& pazymiai) {
+    if (pazymiuSk <= 0) {
+        throw invalid_argument("Pazymiu skaicius turi buti teigiamas");
+    }
     for(int i = 0; i < pazymiuSk; i++){
         pazymiai.push_back(rand() % 10 + 1);
         cout << pazymiai[i] << " ";
