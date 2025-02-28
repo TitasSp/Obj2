@@ -5,6 +5,7 @@ int main() {
 try {
     srand(time(0)); // inicializuoja random seeda
     bool vid; // ar naudoti vidurki ar mediana
+    bool iFaila; // ar isvesti i faila
     vector<Studentas> studentai;
     int pasirinkimas;
     
@@ -55,7 +56,7 @@ try {
             cout << "Iveskite failo pavadinima: ";
             cin >> failas;
 
-            auto startRead = high_resolution_clock::now();
+            auto startRead = high_resolution_clock::now(); // pradeda skaiciuoti laika
             NuskaitytiStudentusIsFailo(failas, studentai);
             auto endRead = high_resolution_clock::now();
             auto durationRead = duration_cast<milliseconds>(endRead - startRead);
@@ -66,10 +67,9 @@ try {
     cout << "Iveskite 1 jei norite skaiciuoti vidurki, 0 jei norite skaiciuoti mediana: ";
     cin >> vid;
     cout << "Isvesti atsakymus i faila? (1 - taip, 0 - ne): ";
-    bool iFaila;
     cin >> iFaila;
     
-    ofstream out;
+    ofstream out; 
     if (iFaila) {
         out.open("rezultatai.txt", ios::trunc);
     }
@@ -109,7 +109,7 @@ try {
     if (iFaila) {
         out.close();
     }
-
+// pagauna klaida
 } catch (const exception& e) {
     cerr << "Ivyko klaida: " << e.what() << endl;
 }
