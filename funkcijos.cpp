@@ -36,6 +36,9 @@ void GeneruotiPazymius(int pazymiuSk, vector<int>& pazymiai) {
 }
 
 void GeneruotiStudentus(int studentuSk, vector<Studentas>& studentai) {
+    if (studentuSk <= 0) {
+        throw invalid_argument("Studentu skaicius turi buti teigiamas");
+    }
     vector<string> vardai = {"Jonas", "Petras", "Antanas", "Tomas", "Marius"};
     vector<string> pavardes = {"Jonaitis", "Petraitis", "Antanaitis", "Tomaitis", "Maraitis"};
 
