@@ -8,6 +8,7 @@ try {
     bool iFaila; // ar isvesti i faila
     vector<Studentas> studentai;
     int pasirinkimas;
+    int pazymiuSk;
     
     while (true) {
         cout << "Pasirinkite veiksma:\n";
@@ -59,7 +60,6 @@ try {
                 while(true){
                     try {
                         cout << "Iveskite pazymiu skaiciu: ";
-                        int pazymiuSk;
                         cin >> pazymiuSk;
                         if (cin.fail() || pazymiuSk <= 0) {
                             throw invalid_argument("Neteisinga ivestis");
@@ -95,21 +95,34 @@ try {
             }
             
         } else if (pasirinkimas == 3) {
-            while(true){
+            while (true) {
                 try {
+                    cout << "Generuoti studentus i faila? (1 - taip, 0 - ne): ";
+                    int iFaila;
+                    cin >> iFaila;
+            
                     cout << "Iveskite studentu skaiciu: ";
                     int studentuSk;
                     cin >> studentuSk;
                     if (cin.fail() || studentuSk <= 0) {
                         throw invalid_argument("Neteisinga ivestis");
                     }
-                    GeneruotiStudentus(studentuSk, studentai);
+        
+                    if (iFaila) {
+                        cout << "Iveskite pazymiu skaiciu: ";
+                        cin >> pazymiuSk;
+                        if (cin.fail() || pazymiuSk <= 0) {
+                            throw invalid_argument("Neteisinga ivestis");
+                        }
+                        FailuGeneravimas(studentuSk, pazymiuSk);
+                    } else {
+                        GeneruotiStudentus(studentuSk, studentai);
+                    }
                     break;
                 } catch (const invalid_argument& e) {
                     cerr << "Ivyko klaida: " << e.what() << endl;
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                    continue;
                 }
             }
         }

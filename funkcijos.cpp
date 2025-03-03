@@ -112,3 +112,27 @@ void RikiuotiStudentus(vector<Studentas>& studentai, int pasirinkimas) {
             throw invalid_argument("Neteisingas rikiavimo pasirinkimas");
     }
 }
+
+void FailuGeneravimas(int studentuSk, int pazymiuSk) {
+    vector<Studentas> studentai;
+    for (int i = 1; i <= studentuSk; i++) {
+        Studentas studentas;
+        studentas.vardas = "vardas" + to_string(i);
+        studentas.pavarde = "pavarde" + to_string(i);
+        for (int j = 0; j < pazymiuSk; j++) {
+            studentas.pazymiai.push_back(rand() % 10 + 1);
+        }
+        studentas.egzaminas = rand() % 10 + 1;
+        studentai.push_back(studentas);
+    }
+    ofstream out("studentai" + to_string(studentuSk) + ".txt");
+    out << left << setw(15) << "Vardas" << setw(20) << "Pavarde" << "Pazymiai" << "Egzaminas" << endl;
+    for (auto& studentas : studentai) {
+        out << left << setw(15) << studentas.vardas << setw(20) << studentas.pavarde;
+        for (int pazymys : studentas.pazymiai) {
+            out << pazymys << " ";
+        }
+        out << studentas.egzaminas << endl;
+    }
+    out.close();
+}
