@@ -100,7 +100,9 @@ try {
                     cout << "Generuoti studentus i faila? (1 - taip, 0 - ne): ";
                     int iFaila;
                     cin >> iFaila;
-            
+                    if (cin.fail() || iFaila < 0 || iFaila > 1) {
+                        throw invalid_argument("Neteisinga ivestis");
+                    }
                     cout << "Iveskite studentu skaiciu: ";
                     int studentuSk;
                     cin >> studentuSk;
