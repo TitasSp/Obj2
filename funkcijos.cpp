@@ -125,6 +125,7 @@ void FailuGeneravimas(int studentuSk, int pazymiuSk) {
     out << buffer.str();
     buffer.str(""); // isvalo bufferi
 
+    // generuoja studentus su pazymiais
     for (int i = 1; i <= studentuSk; i++) {
         buffer << left << setw(25) << ("Vardas" + to_string(i)) << setw(25) << ("Pavarde" + to_string(i));
         for (int j = 0; j < pazymiuSk; j++) {
