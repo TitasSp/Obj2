@@ -8,6 +8,9 @@
 #include <fstream>
 #include <chrono>
 #include <stdexcept>
+#include <sstream>
+
+using std::ostringstream;
 
 using std::cin;
 using std::cout;

@@ -114,29 +114,31 @@ void RikiuotiStudentus(vector<Studentas>& studentai, int pasirinkimas) {
 }
 
 void FailuGeneravimas(int studentuSk, int pazymiuSk) {
-    vector<Studentas> studentai;
-    for (int i = 1; i <= studentuSk; i++) {
-        Studentas studentas;
-        studentas.vardas = "Vardas" + to_string(i);
-        studentas.pavarde = "Pavarde" + to_string(i);
-        for (int j = 0; j < pazymiuSk; j++) {
-            studentas.pazymiai.push_back(rand() % 10 + 1);
-        }
-        studentas.egzaminas = rand() % 10 + 1;
-        studentai.push_back(studentas);
-    }
     ofstream out("studentai" + to_string(studentuSk) + ".txt");
-    out << left << setw(25) << "Vardas" << setw(25) << "Pavarde";
+    ostringstream buffer;
+
+    buffer << left << setw(25) << "Vardas" << setw(25) << "Pavarde";
     for (int i = 1; i <= pazymiuSk; i++) {
-        out << "ND" << i << setw(10);
+        buffer << setw(10) << ("ND " + to_string(i));
     }
-    out << "Egz." << endl;
-    for (auto& studentas : studentai) {
-        out << left << setw(25) << studentas.vardas << setw(25) << studentas.pavarde;
-        for (int pazymys : studentas.pazymiai) {
-            out << setw(10) << pazymys;
+    buffer << setw(10) << "Egz." << endl;
+    out << buffer.str();
+    buffer.str(""); // isvalo bufferi
+
+    for (int i = 1; i <= studentuSk; i++) {
+        buffer << left << setw(25) << ("Vardas" + to_string(i)) << setw(25) << ("Pavarde" + to_string(i));
+        for (int j = 0; j < pazymiuSk; j++) {
+            buffer << setw(10) << (rand() % 10 + 1);
         }
-        out << setw(10) << studentas.egzaminas << endl;
+        buffer << setw(10) << (rand() % 10 + 1) << endl;
+
+        if (i % 10000 == 0) { // iraso i faila kas 10000 irasu
+            out << buffer.str();
+            buffer.str(""); // isvalo bufferi
+        }
     }
+
+    // likusius irasa irasom i faila
+    out << buffer.str();
     out.close();
 }
