@@ -143,3 +143,24 @@ void FailuGeneravimas(int studentuSk, int pazymiuSk) {
     out << buffer.str();
     out.close();
 }
+
+void StudentuFaileRusiavimas(string failas) {
+    vector<Studentas> studentai;
+    NuskaitytiStudentusIsFailo(failas, studentai);
+
+    ofstream out("protingi.txt", ios::trunc);
+    ofstream out2("nelaimingi.txt", ios::trunc);
+    out << left << setw(15) << "Vardas" << setw(20) << "Pavarde" << "Galutinis" << endl;
+    out2 << left << setw(15) << "Vardas" << setw(20) << "Pavarde" << "Galutinis" << endl;
+
+    for (auto& studentas : studentai) {
+        studentas.galutinis = 0.4 * Vidurkis(studentas.pazymiai) + 0.6 * studentas.egzaminas;
+        if (studentas.galutinis >= 5.0) {
+            out << left << setw(15) << studentas.vardas << setw(20) << studentas.pavarde << fixed << setprecision(2) << studentas.galutinis << endl;
+        } else {
+            out2 << left << setw(15) << studentas.vardas << setw(20) << studentas.pavarde << fixed << setprecision(2) << studentas.galutinis << endl;
+        }
+    }
+    out.close();
+    out2.close();
+}

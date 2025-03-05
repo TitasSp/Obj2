@@ -15,3 +15,4 @@ void GeneruotiStudentus(int studentuSk, vector<Studentas>& studentai);
 void NuskaitytiStudentusIsFailo(string failas, vector<Studentas>& studentai);
 void RikiuotiStudentus(vector<Studentas>& studentai, int pasirinkimas);
 void FailuGeneravimas(int studentuSk, int pazymiuSk);
+void StudentuFaileRusiavimas(string faile);
