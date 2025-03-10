@@ -149,14 +149,14 @@ void FailuGeneravimas(int studentuSk, int pazymiuSk) {
     out.close();
 }
 
-void StudentuAtskirimas(const string& inputFile) {
-    ifstream in(inputFile);
+void StudentuAtskirimas() {
+    ifstream in("rezultatai.txt");
     if (!in.is_open()) {
         throw runtime_error("Nepavyko atidaryti failo");
     }
 
-    ofstream outVargsiukai("vargsiukai.txt");
-    ofstream outKieti("kieti.txt");
+    ofstream outVargsiukai("stud_b.txt");
+    ofstream outKieti("stud_g.txt");
 
     ostringstream bufferVargsiukai;
     ostringstream bufferKieti;

@@ -242,11 +242,11 @@ int main() {
         }
 
         if (iFaila) {
-            out.close();
             if (suskirstyti) {
-                StudentuAtskirimas(failas);
+                StudentuAtskirimas();
             }
             system("notepad rezultatai.txt");
+            out.close();
         }
     // pagauna klaida
     } catch (const exception& e) {
