@@ -1,2 +1,6 @@
-studentai1000000.txt
-studentai10000000.txt
+*.txt
+*.pdb
+*.ilk
+*.obj
+.vscode/
+rezultatai.txt

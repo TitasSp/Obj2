@@ -1,4 +1,0 @@
-Vardas    Pavardė   ND1 ND2 ND3 ND4 ND5 Egzaminas
-Vardas1   Pavarde1  4   5   10  5   6   9
-Vardas2   Pavarde2  6   2   2   5   7   4
-Vardas3   Pavarde2  2   2   2   2   2   2

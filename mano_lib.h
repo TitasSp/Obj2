@@ -10,8 +10,10 @@
 #include <stdexcept>
 #include <sstream>
 
+using std::min;
+using std::istringstream;
 using std::ostringstream;
-
+using std::stringstream;
 using std::cin;
 using std::cout;
 using std::endl;
@@ -40,3 +42,4 @@ using std::runtime_error;
 using std::invalid_argument;
 using std::cerr;
 using std::exception;
+using std::move;

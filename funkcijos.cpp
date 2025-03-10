@@ -57,29 +57,34 @@ void NuskaitytiStudentusIsFailo(string failas, vector<Studentas>& studentai) {
     if (!in.is_open()) {
         throw runtime_error("Nepavyko atidaryti failo");
     }
-    string vardas, pavarde;
-    int pazymys;
+
+    string line;
+    studentai.reserve(10000000); // rezervuoja atminti
 
     // praleidzia pirma eilute
-    string pirmaEilute;
-    getline(in, pirmaEilute);
+    getline(in, line);
 
-    while (in >> vardas >> pavarde) {
+    while (getline(in, line)) {
+        istringstream iss(line);
         Studentas studentas;
-        studentas.vardas = vardas;
-        studentas.pavarde = pavarde;
+        iss >> studentas.vardas >> studentas.pavarde;
+
+        int pazymys;
         studentas.pazymiai.clear();
-        
-        // nuskaito pazymius iki egzamino pazymio
-        while (in >> pazymys) {
-            if (in.peek() == '\n' || in.peek() == EOF) {
-                studentas.egzaminas = pazymys;
-                break;
-            }
-        studentas.pazymiai.push_back(pazymys);
+        while (iss >> pazymys) {
+            studentas.pazymiai.push_back(pazymys);
         }
-        studentai.push_back(studentas);
+
+        // paskutinis skaicius yra egzaminas
+        if (!studentas.pazymiai.empty()) {
+            studentas.egzaminas = studentas.pazymiai.back();
+            studentas.pazymiai.pop_back();
+        }
+
+        studentai.push_back(move(studentas)); // naudoja move, kad nereiketu kopijuoti
+           
     }
+    studentai.shrink_to_fit();
     in.close();
 }
 
@@ -139,28 +144,47 @@ void FailuGeneravimas(int studentuSk, int pazymiuSk) {
         }
     }
 
-    // likusius irasa irasom i faila
+    // likusius irasom i faila
     out << buffer.str();
     out.close();
 }
 
-void StudentuFaileRusiavimas(string failas) {
-    vector<Studentas> studentai;
-    NuskaitytiStudentusIsFailo(failas, studentai);
+void StudentuAtskirimas(const string& inputFile) {
+    ifstream in(inputFile);
+    if (!in.is_open()) {
+        throw runtime_error("Nepavyko atidaryti failo");
+    }
 
-    ofstream out("protingi.txt", ios::trunc);
-    ofstream out2("nelaimingi.txt", ios::trunc);
-    out << left << setw(15) << "Vardas" << setw(20) << "Pavarde" << "Galutinis" << endl;
-    out2 << left << setw(15) << "Vardas" << setw(20) << "Pavarde" << "Galutinis" << endl;
+    ofstream outVargsiukai("vargsiukai.txt");
+    ofstream outKieti("kieti.txt");
 
-    for (auto& studentas : studentai) {
-        studentas.galutinis = 0.4 * Vidurkis(studentas.pazymiai) + 0.6 * studentas.egzaminas;
-        if (studentas.galutinis >= 5.0) {
-            out << left << setw(15) << studentas.vardas << setw(20) << studentas.pavarde << fixed << setprecision(2) << studentas.galutinis << endl;
+    ostringstream bufferVargsiukai;
+    ostringstream bufferKieti;
+
+    bufferVargsiukai.str(""); // isvalo bufferi
+    bufferKieti.str(""); // isvalo bufferi
+
+    bufferVargsiukai << left << setw(15) << "Vardas" << setw(20) << "Pavarde" << "Galutinis" << endl;
+    bufferKieti << left << setw(15) << "Vardas" << setw(20) << "Pavarde" << "Galutinis" << endl;
+
+    string vardas, pavarde;
+    float galutinis;
+
+    // praleidzia pirma eilute
+    string pirmaEilute;
+    getline(in, pirmaEilute);
+
+    while (in >> vardas >> pavarde >> galutinis) {
+        if (galutinis < 5) {
+            bufferVargsiukai << left << setw(15) << vardas << setw(20) << pavarde << fixed << setprecision(2) << galutinis << endl;
         } else {
-            out2 << left << setw(15) << studentas.vardas << setw(20) << studentas.pavarde << fixed << setprecision(2) << studentas.galutinis << endl;
+            bufferKieti << left << setw(15) << vardas << setw(20) << pavarde << fixed << setprecision(2) << galutinis << endl;
         }
     }
-    out.close();
-    out2.close();
-}
+
+    outVargsiukai << bufferVargsiukai.str();
+    outKieti << bufferKieti.str();
+    outVargsiukai.close();
+    outKieti.close();
+    in.close();
+} 
