@@ -212,10 +212,6 @@ int main() {
             cout << left << setw(15) << "Vardas" << setw(20) << "Pavarde" << "Galutinis" << endl;
         }
 
-        bool suskirstyti;
-        cout << "Suskirtyti studentus i dvi grupes, pagal pazymius?(1  - taip, 0 - ne) ";
-        cin >> suskirstyti;
-
         // loopina per kiekviena studenta studentu vektoriuje ir skaiciuoja galutini pazymi 
         for (auto& studentas : studentai) {
             if (vid) {
@@ -242,6 +238,9 @@ int main() {
         }
 
         if (iFaila) {
+            bool suskirstyti;
+            cout << "Suskirtyti studentus i dvi grupes, pagal pazymius?(1  - taip, 0 - ne) ";
+            cin >> suskirstyti;
             if (suskirstyti) {
                 StudentuAtskirimas();
             }
