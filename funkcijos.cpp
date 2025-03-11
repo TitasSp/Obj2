@@ -152,10 +152,11 @@ void FailuGeneravimas(int studentuSk, int pazymiuSk) {
     out.close();
     auto end = high_resolution_clock::now();
     auto duration = duration_cast<milliseconds>(end - start);
-    cout << "Failo nuskaitymas uztruko: " << duration.count() << " ms" << endl;
+    cout << "Failo generavimas uztruko: " << duration.count() << " ms" << endl;
 }
 
 void StudentuAtskirimas() {
+
     ifstream in("rezultatai.txt");
     if (!in.is_open()) {
         throw runtime_error("Nepavyko atidaryti failo");
@@ -180,6 +181,8 @@ void StudentuAtskirimas() {
     string pirmaEilute;
     getline(in, pirmaEilute);
 
+    auto start = high_resolution_clock::now();
+
     while (in >> vardas >> pavarde >> galutinis) {
         if (galutinis < 5) {
             bufferVargsiukai << left << setw(15) << vardas << setw(20) << pavarde << fixed << setprecision(2) << galutinis << endl;
@@ -187,9 +190,19 @@ void StudentuAtskirimas() {
             bufferKieti << left << setw(15) << vardas << setw(20) << pavarde << fixed << setprecision(2) << galutinis << endl;
         }
     }
+    auto end = high_resolution_clock::now();
+    auto duration = duration_cast<milliseconds>(end - start);
+    cout << "Studentu suskirstymas uztruko: " << duration.count() << " ms" << endl;
+
+    auto start2 = high_resolution_clock::now();
 
     outVargsiukai << bufferVargsiukai.str();
     outKieti << bufferKieti.str();
+
+    auto end2 = high_resolution_clock::now();
+    auto duration2 = duration_cast<milliseconds>(end2 - start2);
+    cout << "Studentu irasymas i failus uztruko: " << duration2.count() << " ms" << endl;
+    
     outVargsiukai.close();
     outKieti.close();
     in.close();
