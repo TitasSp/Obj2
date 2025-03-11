@@ -53,7 +53,7 @@ void GeneruotiStudentus(int studentuSk, vector<Studentas>& studentai) {
 }
 
 void NuskaitytiStudentusIsFailo(string failas, vector<Studentas>& studentai) {
-
+    auto start = high_resolution_clock::now();
 
     ifstream in(failas);
     if (!in.is_open()) {
@@ -88,6 +88,9 @@ void NuskaitytiStudentusIsFailo(string failas, vector<Studentas>& studentai) {
     }
     studentai.shrink_to_fit();
     in.close();
+    auto end = high_resolution_clock::now();
+    auto duration = duration_cast<milliseconds>(end - start);
+    cout << "Studentu nuskaitymas is failo uztruko: " << duration.count() << " ms" << endl;
 }
 
 void RikiuotiStudentus(vector<Studentas>& studentai, int pasirinkimas) {
@@ -202,7 +205,7 @@ void StudentuAtskirimas() {
     auto end2 = high_resolution_clock::now();
     auto duration2 = duration_cast<milliseconds>(end2 - start2);
     cout << "Studentu irasymas i failus uztruko: " << duration2.count() << " ms" << endl;
-    
+
     outVargsiukai.close();
     outKieti.close();
     in.close();
