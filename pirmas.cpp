@@ -143,11 +143,7 @@ int main() {
                     break;
                 }
 
-                auto startRead = high_resolution_clock::now(); // pradeda skaiciuoti laika
                 NuskaitytiStudentusIsFailo(failas, studentai);
-                auto endRead = high_resolution_clock::now();
-                auto durationRead = duration_cast<seconds>(endRead - startRead);
-                cout << "Failo nuskaitymas uztruko: " << durationRead.count() << " s" << endl;
             }
         }
 

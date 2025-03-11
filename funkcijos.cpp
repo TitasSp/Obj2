@@ -53,6 +53,8 @@ void GeneruotiStudentus(int studentuSk, vector<Studentas>& studentai) {
 }
 
 void NuskaitytiStudentusIsFailo(string failas, vector<Studentas>& studentai) {
+
+
     ifstream in(failas);
     if (!in.is_open()) {
         throw runtime_error("Nepavyko atidaryti failo");
@@ -119,6 +121,7 @@ void RikiuotiStudentus(vector<Studentas>& studentai, int pasirinkimas) {
 }
 
 void FailuGeneravimas(int studentuSk, int pazymiuSk) {
+    auto start = high_resolution_clock::now();
     ofstream out("studentai" + to_string(studentuSk) + ".txt");
     ostringstream buffer;
 
@@ -147,6 +150,9 @@ void FailuGeneravimas(int studentuSk, int pazymiuSk) {
     // likusius irasom i faila
     out << buffer.str();
     out.close();
+    auto end = high_resolution_clock::now();
+    auto duration = duration_cast<milliseconds>(end - start);
+    cout << "Failo nuskaitymas uztruko: " << duration.count() << " ms" << endl;
 }
 
 void StudentuAtskirimas() {
