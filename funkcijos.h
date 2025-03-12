@@ -16,3 +16,5 @@ void NuskaitytiStudentusIsFailo(string failas, vector<Studentas>& studentai);
 void RikiuotiStudentus(vector<Studentas>& studentai, int pasirinkimas);
 void FailuGeneravimas(int studentuSk, int pazymiuSk);
 void StudentuAtskirimas();
+void Test1();
+void Test2();

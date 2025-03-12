@@ -2,6 +2,7 @@
 #include "funkcijos.h"
 
 int main() {
+
     try {
         auto start = std::chrono::high_resolution_clock::now(); // Start timer
         std::chrono::duration<double> inputWaitDuration(0); // input laukimo laikas
@@ -279,7 +280,6 @@ int main() {
             system("notepad rezultatai.txt");
             out.close();
         }
-
         auto end = std::chrono::high_resolution_clock::now(); // baigia laiko skaiciavima
         std::chrono::duration<double> duration = end - start - inputWaitDuration; // atema input laukimo laika
         cout << "Programos vykdymo trukme (be input laukimo): " << duration.count() << " sekundes" << endl;
