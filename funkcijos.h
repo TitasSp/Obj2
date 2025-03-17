@@ -12,10 +12,14 @@ struct Studentas {
 float Vidurkis(vector<int> pazymiai);
 float Mediana(vector<int> pazymiai);
 void GeneruotiPazymius(int pazymiuSk, vector<int>& pazymiai);
-void GeneruotiStudentus(int studentuSk, const Container& studentai);
+template <typename Container>
+void GeneruotiStudentus(int studentuSk, Container& studentai);
+template <typename Container>
 void NuskaitytiStudentusIsFailo(string failas, const Container& studentai);
-void RikiuotiStudentus(const Container& studentai, int pasirinkimas);
+template <typename Container>
+void RikiuotiStudentus(Container& studentai, int pasirinkimas);
 void FailuGeneravimas(int studentuSk, int pazymiuSk);
 void StudentuAtskirimas();
 void Test1();
+template <typename Container>
 void Test2();

@@ -36,7 +36,7 @@ void GeneruotiPazymius(int pazymiuSk, vector<int>& pazymiai) {
 }
 
 template <typename Container>
-void GeneruotiStudentus(int studentuSk, const Container& studentai) {
+void GeneruotiStudentus(int studentuSk, Container& studentai) {
     if (studentuSk <= 0) {
         throw invalid_argument("Studentu skaicius turi buti teigiamas");
     }
@@ -63,7 +63,7 @@ void NuskaitytiStudentusIsFailo(string failas, const Container& studentai) {
     }
 
     string line;
-    studentai.reserve(10000000); // rezervuoja atminti
+    //studentai.reserve(10000000); // rezervuoja atminti
 
     // praleidzia pirma eilute
     getline(in, line);
@@ -96,7 +96,7 @@ void NuskaitytiStudentusIsFailo(string failas, const Container& studentai) {
 }
 
 template <typename Container>
-void RikiuotiStudentus(const Container& studentai, int pasirinkimas) {
+void RikiuotiStudentus(Container& studentai, int pasirinkimas) {
     auto start = high_resolution_clock::now();
     switch (pasirinkimas) {
         case 0:
@@ -258,7 +258,7 @@ void Test2() {
         
         out.open("rezultatai.txt", ios::trunc | ios::out | ios::binary);
           
-        const Container studentai;
+        Container studentai;
         NuskaitytiStudentusIsFailo(failas, studentai);
         
         
