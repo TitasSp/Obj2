@@ -2,11 +2,10 @@
 #include "funkcijos.h"
 
 int main() {
-    Test1();
-    for(int i = 0; i < 5; i++) {
-        cout << "Testas " << i + 1 << endl;
-        Test2();
-    }
+    vector<Studentas<vector<int>>> studentaiVector;
+    deque<Studentas<deque<int>>> studentaiDeque;
+    list<Studentas<list<int>>> studentaiList;
+    
     try {
         auto start = std::chrono::high_resolution_clock::now(); // Start timer
         std::chrono::duration<double> inputWaitDuration(0); // input laukimo laikas

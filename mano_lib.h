@@ -9,7 +9,11 @@
 #include <chrono>
 #include <stdexcept>
 #include <sstream>
+#include <deque>
+#include <list>
 
+using std::deque;
+using std::list;
 using std::min;
 using std::istringstream;
 using std::ostringstream;

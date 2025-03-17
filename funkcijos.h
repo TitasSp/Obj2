@@ -1,9 +1,10 @@
 #include "mano_lib.h"
 
+template <typename Container>
 struct Studentas {
     string vardas;
     string pavarde;
-    vector<int> pazymiai;
+    Container pazymiai;
     int egzaminas;
     float galutinis;
 };
@@ -11,9 +12,9 @@ struct Studentas {
 float Vidurkis(vector<int> pazymiai);
 float Mediana(vector<int> pazymiai);
 void GeneruotiPazymius(int pazymiuSk, vector<int>& pazymiai);
-void GeneruotiStudentus(int studentuSk, vector<Studentas>& studentai);
-void NuskaitytiStudentusIsFailo(string failas, vector<Studentas>& studentai);
-void RikiuotiStudentus(vector<Studentas>& studentai, int pasirinkimas);
+void GeneruotiStudentus(int studentuSk, const Container& studentai);
+void NuskaitytiStudentusIsFailo(string failas, const Container& studentai);
+void RikiuotiStudentus(const Container& studentai, int pasirinkimas);
 void FailuGeneravimas(int studentuSk, int pazymiuSk);
 void StudentuAtskirimas();
 void Test1();

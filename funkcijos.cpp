@@ -35,7 +35,8 @@ void GeneruotiPazymius(int pazymiuSk, vector<int>& pazymiai) {
     cout << endl;
 }
 
-void GeneruotiStudentus(int studentuSk, vector<Studentas>& studentai) {
+template <typename Container>
+void GeneruotiStudentus(int studentuSk, const Container& studentai) {
     if (studentuSk <= 0) {
         throw invalid_argument("Studentu skaicius turi buti teigiamas");
     }
@@ -52,7 +53,8 @@ void GeneruotiStudentus(int studentuSk, vector<Studentas>& studentai) {
     }
 }
 
-void NuskaitytiStudentusIsFailo(string failas, vector<Studentas>& studentai) {
+template <typename Container>
+void NuskaitytiStudentusIsFailo(string failas, const Container& studentai) {
     auto start = high_resolution_clock::now();
 
     ifstream in(failas);
@@ -93,7 +95,8 @@ void NuskaitytiStudentusIsFailo(string failas, vector<Studentas>& studentai) {
     cout << "Studentu nuskaitymas is failo uztruko: " << duration.count() << " ms" << endl;
 }
 
-void RikiuotiStudentus(vector<Studentas>& studentai, int pasirinkimas) {
+template <typename Container>
+void RikiuotiStudentus(const Container& studentai, int pasirinkimas) {
     auto start = high_resolution_clock::now();
     switch (pasirinkimas) {
         case 0:
@@ -243,6 +246,7 @@ void Test1() {
     }
 }
 
+template <typename Container>
 void Test2() {
     vector<string> failai = {"studentai1000.txt", "studentai10000.txt", "studentai100000.txt", "studentai1000000.txt", "studentai10000000.txt"};
 
@@ -254,7 +258,7 @@ void Test2() {
         
         out.open("rezultatai.txt", ios::trunc | ios::out | ios::binary);
           
-        vector<Studentas> studentai;
+        const Container studentai;
         NuskaitytiStudentusIsFailo(failas, studentai);
         
         
