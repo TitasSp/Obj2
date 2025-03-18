@@ -1,38 +1,29 @@
 #include "funkcijos.h"
 
-float Vidurkis(vector<int> pazymiai) {
-    if (pazymiai.empty()) {
-        throw invalid_argument("Pazymiu sarasas yra tuscias");
-    }
-    float suma = 0;
-    for (int pazymys : pazymiai) {
-        suma += pazymys;
-    }
-    return suma / pazymiai.size();
+template <typename Container>
+float Vidurkis(const Container& pazymiai) {
+    if (pazymiai.empty()) return 0.0f;
+    return std::accumulate(pazymiai.begin(), pazymiai.end(), 0.0f) / pazymiai.size();
 }
 
-float Mediana(vector<int> pazymiai) {
-    if (pazymiai.empty()) {
-        throw invalid_argument("Pazymiu sarasas yra tuscias");
-    }
-    sort(pazymiai.begin(), pazymiai.end());
-    int pazSk = pazymiai.size();
-    if (pazSk % 2 == 0) {
-        return (pazymiai[pazSk / 2 - 1] + pazymiai[pazSk / 2]) / 2.0;
+
+template <typename Container>
+float Mediana(Container pazymiai) { // Pass by value to allow sorting
+    if (pazymiai.empty()) return 0.0f;
+    std::sort(pazymiai.begin(), pazymiai.end());
+    size_t size = pazymiai.size();
+    if (size % 2 == 0) {
+        return (pazymiai[size / 2 - 1] + pazymiai[size / 2]) / 2.0f;
     } else {
-        return pazymiai[pazSk / 2];
+        return pazymiai[size / 2];
     }
 }
 
-void GeneruotiPazymius(int pazymiuSk, vector<int>& pazymiai) {
-    if (pazymiuSk <= 0) {
-        throw invalid_argument("Pazymiu skaicius turi buti teigiamas");
+template <typename Container>
+void GeneruotiPazymius(int pazymiuSk, Container& pazymiai) {
+    for (int i = 0; i < pazymiuSk; ++i) {
+        pazymiai.push_back(rand() % 10 + 1); // Generate random grades between 1 and 10
     }
-    for(int i = 0; i < pazymiuSk; i++){
-        pazymiai.push_back(rand() % 10 + 1);
-        cout << pazymiai[i] << " ";
-    }
-    cout << endl;
 }
 
 template <typename Container>
@@ -54,7 +45,7 @@ void GeneruotiStudentus(int studentuSk, Container& studentai) {
 }
 
 template <typename Container>
-void NuskaitytiStudentusIsFailo(string failas, const Container& studentai) {
+void NuskaitytiStudentusIsFailo(string failas, Container& studentai) {
     auto start = high_resolution_clock::now();
 
     ifstream in(failas);

@@ -37,7 +37,7 @@ void VykdytiPrograma(Container& studentai) {
             if (pasirinkimas == 5) break;
 
             if (pasirinkimas == 1 || pasirinkimas == 2) {
-                Studentas studentas;
+                Studentas<typename Container::value_type> studentas;
                 cout << "Iveskite studento varda: ";
                 cin >> studentas.vardas;
                 cout << "Iveskite studento pavarde: ";
