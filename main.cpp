@@ -161,6 +161,7 @@ void VykdytiPrograma(Container& studentai) {
                 out << studentas.vardas << " " << studentas.pavarde << " " << studentas.galutinis << endl;
             }
             out.close();
+            system("notepad rezultatai.txt");
         } else {
             for (const auto& studentas : studentai) {
                 cout << studentas.vardas << " " << studentas.pavarde << " " << studentas.galutinis << endl;
