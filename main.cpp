@@ -1,22 +1,25 @@
 #include "mano_lib.h"
 #include "funkcijos.h"
 
-template <typename Container>
-void VykdytiPrograma(Container& studentai) {
-    try {
-        
-        auto start = std::chrono::high_resolution_clock::now(); // Start timer
-        std::chrono::duration<double> inputWaitDuration(0); // Input waiting time
+int main() {
 
-        srand(time(0)); // Initialize random seed
-        int vid; // Whether to use average or median
-        int iFaila; // Whether to output to a file
+    try {
+        auto start = std::chrono::high_resolution_clock::now(); // Start timer
+        std::chrono::duration<double> inputWaitDuration(0); // input laukimo laikas
+        //vector<Studentas> studentai;
+        deque<Studentas> studentai;
+        //list<Studentas> studentai;
+        srand(time(0)); // inicializuoja random seeda
+        int vid; // ar naudoti vidurki ar mediana
+        int iFaila; // ar isvesti i faila
+       
         int pasirinkimas;
         int pazymiuSk;
         string failas;
+        stringstream buffer;
 
         while (true) {
-            auto inputStart = std::chrono::high_resolution_clock::now(); // Start input waiting time
+            auto inputStart = std::chrono::high_resolution_clock::now(); // pradeda input laukimo laiko skaiciavima
             cout << "Pasirinkite veiksma:\n";
             cout << "1 - Ivesti viska ranka\n";
             cout << "2 - Generuoti pazymius\n";
@@ -24,11 +27,15 @@ void VykdytiPrograma(Container& studentai) {
             cout << "4 - Nuskaityti studentus is failo\n";
             cout << "5 - Baigti darba\n";
             cin >> pasirinkimas;
-            inputWaitDuration += std::chrono::high_resolution_clock::now() - inputStart; // Add input waiting time
+            inputWaitDuration += std::chrono::high_resolution_clock::now() - inputStart; // prideda input laukimo laika
 
-            // Validate input
-            if (cin.fail() || pasirinkimas < 1 || pasirinkimas > 5) {
-                cerr << "Neteisingas pasirinkimas. Bandykite dar karta." << endl;
+            // patikrina ar ivestas skaicius ir ar jis yra tarp 1 ir 5
+            try {
+                if (cin.fail() || pasirinkimas < 1 || pasirinkimas > 5) {
+                    throw invalid_argument("Neteisingas pasirinkimas");
+                }
+            } catch (invalid_argument& e) {
+                cerr << "Ivyko klaida: " << e.what() << endl;
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 continue;
@@ -37,20 +44,25 @@ void VykdytiPrograma(Container& studentai) {
             if (pasirinkimas == 5) break;
 
             if (pasirinkimas == 1 || pasirinkimas == 2) {
-                typename Container::value_type studentas;
+                Studentas studentas;
+                auto inputStart = std::chrono::high_resolution_clock::now(); // pratina input laukimo laika
                 cout << "Iveskite studento varda: ";
                 cin >> studentas.vardas;
                 cout << "Iveskite studento pavarde: ";
                 cin >> studentas.pavarde;
+                inputWaitDuration += std::chrono::high_resolution_clock::now() - inputStart; // prideda input laukimo laika
 
                 if (pasirinkimas == 1) {
                     int pazymys;
                     while (true) {
+                        auto inputStart = std::chrono::high_resolution_clock::now(); // pradeda input laukimo laika
                         cout << "Iveskite pazymi (iveskite -1 norint baigti): ";
                         cin >> pazymys;
+                        inputWaitDuration += std::chrono::high_resolution_clock::now() - inputStart; // prideda input laukimo laika
 
+                        //tikrinam ar ivestas skaicius ir ar jis yra tarp -1 ir 10
                         if (cin.fail() || pazymys < -1 || pazymys > 10) {
-                            cerr << "Netinkama ivestis. Bandykite dar karta." << endl;
+                            cout << "Ivyko klaida: netinkama ivestis " << endl;
                             cin.clear();
                             cin.ignore(numeric_limits<streamsize>::max(), '\n');
                             continue;
@@ -60,94 +72,179 @@ void VykdytiPrograma(Container& studentai) {
                         studentas.pazymiai.push_back(pazymys);
                     }
                 } else {
-                    cout << "Iveskite pazymiu skaiciu: ";
-                    cin >> pazymiuSk;
+                    while (true) {
+                        try {
+                            auto inputStart = std::chrono::high_resolution_clock::now(); // pradeda input laukimo laika
+                            cout << "Iveskite pazymiu skaiciu: ";
+                            cin >> pazymiuSk;
+                            inputWaitDuration += std::chrono::high_resolution_clock::now() - inputStart; // prideda input laukimo laika
 
-                    if (cin.fail() || pazymiuSk <= 0) {
-                        cerr << "Netinkama ivestis. Bandykite dar karta." << endl;
+                            if (cin.fail() || pazymiuSk <= 0) {
+                                throw invalid_argument("Neteisinga ivestis");
+                            }
+                            GeneruotiPazymius(pazymiuSk, studentas.pazymiai);
+                            break;
+                        } catch (const invalid_argument& e) {
+                            cerr << "Ivyko klaida: " << e.what() << endl;
+                            cin.clear();
+                            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                            continue;
+                        }
+                    }
+                }
+
+                while (true) {
+                    try {
+                        auto inputStart = std::chrono::high_resolution_clock::now(); // pradeda input laukimo laika
+                        cout << "Iveskite studento egzamino pazymi: ";
+                        cin >> studentas.egzaminas;
+                        inputWaitDuration += std::chrono::high_resolution_clock::now() - inputStart; // pridea input laukimo laika
+
+                        if (cin.fail() || studentas.egzaminas < 0 || studentas.egzaminas > 10) {
+                            throw invalid_argument("Neteisinga ivestis");
+                        }
+                        studentai.push_back(studentas);
+                        break;
+                    } catch (const invalid_argument& e) {
+                        cerr << "Ivyko klaida: " << e.what() << endl;
                         cin.clear();
                         cin.ignore(numeric_limits<streamsize>::max(), '\n');
                         continue;
                     }
-                    GeneruotiPazymius(pazymiuSk, studentas.pazymiai);
                 }
 
-                cout << "Iveskite studento egzamino pazymi: ";
-                cin >> studentas.egzaminas;
-
-                if (cin.fail() || studentas.egzaminas < 0 || studentas.egzaminas > 10) {
-                    cerr << "Netinkama ivestis. Bandykite dar karta." << endl;
-                    cin.clear();
-                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                    continue;
-                }
-
-                studentai.push_back(studentas);
             } else if (pasirinkimas == 3) {
-                cout << "Iveskite studentu skaiciu: ";
-                int studentuSk;
-                cin >> studentuSk;
+                while (true) {
+                    try {
+                        auto inputStart = std::chrono::high_resolution_clock::now(); // pradeda input laukimo laika
+                        cout << "Generuoti studentus i faila? (1 - taip, 0 - ne): ";
+                        int iFaila;
+                        cin >> iFaila;
+                        inputWaitDuration += std::chrono::high_resolution_clock::now() - inputStart; // prideda input laukimo laika
 
-                if (cin.fail() || studentuSk <= 0) {
-                    cerr << "Netinkama ivestis. Bandykite dar karta." << endl;
-                    cin.clear();
-                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                    continue;
+                        if (cin.fail() || iFaila < 0 || iFaila > 1) {
+                            throw invalid_argument("Neteisinga ivestis");
+                        }
+                        cout << "Iveskite studentu skaiciu: ";
+                        int studentuSk;
+                        cin >> studentuSk;
+                        inputWaitDuration += std::chrono::high_resolution_clock::now() - inputStart; // prideda input laukimo laika
+
+                        if (cin.fail() || studentuSk <= 0) {
+                            throw invalid_argument("Neteisinga ivestis");
+                        }
+
+                        if (iFaila) {
+                            cout << "Iveskite pazymiu skaiciu: ";
+                            cin >> pazymiuSk;
+                            if (cin.fail() || pazymiuSk <= 0) {
+                                throw invalid_argument("Neteisinga ivestis");
+                            }
+                            FailuGeneravimas(studentuSk, pazymiuSk);
+                        } else {
+                            GeneruotiStudentus(studentuSk, studentai);
+                        }
+                        break;
+                    } catch (const invalid_argument& e) {
+                        cerr << "Ivyko klaida: " << e.what() << endl;
+                        cin.clear();
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    }
                 }
-
-                cout << "Iveskite pazymiu skaiciu: ";
-                cin >> pazymiuSk;
-
-                if (cin.fail() || pazymiuSk <= 0) {
-                    cerr << "Netinkama ivestis. Bandykite dar karta." << endl;
-                    cin.clear();
-                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                    continue;
-                }
-
-                GeneruotiStudentus(studentuSk, pazymiuSk, studentai);
             } else if (pasirinkimas == 4) {
-                //system("ls *.txt");
-                system("dir /b *.txt");
-                cout << "Iveskite failo pavadinima: ";
-                cin >> failas;
+                while (true) {
+                    auto inputStart = std::chrono::high_resolution_clock::now(); // pradeda input laukimo laika
+                    cout << "Failai: " << endl;
+                    system("dir /b *.txt");
+                    cout << endl;
+                    cout << "Iveskite failo pavadinima: ";
+                    cin >> failas;
+                    inputWaitDuration += std::chrono::high_resolution_clock::now() - inputStart; // prideda input laukimo laika
 
-                ifstream in(failas);
-                if (!in.is_open()) {
-                    cerr << "Nepavyko atidaryti failo." << endl;
-                    continue;
+                    ifstream in(failas);
+                    if (!in.is_open()) {
+                        cerr << "Nepavyko atidaryti failo" << endl;
+                        continue;
+                    }
+                    in.close();
+                    break;
                 }
-                in.close();
 
                 NuskaitytiStudentusIsFailo(failas, studentai);
             }
         }
 
-        cout << "Iveskite 1 jei norite skaiciuoti vidurki, 0 jei norite skaiciuoti mediana: ";
-        cin >> vid;
+        while (true) {
+            auto inputStart = std::chrono::high_resolution_clock::now(); // pradeda input laukimo laika
+            cout << "Iveskite 1 jei norite skaiciuoti vidurki, 0 jei norite skaiciuoti mediana: ";
+            cin >> vid;
+            inputWaitDuration += std::chrono::high_resolution_clock::now() - inputStart; // prideda input laukimo laika
 
-        if (cin.fail() || vid < 0 || vid > 1) {
-            cerr << "Netinkama ivestis. Programa baigiama." << endl;
-            return;
+            if (cin.fail() || vid < 0 || vid > 1) {
+                cout << "Ivyko klaida: netinkama ivestis " << endl;
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                continue;
+            }
+            break;
         }
 
-        cout << "Isvesti atsakymus i faila? (1 - taip, 0 - ne): ";
-        cin >> iFaila;
+        while (true) {
+            auto inputStart = std::chrono::high_resolution_clock::now(); // pradeda input laukimo laika
+            cout << "Isvesti atsakymus i faila? (1 - taip, 0 - ne): ";
+            cin >> iFaila;
+            inputWaitDuration += std::chrono::high_resolution_clock::now() - inputStart; // prideda input laukimo laika
 
-        if (cin.fail() || iFaila < 0 || iFaila > 1) {
-            cerr << "Netinkama ivestis. Programa baigiama." << endl;
-            return;
+            if (cin.fail() || iFaila < 0 || iFaila > 1) {
+                cout << "Ivyko klaida: netinkama ivestis " << endl;
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                continue;
+            }
+            break;
         }
 
         ofstream out;
         if (iFaila) {
-            out.open("rezultatai.txt", ios::trunc | ios::out);
+            out.open("rezultatai.txt", ios::trunc | ios::out | ios::binary);
             if (!out) {
-                cerr << "Nepavyko atidaryti failo rasymui." << endl;
-                return;
+                cerr << "Nepavyko atidaryti failo rasymui" << endl;
+                return 1;
             }
         }
 
+        int rikiavimoPasirinkimas;
+        while (true) {
+            try {
+                auto inputStart = std::chrono::high_resolution_clock::now(); // pradeda input laukimo laika
+                cout << "Pasirinkite rikiavimo buda:\n";
+                cout << "0 - Nerikiuoti\n";
+                cout << "1 - Pagal varda\n";
+                cout << "2 - Pagal pavarde\n";
+                cout << "3 - Pagal galutini pazymi didejancia tvarka\n";
+                cout << "4 - Pagal galutini pazymi mazejancia tvarka\n";
+                cin >> rikiavimoPasirinkimas;
+                inputWaitDuration += std::chrono::high_resolution_clock::now() - inputStart; // prideda input laukimo laika
+
+                if (cin.fail() || rikiavimoPasirinkimas < 0 || rikiavimoPasirinkimas > 4) {
+                    throw invalid_argument("Neteisinga ivestis");
+                }
+                break;
+            } catch (const invalid_argument& e) {
+                cerr << "Ivyko klaida: " << e.what() << endl;
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                continue;
+            }
+        }
+
+        if (iFaila) {
+            out << left << setw(15) << "Vardas" << setw(20) << "Pavarde" << "Galutinis" << endl;
+        } else {
+            cout << left << setw(15) << "Vardas" << setw(20) << "Pavarde" << "Galutinis" << endl;
+        }
+
+        // loopina per kiekviena studenta studentu vektoriuje ir skaiciuoja galutini pazymi 
         for (auto& studentas : studentai) {
             if (vid) {
                 studentas.galutinis = 0.4 * Vidurkis(studentas.pazymiai) + 0.6 * studentas.egzaminas;
@@ -155,67 +252,43 @@ void VykdytiPrograma(Container& studentai) {
                 studentas.galutinis = 0.4 * Mediana(studentas.pazymiai) + 0.6 * studentas.egzaminas;
             }
         }
-        cout << "Pasirinkite rikiavimo kriteriju:\n";
-        cout << "0 - Nerikiuoti\n";
-        cout << "1 - Pagal varda\n";
-        cout << "2 - Pagal pavarde\n";
-        cout << "3 - Pagal galutini pazymi (didejimo tvarka)\n";
-        cout << "4 - Pagal galutini pazymi (mazejimo tvarka)\n";
-        int rikiavimoPasirinkimas;
-        cin >> rikiavimoPasirinkimas;
 
-        if (cin.fail() || rikiavimoPasirinkimas < 1 || rikiavimoPasirinkimas > 4) {
-        cerr << "Netinkamas rikiavimo pasirinkimas. Programa baigiama." << endl;
-        return;
-        }
-
-        // Call the sorting function
         RikiuotiStudentus(studentai, rikiavimoPasirinkimas);
 
-        if (iFaila) {
-            for (const auto& studentas : studentai) {
-                out << studentas.vardas << " " << studentas.pavarde << " " << studentas.galutinis << endl;
-            }
-            out.close();
-            system("notepad rezultatai.txt");
-        } else {
-            for (const auto& studentas : studentai) {
-                cout << studentas.vardas << " " << studentas.pavarde << " " << studentas.galutinis << endl;
+        // irasoma dalimis, kad neuzimtu per daug atminties
+        const size_t chunkSize = 100000; // daliu dydis
+        size_t totalStudents = studentai.size();
+        for (size_t i = 0; i < totalStudents; i += chunkSize) {
+            size_t end = min(i + chunkSize, totalStudents);
+            for (size_t j = i; j < end; ++j) {
+                if (iFaila) {
+                    out << left << setw(15) << studentai[j].vardas << setw(20) << studentai[j].pavarde << fixed << setprecision(2) << studentai[j].galutinis << endl;
+                } else {
+                    cout << left << setw(15) << studentai[j].vardas << setw(20) << studentai[j].pavarde << fixed << setprecision(2) << studentai[j].galutinis << endl;
+                }
             }
         }
 
-        auto end = std::chrono::high_resolution_clock::now();
-        std::chrono::duration<double> duration = end - start - inputWaitDuration;
+        if (iFaila) {
+            bool suskirstyti;
+            auto inputStart = std::chrono::high_resolution_clock::now(); // pradeda input laukimo laika
+            cout << "Suskirtyti studentus i dvi grupes, pagal pazymius?(1  - taip, 0 - ne) ";
+            cin >> suskirstyti;
+            inputWaitDuration += std::chrono::high_resolution_clock::now() - inputStart; // prideda input laukimo laika
+
+            if (suskirstyti) {
+                StudentuAtskirimas();
+            }
+            system("notepad rezultatai.txt");
+            out.close();
+        }
+        auto end = std::chrono::high_resolution_clock::now(); // baigia laiko skaiciavima
+        std::chrono::duration<double> duration = end - start - inputWaitDuration; // atema input laukimo laika
         cout << "Programos vykdymo trukme (be input laukimo): " << duration.count() << " sekundes" << endl;
 
+    // pagauna klaida
     } catch (const exception& e) {
         cerr << "Ivyko klaida: " << e.what() << endl;
     }
-}
-
-int main() {
-    int konteinerioPasirinkimas;
-    cout << "Pasirinkite konteinerio tipa:\n";
-    cout << "1 - vector\n";
-    cout << "2 - deque\n";
-    cout << "3 - list\n";
-    cin >> konteinerioPasirinkimas;
-
-    if (cin.fail() || konteinerioPasirinkimas < 1 || konteinerioPasirinkimas > 3) {
-        cerr << "Neteisingas konteinerio pasirinkimas. Programa baigiama." << endl;
-        return 1;
-    }
-
-    if (konteinerioPasirinkimas == 1) {
-        vector<Studentas<vector<int>>> studentai;
-        VykdytiPrograma(studentai);
-    } else if (konteinerioPasirinkimas == 2) {
-        deque<Studentas<deque<int>>> studentai;
-        VykdytiPrograma(studentai);
-    } else if (konteinerioPasirinkimas == 3) {
-        list<Studentas<list<int>>> studentai;
-        VykdytiPrograma(studentai);
-    }
-
     return 0;
 }

@@ -1,5 +1,40 @@
 #include "funkcijos.h"
 
+float Vidurkis(vector<int> pazymiai) {
+    if (pazymiai.empty()) {
+        throw invalid_argument("Pazymiu sarasas yra tuscias");
+    }
+    float suma = 0;
+    for (int pazymys : pazymiai) {
+        suma += pazymys;
+    }
+    return suma / pazymiai.size();
+}
+
+float Mediana(vector<int> pazymiai) {
+    if (pazymiai.empty()) {
+        throw invalid_argument("Pazymiu sarasas yra tuscias");
+    }
+    sort(pazymiai.begin(), pazymiai.end());
+    int pazSk = pazymiai.size();
+    if (pazSk % 2 == 0) {
+        return (pazymiai[pazSk / 2 - 1] + pazymiai[pazSk / 2]) / 2.0;
+    } else {
+        return pazymiai[pazSk / 2];
+    }
+}
+
+void GeneruotiPazymius(int pazymiuSk, vector<int>& pazymiai) {
+    if (pazymiuSk <= 0) {
+        throw invalid_argument("Pazymiu skaicius turi buti teigiamas");
+    }
+    for(int i = 0; i < pazymiuSk; i++){
+        pazymiai.push_back(rand() % 10 + 1);
+        cout << pazymiai[i] << " ";
+    }
+    cout << endl;
+}
+
 void FailuGeneravimas(int studentuSk, int pazymiuSk) {
     auto startVisas = high_resolution_clock::now();
     ofstream out("studentai" + to_string(studentuSk) + ".txt");
@@ -116,7 +151,6 @@ void Test1() {
     }
 }
 
-template <typename Container>
 void Test2() {
     vector<string> failai = {"studentai1000.txt", "studentai10000.txt", "studentai100000.txt", "studentai1000000.txt", "studentai10000000.txt"};
 
@@ -128,7 +162,7 @@ void Test2() {
         
         out.open("rezultatai.txt", ios::trunc | ios::out | ios::binary);
           
-        Container studentai;
+        vector<Studentas> studentai;
         NuskaitytiStudentusIsFailo(failas, studentai);
         
         
@@ -140,7 +174,7 @@ void Test2() {
                 studentas.galutinis = 0.4 * Vidurkis(studentas.pazymiai) + 0.6 * studentas.egzaminas;
         }
 
-        RikiuotiStudentus(studentai, 3);
+        RikiuotiStudentus(studentai, 0);
 
         // irasoma dalimis, kad neuzimtu per daug atminties
         const size_t chunkSize = 100000; // daliu dydis
