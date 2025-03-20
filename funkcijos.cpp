@@ -1,117 +1,40 @@
 #include "funkcijos.h"
 
-template <typename Container>
-float Vidurkis(const Container& pazymiai) {
-    if (pazymiai.empty()) return 0.0f;
-    return std::accumulate(pazymiai.begin(), pazymiai.end(), 0.0f) / pazymiai.size();
-}
-
-
-template <typename Container>
-float Mediana(Container pazymiai) { // Pass by value to allow sorting
-    if (pazymiai.empty()) return 0.0f;
-    std::sort(pazymiai.begin(), pazymiai.end());
-    size_t size = pazymiai.size();
-    if (size % 2 == 0) {
-        return (pazymiai[size / 2 - 1] + pazymiai[size / 2]) / 2.0f;
-    } else {
-        return pazymiai[size / 2];
-    }
-}
-
-template <typename Container>
-void GeneruotiPazymius(int pazymiuSk, Container& pazymiai) {
-    for (int i = 0; i < pazymiuSk; ++i) {
-        pazymiai.push_back(rand() % 10 + 1); // Generate random grades between 1 and 10
-    }
-}
-
-template <typename Container>
-void GeneruotiStudentus(int studentuSk, Container& studentai) {
-    if (studentuSk <= 0) {
-        throw invalid_argument("Studentu skaicius turi buti teigiamas");
-    }
-    vector<string> vardai = {"Jonas", "Petras", "Antanas", "Tomas", "Marius"};
-    vector<string> pavardes = {"Jonaitis", "Petraitis", "Antanaitis", "Tomaitis", "Maraitis"};
-
-    for (int i = 0; i < studentuSk; i++) {
-        Studentas studentas;
-        studentas.vardas = vardai[rand() % vardai.size()];
-        studentas.pavarde = pavardes[rand() % pavardes.size()];
-        GeneruotiPazymius(rand() % 10 + 1, studentas.pazymiai);
-        studentas.egzaminas = rand() % 10 + 1;
-        studentai.push_back(studentas);
-    }
-}
-
-template <typename Container>
-void NuskaitytiStudentusIsFailo(string failas, Container& studentai) {
-    auto start = high_resolution_clock::now();
-
-    ifstream in(failas);
-    if (!in.is_open()) {
-        throw runtime_error("Nepavyko atidaryti failo");
-    }
-
-    string line;
-    //studentai.reserve(10000000); // rezervuoja atminti
-
-    // praleidzia pirma eilute
-    getline(in, line);
-
-    while (getline(in, line)) {
-        istringstream iss(line);
-        Studentas studentas;
-        iss >> studentas.vardas >> studentas.pavarde;
-
-        int pazymys;
-        studentas.pazymiai.clear();
-        while (iss >> pazymys) {
-            studentas.pazymiai.push_back(pazymys);
-        }
-
-        // paskutinis skaicius yra egzaminas
-        if (!studentas.pazymiai.empty()) {
-            studentas.egzaminas = studentas.pazymiai.back();
-            studentas.pazymiai.pop_back();
-        }
-
-        studentai.push_back(move(studentas)); // naudoja move, kad nereiketu kopijuoti
-           
-    }
-    studentai.shrink_to_fit();
-    in.close();
-    auto end = high_resolution_clock::now();
-    auto duration = duration_cast<milliseconds>(end - start);
-    cout << "Studentu nuskaitymas is failo uztruko: " << duration.count() << " ms" << endl;
-}
 
 template <typename Container>
 void RikiuotiStudentus(Container& studentai, int pasirinkimas) {
     auto start = high_resolution_clock::now();
     switch (pasirinkimas) {
         case 0:
-            // nerikiuoti
+            // Do not sort
             break;
         case 1:
-            sort(studentai.begin(), studentai.end(), [](const Studentas& a, const Studentas& b) {
-                return a.vardas < b.vardas;
-            });
+            if constexpr (std::is_same<Container, std::list<typename Container::value_type>>::value) {
+                studentai.sort([](const auto& a, const auto& b) { return a.vardas < b.vardas; });
+            } else {
+                std::sort(studentai.begin(), studentai.end(), [](const auto& a, const auto& b) { return a.vardas < b.vardas; });
+            }
             break;
         case 2:
-            sort(studentai.begin(), studentai.end(), [](const Studentas& a, const Studentas& b) {
-                return a.pavarde < b.pavarde;
-            });
+            if constexpr (std::is_same<Container, std::list<typename Container::value_type>>::value) {
+                studentai.sort([](const auto& a, const auto& b) { return a.pavarde < b.pavarde; });
+            } else {
+                std::sort(studentai.begin(), studentai.end(), [](const auto& a, const auto& b) { return a.pavarde < b.pavarde; });
+            }
             break;
         case 3:
-            sort(studentai.begin(), studentai.end(), [](const Studentas& a, const Studentas& b) {
-                return a.galutinis < b.galutinis;
-            });
+            if constexpr (std::is_same<Container, std::list<typename Container::value_type>>::value) {
+                studentai.sort([](const auto& a, const auto& b) { return a.galutinis < b.galutinis; });
+            } else {
+                std::sort(studentai.begin(), studentai.end(), [](const auto& a, const auto& b) { return a.galutinis < b.galutinis; });
+            }
             break;
         case 4:
-            sort(studentai.begin(), studentai.end(), [](const Studentas& a, const Studentas& b) {
-                return a.galutinis > b.galutinis;
-            });
+            if constexpr (std::is_same<Container, std::list<typename Container::value_type>>::value) {
+                studentai.sort([](const auto& a, const auto& b) { return a.galutinis > b.galutinis; });
+            } else {
+                std::sort(studentai.begin(), studentai.end(), [](const auto& a, const auto& b) { return a.galutinis > b.galutinis; });
+            }
             break;
         default:
             throw invalid_argument("Neteisingas rikiavimo pasirinkimas");

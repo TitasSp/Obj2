@@ -1,10 +1,10 @@
 #include "mano_lib.h"
 #include "funkcijos.h"
 
-// Function template to handle the main program logic for different container types
 template <typename Container>
 void VykdytiPrograma(Container& studentai) {
     try {
+        
         auto start = std::chrono::high_resolution_clock::now(); // Start timer
         std::chrono::duration<double> inputWaitDuration(0); // Input waiting time
 
@@ -37,7 +37,12 @@ void VykdytiPrograma(Container& studentai) {
             if (pasirinkimas == 5) break;
 
             if (pasirinkimas == 1 || pasirinkimas == 2) {
-                Studentas<typename Container::value_type> studentas;
+               // Studentas<typename Container::value_type::pazymiai_type> studentas;
+               //Container::value_type studentas;
+                //Studentas<Container::value_type> studentas;
+               // Studentas<typename Container::value_type::pazymiai> studentas;
+                //Studentas<Container> studentas;
+                typename Container::value_type studentas;
                 cout << "Iveskite studento varda: ";
                 cin >> studentas.vardas;
                 cout << "Iveskite studento pavarde: ";

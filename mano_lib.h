@@ -11,6 +11,10 @@
 #include <sstream>
 #include <deque>
 #include <list>
+#include <numeric>
+#include <limits>
+#include <exception>
+
 
 using std::deque;
 using std::list;
@@ -47,3 +51,5 @@ using std::invalid_argument;
 using std::cerr;
 using std::exception;
 using std::move;
+using std::accumulate;
+using std::max;
