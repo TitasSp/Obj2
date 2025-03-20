@@ -37,11 +37,6 @@ void VykdytiPrograma(Container& studentai) {
             if (pasirinkimas == 5) break;
 
             if (pasirinkimas == 1 || pasirinkimas == 2) {
-               // Studentas<typename Container::value_type::pazymiai_type> studentas;
-               //Container::value_type studentas;
-                //Studentas<Container::value_type> studentas;
-               // Studentas<typename Container::value_type::pazymiai> studentas;
-                //Studentas<Container> studentas;
                 typename Container::value_type studentas;
                 cout << "Iveskite studento varda: ";
                 cin >> studentas.vardas;
@@ -112,6 +107,8 @@ void VykdytiPrograma(Container& studentai) {
 
                 GeneruotiStudentus(studentuSk, pazymiuSk, studentai);
             } else if (pasirinkimas == 4) {
+                //system("ls *.txt");
+                system("dir /b *.txt");
                 cout << "Iveskite failo pavadinima: ";
                 cin >> failas;
 
