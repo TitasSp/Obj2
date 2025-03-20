@@ -155,6 +155,22 @@ void VykdytiPrograma(Container& studentai) {
                 studentas.galutinis = 0.4 * Mediana(studentas.pazymiai) + 0.6 * studentas.egzaminas;
             }
         }
+        cout << "Pasirinkite rikiavimo kriteriju:\n";
+        cout << "0 - Nerikiuoti\n";
+        cout << "1 - Pagal varda\n";
+        cout << "2 - Pagal pavarde\n";
+        cout << "3 - Pagal galutini pazymi (didejimo tvarka)\n";
+        cout << "4 - Pagal galutini pazymi (mazejimo tvarka)\n";
+        int rikiavimoPasirinkimas;
+        cin >> rikiavimoPasirinkimas;
+
+        if (cin.fail() || rikiavimoPasirinkimas < 1 || rikiavimoPasirinkimas > 4) {
+        cerr << "Netinkamas rikiavimo pasirinkimas. Programa baigiama." << endl;
+        return;
+        }
+
+        // Call the sorting function
+        RikiuotiStudentus(studentai, rikiavimoPasirinkimas);
 
         if (iFaila) {
             for (const auto& studentas : studentai) {

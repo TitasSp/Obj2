@@ -108,6 +108,49 @@ void NuskaitytiStudentusIsFailo(string failas, Container& studentai) {
     auto duration = duration_cast<milliseconds>(end - start);
     cout << "Studentu nuskaitymas is failo uztruko: " << duration.count() << " ms" << endl;
 }
+
+template <typename Container>
+void RikiuotiStudentus(Container& studentai, int pasirinkimas) {
+    auto start = high_resolution_clock::now();
+    switch (pasirinkimas) {
+        case 0:
+            // Do not sort
+            break;
+        case 1:
+            if constexpr (std::is_same<Container, std::list<typename Container::value_type>>::value) {
+                studentai.sort([](const auto& a, const auto& b) { return a.vardas < b.vardas; });
+            } else {
+                std::sort(studentai.begin(), studentai.end(), [](const auto& a, const auto& b) { return a.vardas < b.vardas; });
+            }
+            break;
+        case 2:
+            if constexpr (std::is_same<Container, std::list<typename Container::value_type>>::value) {
+                studentai.sort([](const auto& a, const auto& b) { return a.pavarde < b.pavarde; });
+            } else {
+                std::sort(studentai.begin(), studentai.end(), [](const auto& a, const auto& b) { return a.pavarde < b.pavarde; });
+            }
+            break;
+        case 3:
+            if constexpr (std::is_same<Container, std::list<typename Container::value_type>>::value) {
+                studentai.sort([](const auto& a, const auto& b) { return a.galutinis < b.galutinis; });
+            } else {
+                std::sort(studentai.begin(), studentai.end(), [](const auto& a, const auto& b) { return a.galutinis < b.galutinis; });
+            }
+            break;
+        case 4:
+            if constexpr (std::is_same<Container, std::list<typename Container::value_type>>::value) {
+                studentai.sort([](const auto& a, const auto& b) { return a.galutinis > b.galutinis; });
+            } else {
+                std::sort(studentai.begin(), studentai.end(), [](const auto& a, const auto& b) { return a.galutinis > b.galutinis; });
+            }
+            break;
+        default:
+            throw invalid_argument("Neteisingas rikiavimo pasirinkimas");
+    }
+    auto end = high_resolution_clock::now();
+    auto duration = duration_cast<milliseconds>(end - start);
+    cout << "Studentu rikiavimas uztruko: " << duration.count() << " ms" << endl;
+}
 /*
 template <typename Container>
 void VykdytiPrograma(Container& studentai);
@@ -121,8 +164,9 @@ template <typename Container>
 void GeneruotiStudentus(int studentuSk, int pazymiuSk, Container& studentai);
 template <typename Container>
 void NuskaitytiStudentusIsFailo(string failas, Container& studentai);
-*/template <typename Container>
+template <typename Container>
 void RikiuotiStudentus(Container& studentai, int pasirinkimas);
+*/
 void FailuGeneravimas(int studentuSk, int pazymiuSk);
 void StudentuAtskirimas();
 void Test1();

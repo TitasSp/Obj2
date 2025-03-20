@@ -1,49 +1,5 @@
 #include "funkcijos.h"
 
-
-template <typename Container>
-void RikiuotiStudentus(Container& studentai, int pasirinkimas) {
-    auto start = high_resolution_clock::now();
-    switch (pasirinkimas) {
-        case 0:
-            // Do not sort
-            break;
-        case 1:
-            if constexpr (std::is_same<Container, std::list<typename Container::value_type>>::value) {
-                studentai.sort([](const auto& a, const auto& b) { return a.vardas < b.vardas; });
-            } else {
-                std::sort(studentai.begin(), studentai.end(), [](const auto& a, const auto& b) { return a.vardas < b.vardas; });
-            }
-            break;
-        case 2:
-            if constexpr (std::is_same<Container, std::list<typename Container::value_type>>::value) {
-                studentai.sort([](const auto& a, const auto& b) { return a.pavarde < b.pavarde; });
-            } else {
-                std::sort(studentai.begin(), studentai.end(), [](const auto& a, const auto& b) { return a.pavarde < b.pavarde; });
-            }
-            break;
-        case 3:
-            if constexpr (std::is_same<Container, std::list<typename Container::value_type>>::value) {
-                studentai.sort([](const auto& a, const auto& b) { return a.galutinis < b.galutinis; });
-            } else {
-                std::sort(studentai.begin(), studentai.end(), [](const auto& a, const auto& b) { return a.galutinis < b.galutinis; });
-            }
-            break;
-        case 4:
-            if constexpr (std::is_same<Container, std::list<typename Container::value_type>>::value) {
-                studentai.sort([](const auto& a, const auto& b) { return a.galutinis > b.galutinis; });
-            } else {
-                std::sort(studentai.begin(), studentai.end(), [](const auto& a, const auto& b) { return a.galutinis > b.galutinis; });
-            }
-            break;
-        default:
-            throw invalid_argument("Neteisingas rikiavimo pasirinkimas");
-    }
-    auto end = high_resolution_clock::now();
-    auto duration = duration_cast<milliseconds>(end - start);
-    cout << "Studentu rikiavimas uztruko: " << duration.count() << " ms" << endl;
-}
-
 void FailuGeneravimas(int studentuSk, int pazymiuSk) {
     auto startVisas = high_resolution_clock::now();
     ofstream out("studentai" + to_string(studentuSk) + ".txt");
@@ -184,7 +140,7 @@ void Test2() {
                 studentas.galutinis = 0.4 * Vidurkis(studentas.pazymiai) + 0.6 * studentas.egzaminas;
         }
 
-        RikiuotiStudentus(studentai, 0);
+        RikiuotiStudentus(studentai, 3);
 
         // irasoma dalimis, kad neuzimtu per daug atminties
         const size_t chunkSize = 100000; // daliu dydis
