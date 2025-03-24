@@ -198,7 +198,7 @@ void Test2() {
 
 void Test3() {
     vector<string> failai = {"studentai1000.txt", "studentai10000.txt", "studentai100000.txt", "studentai1000000.txt", "studentai10000000.txt"};
-
+    //vector<string> failai = {"studentai10000000.txt"};
     
     for (string failas : failai) {
         cout << failas << endl;
@@ -207,8 +207,8 @@ void Test3() {
         
         out.open("rezultatai.txt", ios::trunc | ios::out | ios::binary);
           
-        //vector<Studentas> studentai;
-        deque<Studentas> studentai;
+        vector<Studentas> studentai;
+        //deque<Studentas> studentai;
         //list<Studentas> studentai;
         NuskaitytiStudentusIsFailo(failas, studentai);
         

@@ -36,10 +36,11 @@ void NuskaitytiStudentusIsFailo(string failas, Container& studentai) {
     }
 
     string line;
-    //studentai.reserve(10000000); // rezervuoja atminti
+    getline(in, line); // Skip the header line
 
-    // praleidzia pirma eilute
-    getline(in, line);
+    if constexpr (is_same<Container, vector<Studentas>>::value) {
+        studentai.reserve(10000000); // Reserve memory for vector or deque
+    }
 
     while (getline(in, line)) {
         istringstream iss(line);
@@ -52,22 +53,19 @@ void NuskaitytiStudentusIsFailo(string failas, Container& studentai) {
             studentas.pazymiai.push_back(pazymys);
         }
 
-        // paskutinis skaicius yra egzaminas
         if (!studentas.pazymiai.empty()) {
             studentas.egzaminas = studentas.pazymiai.back();
             studentas.pazymiai.pop_back();
         }
 
-        studentai.push_back(move(studentas)); // naudoja move, kad nereiketu kopijuoti
-           
+        studentai.push_back(studentas); // Avoid move for list
     }
-    //studentai.shrink_to_fit();
+
     in.close();
     auto end = high_resolution_clock::now();
     auto duration = duration_cast<milliseconds>(end - start);
     cout << "Studentu nuskaitymas is failo uztruko: " << duration.count() << " ms" << endl;
 }
-
 template <typename Container>
 void RikiuotiStudentus(Container& studentai, int pasirinkimas) {
     auto start = high_resolution_clock::now();
