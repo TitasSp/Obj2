@@ -61,7 +61,7 @@ void NuskaitytiStudentusIsFailo(string failas, Container& studentai) {
         studentai.push_back(move(studentas)); // naudoja move, kad nereiketu kopijuoti
            
     }
-    studentai.shrink_to_fit();
+    //studentai.shrink_to_fit();
     in.close();
     auto end = high_resolution_clock::now();
     auto duration = duration_cast<milliseconds>(end - start);
@@ -71,38 +71,74 @@ void NuskaitytiStudentusIsFailo(string failas, Container& studentai) {
 template <typename Container>
 void RikiuotiStudentus(Container& studentai, int pasirinkimas) {
     auto start = high_resolution_clock::now();
+
     switch (pasirinkimas) {
         case 0:
             // nerikiuoti
             break;
         case 1:
-            sort(studentai.begin(), studentai.end(), [](const Studentas& a, const Studentas& b) {
-                return a.vardas < b.vardas;
-            });
+            if constexpr (is_same<Container, list<Studentas>>::value) {
+                studentai.sort([](const Studentas& a, const Studentas& b) {
+                    return a.vardas < b.vardas;
+                });
+            } else {
+                sort(studentai.begin(), studentai.end(), [](const Studentas& a, const Studentas& b) {
+                    return a.vardas < b.vardas;
+                });
+            }
             break;
         case 2:
-            sort(studentai.begin(), studentai.end(), [](const Studentas& a, const Studentas& b) {
-                return a.pavarde < b.pavarde;
-            });
+            if constexpr (is_same<Container, list<Studentas>>::value) {
+                studentai.sort([](const Studentas& a, const Studentas& b) {
+                    return a.pavarde < b.pavarde;
+                });
+            } else {
+                sort(studentai.begin(), studentai.end(), [](const Studentas& a, const Studentas& b) {
+                    return a.pavarde < b.pavarde;
+                });
+            }
             break;
         case 3:
-            sort(studentai.begin(), studentai.end(), [](const Studentas& a, const Studentas& b) {
-                return a.galutinis < b.galutinis;
-            });
+            if constexpr (is_same<Container, list<Studentas>>::value) {
+                studentai.sort([](const Studentas& a, const Studentas& b) {
+                    return a.galutinis < b.galutinis;
+                });
+            } else {
+                sort(studentai.begin(), studentai.end(), [](const Studentas& a, const Studentas& b) {
+                    return a.galutinis < b.galutinis;
+                });
+            }
             break;
         case 4:
-            sort(studentai.begin(), studentai.end(), [](const Studentas& a, const Studentas& b) {
-                return a.galutinis > b.galutinis;
-            });
+            if constexpr (is_same<Container, list<Studentas>>::value) {
+                studentai.sort([](const Studentas& a, const Studentas& b) {
+                    return a.galutinis > b.galutinis;
+                });
+            } else {
+                sort(studentai.begin(), studentai.end(), [](const Studentas& a, const Studentas& b) {
+                    return a.galutinis > b.galutinis;
+                });
+            }
             break;
         default:
             throw invalid_argument("Neteisingas rikiavimo pasirinkimas");
     }
+
     auto end = high_resolution_clock::now();
     auto duration = duration_cast<milliseconds>(end - start);
     cout << "Studentu rikiavimas uztruko: " << duration.count() << " ms" << endl;
 }
 
+template <typename Container>
+void SkaiciuotiGalutini(Container& studentai, bool vid) {
+    for (auto& studentas : studentai) {
+        if(vid){
+            studentas.galutinis = 0.4 * Vidurkis(studentas.pazymiai) + 0.6 * studentas.egzaminas;
+        } else {
+            studentas.galutinis = 0.4 * Mediana(studentas.pazymiai) + 0.6 * studentas.egzaminas;
+        }
+    }
+}
 
 float Vidurkis(vector<int> pazymiai);
 float Mediana(vector<int> pazymiai);
@@ -117,3 +153,4 @@ void FailuGeneravimas(int studentuSk, int pazymiuSk);
 void StudentuAtskirimas();
 void Test1();
 void Test2();
+void Test3();

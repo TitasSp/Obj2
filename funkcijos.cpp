@@ -195,3 +195,50 @@ void Test2() {
     }
 
 }
+
+void Test3() {
+    vector<string> failai = {"studentai1000.txt", "studentai10000.txt", "studentai100000.txt", "studentai1000000.txt", "studentai10000000.txt"};
+
+    
+    for (string failas : failai) {
+        cout << failas << endl;
+        auto start = high_resolution_clock::now();
+        ofstream out;
+        
+        out.open("rezultatai.txt", ios::trunc | ios::out | ios::binary);
+          
+        //vector<Studentas> studentai;
+        deque<Studentas> studentai;
+        //list<Studentas> studentai;
+        NuskaitytiStudentusIsFailo(failas, studentai);
+        
+        
+        out << left << setw(15) << "Vardas" << setw(20) << "Pavarde" << "Galutinis" << endl;
+        
+        // loopina per kiekviena studenta studentu vektoriuje ir skaiciuoja galutini pazymi 
+        for (auto& studentas : studentai) {
+           
+                studentas.galutinis = 0.4 * Vidurkis(studentas.pazymiai) + 0.6 * studentas.egzaminas;
+        }
+
+        RikiuotiStudentus(studentai, 3);
+
+        // rasoma dalimis, kad neuzimtu per daug atminties
+        const size_t chunkSize = 100000; // daliu dydis
+        size_t totalStudents = studentai.size();
+        auto it = studentai.begin(); // Initialize an iterator for the list
+        
+        for (size_t i = 0; i < totalStudents; i += chunkSize) {
+            size_t end = min(i + chunkSize, totalStudents);
+            for (size_t j = i; j < end; ++j, ++it) { // Increment the iterator directly
+                out << left << setw(15) << it->vardas << setw(20) << it->pavarde << fixed << setprecision(2) << it->galutinis << endl;
+            }
+        }
+        StudentuAtskirimas();
+        auto end = high_resolution_clock::now();
+        auto duration = duration_cast<milliseconds>(end - start);
+        cout << "Is viso uztruko: " << duration.count() << " ms" << endl;
+        cout << endl;
+    }
+
+}

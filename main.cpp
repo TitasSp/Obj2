@@ -2,6 +2,10 @@
 #include "funkcijos.h"
 
 int main() {
+    for (int i = 0; i < 3; i++) {
+    Test3();
+    }
+    return 0;
 
     try {
         auto start = std::chrono::high_resolution_clock::now(); // Start timer
@@ -244,14 +248,8 @@ int main() {
             cout << left << setw(15) << "Vardas" << setw(20) << "Pavarde" << "Galutinis" << endl;
         }
 
-        // loopina per kiekviena studenta studentu vektoriuje ir skaiciuoja galutini pazymi 
-        for (auto& studentas : studentai) {
-            if (vid) {
-                studentas.galutinis = 0.4 * Vidurkis(studentas.pazymiai) + 0.6 * studentas.egzaminas;
-            } else {
-                studentas.galutinis = 0.4 * Mediana(studentas.pazymiai) + 0.6 * studentas.egzaminas;
-            }
-        }
+        // loopina per kiekviena studenta studentu konteinery ir skaiciuoja galutini pazymi 
+        SkaiciuotiGalutini(studentai, vid);
 
         RikiuotiStudentus(studentai, rikiavimoPasirinkimas);
 
