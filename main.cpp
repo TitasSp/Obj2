@@ -10,9 +10,9 @@ int main() {
     try {
         auto start = std::chrono::high_resolution_clock::now(); // Start timer
         std::chrono::duration<double> inputWaitDuration(0); // input laukimo laikas
-        vector<Studentas> studentai;
+        //vector<Studentas> studentai;
         //deque<Studentas> studentai;
-        //list<Studentas> studentai;
+        list<Studentas> studentai;
         srand(time(0)); // inicializuoja random seeda
         int vid; // ar naudoti vidurki ar mediana
         int iFaila; // ar isvesti i faila
@@ -254,7 +254,7 @@ int main() {
         RikiuotiStudentus(studentai, rikiavimoPasirinkimas);
 
         // irasoma dalimis, kad neuzimtu per daug atminties
-        const size_t chunkSize = 100000; // daliu dydis
+        /*const size_t chunkSize = 100000; // daliu dydis
         size_t totalStudents = studentai.size();
         for (size_t i = 0; i < totalStudents; i += chunkSize) {
             size_t end = min(i + chunkSize, totalStudents);
@@ -265,7 +265,7 @@ int main() {
                     cout << left << setw(15) << studentai[j].vardas << setw(20) << studentai[j].pavarde << fixed << setprecision(2) << studentai[j].galutinis << endl;
                 }
             }
-        }
+        }*/
 
         if (iFaila) {
             bool suskirstyti;

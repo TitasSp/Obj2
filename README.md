@@ -1,5 +1,12 @@
 # ObjPirmaUzduotis
+Testavimo sistemos parametrai:
+Processor	12th Gen Intel(R) Core(TM) i5-1235U, 1300 Mhz, 10 Core(s), 12 Logical Processor(s)
 
+Installed Physical Memory (RAM)	16.0 GB
+
+SSD	512 GB NVMe Micron_2400_MTFDKBA512QFM
+
+Testai:
 deque:
 Test 1
 studentai1000.txt
