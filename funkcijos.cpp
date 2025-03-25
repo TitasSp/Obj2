@@ -234,7 +234,8 @@ void Test3() {
                 out << left << setw(15) << it->vardas << setw(20) << it->pavarde << fixed << setprecision(2) << it->galutinis << endl;
             }
         }
-        StudentuAtskirimas(studentai);
+        //StudentuAtskirimas(studentai);
+        SkaidytiStudentus3Strategija(studentai);
         auto end = high_resolution_clock::now();
         auto duration = duration_cast<milliseconds>(end - start);
         cout << "Is viso uztruko: " << duration.count() << " ms" << endl;

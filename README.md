@@ -328,3 +328,96 @@ Studentu rikiavimas uztruko: 8599 ms
 Studentu suskirstymas uztruko: 39956 ms
 Studentu irasymas i failus uztruko: 867 ms
 Is viso uztruko: 308230 ms
+
+
+//////////////////////
+vector konteinerio testas naudojant pertition skaidant studentus i dvi grupes:
+studentai1000.txt
+Studentu nuskaitymas is failo uztruko: 37 ms
+Studentu rikiavimas uztruko: 1 ms
+Studentu skaidymas ir irasymas i failus uztruko: 24 ms
+Is viso uztruko: 82 ms
+
+studentai10000.txt
+Studentu nuskaitymas is failo uztruko: 345 ms
+Studentu rikiavimas uztruko: 15 ms
+Studentu skaidymas ir irasymas i failus uztruko: 135 ms
+Is viso uztruko: 633 ms
+
+studentai100000.txt
+Studentu nuskaitymas is failo uztruko: 3392 ms
+Studentu rikiavimas uztruko: 159 ms
+Studentu skaidymas ir irasymas i failus uztruko: 1433 ms
+Is viso uztruko: 6611 ms
+
+studentai1000000.txt
+Studentu nuskaitymas is failo uztruko: 19578 ms
+Studentu rikiavimas uztruko: 783 ms
+Studentu skaidymas ir irasymas i failus uztruko: 8246 ms
+Is viso uztruko: 36521 ms
+
+studentai10000000.txt
+Studentu nuskaitymas is failo uztruko: 347105 ms
+Studentu rikiavimas uztruko: 15300 ms
+Studentu skaidymas ir irasymas i failus uztruko: 152613 ms
+Is viso uztruko: 650938 ms
+
+studentai1000.txt
+Studentu nuskaitymas is failo uztruko: 52 ms
+Studentu rikiavimas uztruko: 2 ms
+Studentu skaidymas ir irasymas i failus uztruko: 166 ms
+Is viso uztruko: 347 ms
+
+studentai10000.txt
+Studentu nuskaitymas is failo uztruko: 442 ms
+Studentu rikiavimas uztruko: 13 ms
+Studentu skaidymas ir irasymas i failus uztruko: 147 ms
+Is viso uztruko: 747 ms
+
+studentai100000.txt
+Studentu nuskaitymas is failo uztruko: 3958 ms
+Studentu rikiavimas uztruko: 194 ms
+Studentu skaidymas ir irasymas i failus uztruko: 1645 ms
+Is viso uztruko: 7404 ms
+
+studentai1000000.txt
+Studentu nuskaitymas is failo uztruko: 20860 ms
+Studentu rikiavimas uztruko: 768 ms
+Studentu skaidymas ir irasymas i failus uztruko: 8065 ms
+Is viso uztruko: 37336 ms
+
+studentai10000000.txt
+Studentu nuskaitymas is failo uztruko: 351012 ms
+Studentu rikiavimas uztruko: 15665 ms
+Studentu skaidymas ir irasymas i failus uztruko: 147176 ms
+Is viso uztruko: 653552 ms
+
+studentai1000.txt
+Studentu nuskaitymas is failo uztruko: 38 ms
+Studentu rikiavimas uztruko: 1 ms
+Studentu skaidymas ir irasymas i failus uztruko: 108 ms
+Is viso uztruko: 254 ms
+
+studentai10000.txt
+Studentu nuskaitymas is failo uztruko: 339 ms
+Studentu rikiavimas uztruko: 14 ms
+Studentu skaidymas ir irasymas i failus uztruko: 142 ms
+Is viso uztruko: 636 ms
+
+studentai100000.txt
+Studentu nuskaitymas is failo uztruko: 3283 ms
+Studentu rikiavimas uztruko: 133 ms
+Studentu skaidymas ir irasymas i failus uztruko: 1328 ms
+Is viso uztruko: 6050 ms
+
+studentai1000000.txt
+Studentu nuskaitymas is failo uztruko: 20787 ms
+Studentu rikiavimas uztruko: 938 ms
+Studentu skaidymas ir irasymas i failus uztruko: 8911 ms
+Is viso uztruko: 38931 ms
+
+studentai10000000.txt
+Studentu nuskaitymas is failo uztruko: 352201 ms
+Studentu rikiavimas uztruko: 16260 ms
+Studentu skaidymas ir irasymas i failus uztruko: 212642 ms
+Is viso uztruko: 720394 ms

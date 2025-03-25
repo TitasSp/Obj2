@@ -29,7 +29,7 @@ void GeneruotiStudentus(int studentuSk, Container& studentai) {
 template <typename Container>
 void NuskaitytiStudentusIsFailo(string failas, Container& studentai) {
     auto start = high_resolution_clock::now();
-
+   
     ifstream in(failas);
     if (!in.is_open()) {
         throw runtime_error("Nepavyko atidaryti failo");
@@ -174,6 +174,50 @@ void StudentuAtskirimas(Container& studentai) {
 
     outVargsiukai.close();
     outKieti.close();
+}
+
+template <typename Container>
+void SkaidytiStudentus3Strategija(Container& studentai) {
+    auto start = high_resolution_clock::now();
+    Container vargsiukai;
+    // Naudojame std::partition, kad "vargšiukai" būtų konteinerio gale
+    auto it = std::partition(studentai.begin(), studentai.end(), [](const Studentas& studentas) {
+        return studentas.galutinis >= 5; // "Kietiakai" lieka priekyje
+    });
+
+    // Kopijuojame "vargšiukus" į naują konteinerį
+    vargsiukai.insert(vargsiukai.end(), it, studentai.end());
+
+    // Pašaliname "vargšiukus" iš pradinio konteinerio
+    studentai.erase(it, studentai.end());
+
+    // Įrašome "vargšiukus" į failą
+    ofstream outVargsiukai("stud_b.txt");
+    if (!outVargsiukai.is_open()) {
+        throw runtime_error("Nepavyko atidaryti failo");
+    }
+    outVargsiukai << left << setw(15) << "Vardas" << setw(20) << "Pavarde" << "Galutinis" << endl;
+    for (const auto& studentas : vargsiukai) {
+        outVargsiukai << left << setw(15) << studentas.vardas << setw(20) << studentas.pavarde
+                      << fixed << setprecision(2) << studentas.galutinis << endl;
+    }
+    outVargsiukai.close();
+
+    // Įrašome "kietiakus" į failą
+    ofstream outKietiakai("stud_g.txt");
+    if (!outKietiakai.is_open()) {
+        throw runtime_error("Nepavyko atidaryti failo");
+    }
+    outKietiakai << left << setw(15) << "Vardas" << setw(20) << "Pavarde" << "Galutinis" << endl;
+    for (const auto& studentas : studentai) {
+        outKietiakai << left << setw(15) << studentas.vardas << setw(20) << studentas.pavarde
+                     << fixed << setprecision(2) << studentas.galutinis << endl;
+    }
+    outKietiakai.close();
+
+    auto end = high_resolution_clock::now();
+    auto duration = duration_cast<milliseconds>(end - start);
+    cout << "Studentu skaidymas ir irasymas i failus uztruko: " << duration.count() << " ms" << endl;
 }
 
 float Vidurkis(vector<int> pazymiai);
