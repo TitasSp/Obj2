@@ -85,7 +85,7 @@ void FailuGeneravimas(int studentuSk, int pazymiuSk) {
     cout << "Studentu irasymas i faila uztruko: " << totalIrasymasDuration.count() << " ms" << endl;
     cout << "Is viso uztruko: " << durationVisas.count() << " ms" << endl;
 }
-void StudentuAtskirimas() {
+/*void StudentuAtskirimas() {
 
     ifstream in("rezultatai.txt");
     if (!in.is_open()) {
@@ -137,7 +137,7 @@ void StudentuAtskirimas() {
     outKieti.close();
     in.close();
 } 
-
+*/
 ///////////////////////////////////////////////////////////////////////////
 void Test1() {
     vector<int> studentuSkaiciai = {1000, 10000, 100000, 1000000, 10000000};
@@ -187,7 +187,7 @@ void Test2() {
                
             }
         }
-        StudentuAtskirimas();
+        StudentuAtskirimas(studentai);
         auto end = high_resolution_clock::now();
         auto duration = duration_cast<milliseconds>(end - start);
         cout << "Is viso uztruko: " << duration.count() << " ms" << endl;
@@ -234,7 +234,7 @@ void Test3() {
                 out << left << setw(15) << it->vardas << setw(20) << it->pavarde << fixed << setprecision(2) << it->galutinis << endl;
             }
         }
-        StudentuAtskirimas();
+        StudentuAtskirimas(studentai);
         auto end = high_resolution_clock::now();
         auto duration = duration_cast<milliseconds>(end - start);
         cout << "Is viso uztruko: " << duration.count() << " ms" << endl;

@@ -275,7 +275,7 @@ int main() {
             inputWaitDuration += std::chrono::high_resolution_clock::now() - inputStart; // prideda input laukimo laika
 
             if (suskirstyti) {
-                StudentuAtskirimas();
+                StudentuAtskirimas(studentai);
             }
             system("notepad rezultatai.txt");
             out.close();

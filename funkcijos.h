@@ -138,6 +138,46 @@ void SkaiciuotiGalutini(Container& studentai, bool vid) {
     }
 }
 
+template <typename Container>
+void StudentuAtskirimas(Container& studentai) {
+    ofstream outVargsiukai("stud_b.txt");
+    ofstream outKieti("stud_g.txt");
+
+    ostringstream bufferVargsiukai;
+    ostringstream bufferKieti;
+
+    bufferVargsiukai << left << setw(15) << "Vardas" << setw(20) << "Pavarde" << "Galutinis" << endl;
+    bufferKieti << left << setw(15) << "Vardas" << setw(20) << "Pavarde" << "Galutinis" << endl;
+
+    auto start = high_resolution_clock::now();
+
+    for (const auto& studentas : studentai) {
+        if (studentas.galutinis < 5) {
+            bufferVargsiukai << left << setw(15) << studentas.vardas << setw(20) << studentas.pavarde
+                             << fixed << setprecision(2) << studentas.galutinis << endl;
+        } else {
+            bufferKieti << left << setw(15) << studentas.vardas << setw(20) << studentas.pavarde
+                        << fixed << setprecision(2) << studentas.galutinis << endl;
+        }
+    }
+
+    auto end = high_resolution_clock::now();
+    auto duration = duration_cast<milliseconds>(end - start);
+    cout << "Studentu suskirstymas uztruko: " << duration.count() << " ms" << endl;
+
+    auto start2 = high_resolution_clock::now();
+
+    outVargsiukai << bufferVargsiukai.str();
+    outKieti << bufferKieti.str();
+
+    auto end2 = high_resolution_clock::now();
+    auto duration2 = duration_cast<milliseconds>(end2 - start2);
+    cout << "Studentu irasymas i failus uztruko: " << duration2.count() << " ms" << endl;
+
+    outVargsiukai.close();
+    outKieti.close();
+}
+
 float Vidurkis(vector<int> pazymiai);
 float Mediana(vector<int> pazymiai);
 void GeneruotiPazymius(int pazymiuSk, vector<int>& pazymiai);
@@ -148,7 +188,7 @@ void GeneruotiPazymius(int pazymiuSk, vector<int>& pazymiai);
 //template <typename Container>
 //void RikiuotiStudentus(Container& studentai, int pasirinkimas);
 void FailuGeneravimas(int studentuSk, int pazymiuSk);
-void StudentuAtskirimas();
+//void StudentuAtskirimas();
 void Test1();
 void Test2();
 void Test3();
