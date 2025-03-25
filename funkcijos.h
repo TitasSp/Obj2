@@ -153,11 +153,9 @@ void StudentuAtskirimas(Container& studentai) {
 
     for (const auto& studentas : studentai) {
         if (studentas.galutinis < 5) {
-            bufferVargsiukai << left << setw(15) << studentas.vardas << setw(20) << studentas.pavarde
-                             << fixed << setprecision(2) << studentas.galutinis << endl;
+            bufferVargsiukai << left << setw(15) << studentas.vardas << setw(20) << studentas.pavarde<< fixed << setprecision(2) << studentas.galutinis << endl;
         } else {
-            bufferKieti << left << setw(15) << studentas.vardas << setw(20) << studentas.pavarde
-                        << fixed << setprecision(2) << studentas.galutinis << endl;
+            bufferKieti << left << setw(15) << studentas.vardas << setw(20) << studentas.pavarde<< fixed << setprecision(2) << studentas.galutinis << endl;
         }
     }
 
