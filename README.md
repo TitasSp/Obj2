@@ -1,8 +1,14 @@
 # ObjPirmaUzduotis
+
 Projekto naudojimo instrukcija:
+Atidarykite projekto aplankala ir paleiskite program.exe
+
+Arba 
+
 1) Atidarykite terminala projekto direktorijoje (cd C:\"projekto direktorija")
 2) Sukurkite build direktorija 
 (mkdir build
+
 cd build)
 3) Paleiskite CMake, norint sugeneruoti build failus (cmake ..)
 4) Kompiliuokite projekta (cmake --build .)
