@@ -1,4 +1,13 @@
 # ObjPirmaUzduotis
+Projekto naudojimo instrukcija:
+1) Atidarykite terminala projekto direktorijoje (cd C:\"projekto direktorija")
+2) Sukurkite build direktorija 
+(mkdir build
+cd build)
+3) Paleiskite CMake, norint sugeneruoti build failus (cmake ..)
+4) Kompiliuokite projekta (cmake --build .)
+5) Paleiskite faila (.\ObjCppProject.exe)
+
 Testavimo sistemos parametrai:
 Processor	12th Gen Intel(R) Core(TM) i5-1235U, 1300 Mhz, 10 Core(s), 12 Logical Processor(s)
 
