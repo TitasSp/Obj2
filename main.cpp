@@ -2,13 +2,16 @@
 #include "funkcijos.h"
 
 int main() {
+    
 
     try {
+        vector<Studentas> studentai; 
+        //deque<Studentas> studentai2; 
+        //list<Studentas> studentai3;
+        
         auto start = std::chrono::high_resolution_clock::now(); // Start timer
         std::chrono::duration<double> inputWaitDuration(0); // input laukimo laikas
-        vector<Studentas> studentai;
-        //deque<Studentas> studentai;
-        //list<Studentas> studentai;
+        
         srand(time(0)); // inicializuoja random seeda
         int vid; // ar naudoti vidurki ar mediana
         int iFaila; // ar isvesti i faila

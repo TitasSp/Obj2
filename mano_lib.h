@@ -14,7 +14,7 @@
 #include <numeric>
 #include <limits>
 #include <exception>
-
+#include <variant>
 
 using std::deque;
 using std::list;
