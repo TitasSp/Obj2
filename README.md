@@ -13,14 +13,21 @@ cd build)
 3) Paleiskite CMake, norint sugeneruoti build failus (cmake ..)
 4) Kompiliuokite projekta (cmake --build .)
 5) Paleiskite faila (.\ObjCppProject.exe)
-
+---------------------------------------------------------------------------------------------
 Testavimo sistemos parametrai:
 Processor	12th Gen Intel(R) Core(TM) i5-1235U, 1300 Mhz, 10 Core(s), 12 Logical Processor(s)
 
 Installed Physical Memory (RAM)	16.0 GB
 
 SSD	512 GB NVMe Micron_2400_MTFDKBA512QFM
+---------------------------------------------------------------------------------------------
+Testų rezultatų apibendrinimas:
+Testai buvo atlikti naudojant skirtingus konteinerius (deque, list, vector) ir skirtingus studentų failų dydžius (nuo 1000 iki 10 000 000 įrašų). Rezultatai parodo kiekvieno konteinerio našumą atliekant šias operacijas: nuskaitymą, rikiavimą, suskirstymą ir įrašymą į failus.
 
+Maži failai (iki 100 000 įrašų): Visi konteineriai veikia efektyviai, tačiau list ir vector turi nedidelį pranašumą dėl greitesnio nuskaitymo ir rikiavimo.
+Vidutiniai failai (iki 1 000 000 įrašų): deque ir vector yra panašūs našumo atžvilgiu, tačiau list išlieka konkurencingas dėl greito rikiavimo.
+Dideli failai (10 000 000 įrašų): list yra efektyviausias pasirinkimas, nes apdorojimo laikas yra trumpesnis nei deque ar vector.
+---------------------------------------------------------------------------------------------
 Testai:
 deque:
 Test 1

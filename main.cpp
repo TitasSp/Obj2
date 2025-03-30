@@ -5,9 +5,9 @@ int main() {
     
 
     try {
-        vector<Studentas> studentai; 
-        //deque<Studentas> studentai2; 
-        //list<Studentas> studentai3;
+        //vector<Studentas> studentai; 
+        //deque<Studentas> studentai; 
+        list<Studentas> studentai;
         
         auto start = std::chrono::high_resolution_clock::now(); // Start timer
         std::chrono::duration<double> inputWaitDuration(0); // input laukimo laikas
@@ -253,18 +253,19 @@ int main() {
         RikiuotiStudentus(studentai, rikiavimoPasirinkimas);
 
         // irasoma dalimis, kad neuzimtu per daug atminties
-        /*const size_t chunkSize = 100000; // daliu dydis
+        const size_t chunkSize = 100000; // daliu dydis
         size_t totalStudents = studentai.size();
+        auto it = studentai.begin();
         for (size_t i = 0; i < totalStudents; i += chunkSize) {
             size_t end = min(i + chunkSize, totalStudents);
-            for (size_t j = i; j < end; ++j) {
+            for (size_t j = i; j < end; ++j, ++it) {
                 if (iFaila) {
-                    out << left << setw(15) << studentai[j].vardas << setw(20) << studentai[j].pavarde << fixed << setprecision(2) << studentai[j].galutinis << endl;
+                    out << left << setw(15) << it->vardas << setw(20) << it->pavarde << fixed << setprecision(2) << it->galutinis << endl;
                 } else {
-                    cout << left << setw(15) << studentai[j].vardas << setw(20) << studentai[j].pavarde << fixed << setprecision(2) << studentai[j].galutinis << endl;
+                    cout << left << setw(15) << it->vardas << setw(20) << it->pavarde << fixed << setprecision(2) << it->galutinis << endl;
                 }
             }
-        }*/
+        }
 
         if (iFaila) {
             bool suskirstyti;
