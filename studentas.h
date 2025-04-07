@@ -1,18 +1,43 @@
+#pragma once
 #include "mano_lib.h"
+#include "funkcijos.h"
+#include <string>
+#include <vector>
 
 class Studentas {
-// realizacija
 private:
-  std::string vardas_;
-  std::string pavarde_;
-  double egzaminas_;
-  std::vector<double> nd_;
-// interfeisas
+    std::string vardas;
+    std::string pavarde;
+    std::vector<int> pazymiai;
+    int egzaminas;
+
 public:
-  Studentas() : egzaminas_(0) { }  // default konstruktorius
-  Studentas(std::istream& is);
-  inline std::string vardas() const { return vardas_; }    // get'eriai, inline
-  inline std::string pavarde() const { return pavarde_; }  // get'eriai, inline
-  //double galBalas(double (*) (vector<double>) = mediana) const;  // get'eriai
-  std::istream& readStudent(std::istream&);  // set'eriai
+    // Constructors
+    Studentas() : vardas(""), pavarde(""), egzaminas(0) {}
+    Studentas(const std::string& vardas, const std::string& pavarde, const std::vector<int>& pazymiai, int egzaminas)
+        : vardas(vardas), pavarde(pavarde), pazymiai(pazymiai), egzaminas(egzaminas) {}
+
+    // Getters
+    std::string getVardas() const { return vardas; }
+    std::string getPavarde() const { return pavarde; }
+    std::vector<int> getPazymiai() const { return pazymiai; }
+    int getEgzaminas() const { return egzaminas; }
+
+    // Setters
+    void setVardas(const std::string& vardas) { this->vardas = vardas; }
+    void setPavarde(const std::string& pavarde) { this->pavarde = pavarde; }
+    void setPazymiai(const std::vector<int>& pazymiai) { this->pazymiai = pazymiai; }
+    void setEgzaminas(int egzaminas) { this->egzaminas = egzaminas; }
+
+    // Utility methods
+    double calculateGalutinis() const {
+        double vidurkis = 0.0;
+        if (!pazymiai.empty()) {
+            for (int paz : pazymiai) {
+                vidurkis += paz;
+            }
+            vidurkis /= pazymiai.size();
+        }
+        return 0.4 * vidurkis + 0.6 * egzaminas;
+    }
 };
