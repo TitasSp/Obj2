@@ -1,71 +1,105 @@
 #include "mano_lib.h"
 
-struct Studentas {
-    string vardas;
-    string pavarde;
-    vector<int> pazymiai;
-    int egzaminas;
-    float galutinis;
-};
-
-
-template <typename Container>
-void GeneruotiStudentus(int studentuSk, Container& studentai) {
-    if (studentuSk <= 0) {
-        throw invalid_argument("Studentu skaicius turi buti teigiamas");
-    }
-    vector<string> vardai = {"Jonas", "Petras", "Antanas", "Tomas", "Marius"};
-    vector<string> pavardes = {"Jonaitis", "Petraitis", "Antanaitis", "Tomaitis", "Maraitis"};
-
-    for (int i = 0; i < studentuSk; i++) {
-        Studentas studentas;
-        studentas.vardas = vardai[rand() % vardai.size()];
-        studentas.pavarde = pavardes[rand() % pavardes.size()];
-        GeneruotiPazymius(rand() % 10 + 1, studentas.pazymiai);
-        studentas.egzaminas = rand() % 10 + 1;
-        studentai.push_back(studentas);
-    }
-}
-template <typename Container>
-void NuskaitytiStudentusIsFailo(string failas, Container& studentai) {
-    auto start = high_resolution_clock::now();
-   
-    ifstream in(failas);
-    if (!in.is_open()) {
-        throw runtime_error("Nepavyko atidaryti failo");
-    }
-
-    string line;
-    getline(in, line); // Skip the header line
-
-    if constexpr (is_same<Container, vector<Studentas>>::value) {
-        studentai.reserve(10000000); // Reserve memory for vector or deque
-    }
-
-    while (getline(in, line)) {
-        istringstream iss(line);
-        Studentas studentas;
-        iss >> studentas.vardas >> studentas.pavarde;
-
-        int pazymys;
-        studentas.pazymiai.clear();
-        while (iss >> pazymys) {
-            studentas.pazymiai.push_back(pazymys);
+class Studentas {
+    private:
+        string vardas;
+        string pavarde;
+        vector<int> pazymiai;
+        int egzaminas;
+        float galutinis;
+    
+    public:
+        // Constructors
+        Studentas() : egzaminas(0), galutinis(0.0f) {}
+        Studentas(const string& vardas, const string& pavarde, const vector<int>& pazymiai, int egzaminas)
+            : vardas(vardas), pavarde(pavarde), pazymiai(pazymiai), egzaminas(egzaminas), galutinis(0.0f) {}
+    
+        // Getters
+        string getVardas() const { return vardas; }
+        string getPavarde() const { return pavarde; }
+        vector<int> getPazymiai() const { return pazymiai; }
+        int getEgzaminas() const { return egzaminas; }
+        float getGalutinis() const { return galutinis; }
+    
+        // Setters
+        void setVardas(const string& v) { vardas = v; }
+        void setPavarde(const string& p) { pavarde = p; }
+        void setPazymiai(const vector<int>& p) { pazymiai = p; }
+        void setEgzaminas(int e) { egzaminas = e; }
+        void setGalutinis(float g) { galutinis = g; }
+    
+        void addPazymys(int pazymys) {
+            pazymiai.push_back(pazymys);
         }
+    };
 
-        if (!studentas.pazymiai.empty()) {
-            studentas.egzaminas = studentas.pazymiai.back();
-            studentas.pazymiai.pop_back();
+
+    template <typename Container>
+    void GeneruotiStudentus(int studentuSk, Container& studentai) {
+        if (studentuSk <= 0) {
+            throw invalid_argument("Studentu skaicius turi buti teigiamas");
         }
-
-        studentai.push_back(studentas); // Avoid move for list
+        vector<string> vardai = {"Jonas", "Petras", "Antanas", "Tomas", "Marius"};
+        vector<string> pavardes = {"Jonaitis", "Petraitis", "Antanaitis", "Tomaitis", "Maraitis"};
+    
+        for (int i = 0; i < studentuSk; i++) {
+            Studentas studentas;
+            studentas.setVardas(vardai[rand() % vardai.size()]);
+            studentas.setPavarde(pavardes[rand() % pavardes.size()]);
+            
+            vector<int> pazymiai;
+            GeneruotiPazymius(rand() % 10 + 1, pazymiai);
+            studentas.setPazymiai(pazymiai);
+            
+            studentas.setEgzaminas(rand() % 10 + 1);
+            studentai.push_back(studentas);
+        }
+    }
+    template <typename Container>
+    void NuskaitytiStudentusIsFailo(string failas, Container& studentai) {
+        auto start = high_resolution_clock::now();
+    
+        ifstream in(failas);
+        if (!in.is_open()) {
+            throw runtime_error("Nepavyko atidaryti failo");
+        }
+    
+        string line;
+        getline(in, line); // Skip the header line
+    
+        if constexpr (is_same<Container, vector<Studentas>>::value) {
+            studentai.reserve(10000000); // Reserve memory for vector or deque
+        }
+    
+        while (getline(in, line)) {
+            istringstream iss(line);
+            Studentas studentas;
+            string vardas, pavarde;
+            iss >> vardas >> pavarde;
+            studentas.setVardas(vardas);
+            studentas.setPavarde(pavarde);
+    
+            vector<int> pazymiai;
+            int pazymys;
+            while (iss >> pazymys) {
+                pazymiai.push_back(pazymys);
+            }
+    
+            if (!pazymiai.empty()) {
+                studentas.setEgzaminas(pazymiai.back());
+                pazymiai.pop_back();
+            }
+            studentas.setPazymiai(pazymiai);
+    
+            studentai.push_back(studentas);
+        }
+    
+        in.close();
+        auto end = high_resolution_clock::now();
+        auto duration = duration_cast<milliseconds>(end - start);
+        cout << "Studentu nuskaitymas is failo uztruko: " << duration.count() << " ms" << endl;
     }
 
-    in.close();
-    auto end = high_resolution_clock::now();
-    auto duration = duration_cast<milliseconds>(end - start);
-    cout << "Studentu nuskaitymas is failo uztruko: " << duration.count() << " ms" << endl;
-}
 template <typename Container>
 void RikiuotiStudentus(Container& studentai, int pasirinkimas) {
     auto start = high_resolution_clock::now();
@@ -77,44 +111,44 @@ void RikiuotiStudentus(Container& studentai, int pasirinkimas) {
         case 1:
             if constexpr (is_same<Container, list<Studentas>>::value) {
                 studentai.sort([](const Studentas& a, const Studentas& b) {
-                    return a.vardas < b.vardas;
+                    return a.getVardas() < b.getVardas();
                 });
             } else {
                 sort(studentai.begin(), studentai.end(), [](const Studentas& a, const Studentas& b) {
-                    return a.vardas < b.vardas;
+                    return a.getVardas() < b.getVardas();
                 });
             }
             break;
         case 2:
             if constexpr (is_same<Container, list<Studentas>>::value) {
                 studentai.sort([](const Studentas& a, const Studentas& b) {
-                    return a.pavarde < b.pavarde;
+                    return a.getPavarde() < b.getPavarde();
                 });
             } else {
                 sort(studentai.begin(), studentai.end(), [](const Studentas& a, const Studentas& b) {
-                    return a.pavarde < b.pavarde;
+                    return a.getPavarde() < b.getPavarde();
                 });
             }
             break;
         case 3:
             if constexpr (is_same<Container, list<Studentas>>::value) {
                 studentai.sort([](const Studentas& a, const Studentas& b) {
-                    return a.galutinis < b.galutinis;
+                    return a.getGalutinis() < b.getGalutinis();
                 });
             } else {
                 sort(studentai.begin(), studentai.end(), [](const Studentas& a, const Studentas& b) {
-                    return a.galutinis < b.galutinis;
+                    return a.getGalutinis() < b.getGalutinis();
                 });
             }
             break;
         case 4:
             if constexpr (is_same<Container, list<Studentas>>::value) {
                 studentai.sort([](const Studentas& a, const Studentas& b) {
-                    return a.galutinis > b.galutinis;
+                    return a.getGalutinis() > b.getGalutinis();
                 });
             } else {
                 sort(studentai.begin(), studentai.end(), [](const Studentas& a, const Studentas& b) {
-                    return a.galutinis > b.galutinis;
+                    return a.getGalutinis() > b.getGalutinis();
                 });
             }
             break;
@@ -130,10 +164,10 @@ void RikiuotiStudentus(Container& studentai, int pasirinkimas) {
 template <typename Container>
 void SkaiciuotiGalutini(Container& studentai, bool vid) {
     for (auto& studentas : studentai) {
-        if(vid){
-            studentas.galutinis = 0.4 * Vidurkis(studentas.pazymiai) + 0.6 * studentas.egzaminas;
+        if (vid) {
+            studentas.setGalutinis(0.4 * Vidurkis(studentas.getPazymiai()) + 0.6 * studentas.getEgzaminas());
         } else {
-            studentas.galutinis = 0.4 * Mediana(studentas.pazymiai) + 0.6 * studentas.egzaminas;
+            studentas.setGalutinis(0.4 * Mediana(studentas.getPazymiai()) + 0.6 * studentas.getEgzaminas());
         }
     }
 }
@@ -152,10 +186,12 @@ void StudentuAtskirimas(Container& studentai) {
     auto start = high_resolution_clock::now();
 
     for (const auto& studentas : studentai) {
-        if (studentas.galutinis < 5) {
-            bufferVargsiukai << left << setw(15) << studentas.vardas << setw(20) << studentas.pavarde<< fixed << setprecision(2) << studentas.galutinis << endl;
+        if (studentas.getGalutinis() < 5) {
+            bufferVargsiukai << left << setw(15) << studentas.getVardas() << setw(20) << studentas.getPavarde()
+                             << fixed << setprecision(2) << studentas.getGalutinis() << endl;
         } else {
-            bufferKieti << left << setw(15) << studentas.vardas << setw(20) << studentas.pavarde<< fixed << setprecision(2) << studentas.galutinis << endl;
+            bufferKieti << left << setw(15) << studentas.getVardas() << setw(20) << studentas.getPavarde()
+                        << fixed << setprecision(2) << studentas.getGalutinis() << endl;
         }
     }
 
@@ -182,7 +218,7 @@ void SkaidytiStudentus3Strategija(Container& studentai) {
     Container vargsiukai;
     // Naudojame std::partition, kad "vargšiukai" būtų konteinerio gale
     auto it = std::partition(studentai.begin(), studentai.end(), [](const Studentas& studentas) {
-        return studentas.galutinis >= 5; // "Kietiakai" lieka priekyje
+        return studentas.getGalutinis() >= 5; // Use getter
     });
 
     // Kopijuojame "vargšiukus" į naują konteinerį
@@ -198,8 +234,8 @@ void SkaidytiStudentus3Strategija(Container& studentai) {
     }
     outVargsiukai << left << setw(15) << "Vardas" << setw(20) << "Pavarde" << "Galutinis" << endl;
     for (const auto& studentas : vargsiukai) {
-        outVargsiukai << left << setw(15) << studentas.vardas << setw(20) << studentas.pavarde
-                      << fixed << setprecision(2) << studentas.galutinis << endl;
+        outVargsiukai << left << setw(15) << studentas.getVardas() << setw(20) << studentas.getPavarde()
+                      << fixed << setprecision(2) << studentas.getGalutinis() << endl;
     }
     outVargsiukai.close();
 
@@ -210,8 +246,8 @@ void SkaidytiStudentus3Strategija(Container& studentai) {
     }
     outKietiakai << left << setw(15) << "Vardas" << setw(20) << "Pavarde" << "Galutinis" << endl;
     for (const auto& studentas : studentai) {
-        outKietiakai << left << setw(15) << studentas.vardas << setw(20) << studentas.pavarde
-                     << fixed << setprecision(2) << studentas.galutinis << endl;
+        outKietiakai << left << setw(15) << studentas.getVardas() << setw(20) << studentas.getPavarde()
+                     << fixed << setprecision(2) << studentas.getGalutinis() << endl;
     }
     outKietiakai.close();
 

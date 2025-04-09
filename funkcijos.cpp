@@ -171,7 +171,7 @@ void Test2() {
         // loopina per kiekviena studenta studentu vektoriuje ir skaiciuoja galutini pazymi 
         for (auto& studentas : studentai) {
            
-                studentas.galutinis = 0.4 * Vidurkis(studentas.pazymiai) + 0.6 * studentas.egzaminas;
+                studentas.setGalutinis(0.4 * Vidurkis(studentas.getPazymiai()) + 0.6 * studentas.getEgzaminas());
         }
 
         RikiuotiStudentus(studentai, 0);
@@ -183,7 +183,7 @@ void Test2() {
             size_t end = min(i + chunkSize, totalStudents);
             for (size_t j = i; j < end; ++j) {
           
-                out << left << setw(15) << studentai[j].vardas << setw(20) << studentai[j].pavarde << fixed << setprecision(2) << studentai[j].galutinis << endl;
+                out << left << setw(15) << studentai[j].getVardas() << setw(20) << studentai[j].getPavarde() << fixed << setprecision(2) << studentai[j].getGalutinis() << endl;
                
             }
         }
@@ -217,7 +217,7 @@ void Test3() {
         // loopina per kiekviena studenta studentu vektoriuje ir skaiciuoja galutini pazymi 
         for (auto& studentas : studentai) {
            
-                studentas.galutinis = 0.4 * Vidurkis(studentas.pazymiai) + 0.6 * studentas.egzaminas;
+                studentas.setGalutinis ( 0.4 * Vidurkis(studentas.getPazymiai()) + 0.6 * studentas.getEgzaminas());
         }
 
         RikiuotiStudentus(studentai, 3);
@@ -230,7 +230,7 @@ void Test3() {
         for (size_t i = 0; i < totalStudents; i += chunkSize) {
             size_t end = min(i + chunkSize, totalStudents);
             for (size_t j = i; j < end; ++j, ++it) { // Increment the iterator directly
-                out << left << setw(15) << it->vardas << setw(20) << it->pavarde << fixed << setprecision(2) << it->galutinis << endl;
+                out << left << setw(15) << it->getVardas() << setw(20) << it->getPavarde() << fixed << setprecision(2) << it->getGalutinis() << endl;
             }
         }
         //StudentuAtskirimas(studentai);

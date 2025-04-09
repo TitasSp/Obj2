@@ -50,9 +50,13 @@ int main() {
                 Studentas studentas;
                 auto inputStart = std::chrono::high_resolution_clock::now(); // pratina input laukimo laika
                 cout << "Iveskite studento varda: ";
-                cin >> studentas.vardas;
+                string vardas;
+                cin >> vardas;
+                studentas.setVardas(vardas);
                 cout << "Iveskite studento pavarde: ";
-                cin >> studentas.pavarde;
+                string pavarde;
+                cin >> pavarde;
+                studentas.setPavarde(pavarde);
                 inputWaitDuration += std::chrono::high_resolution_clock::now() - inputStart; // prideda input laukimo laika
 
                 if (pasirinkimas == 1) {
@@ -72,7 +76,7 @@ int main() {
                         }
                         if (pazymys == -1) break;
 
-                        studentas.pazymiai.push_back(pazymys);
+                        studentas.addPazymys(pazymys);
                     }
                 } else {
                     while (true) {
@@ -85,7 +89,7 @@ int main() {
                             if (cin.fail() || pazymiuSk <= 0) {
                                 throw invalid_argument("Neteisinga ivestis");
                             }
-                            GeneruotiPazymius(pazymiuSk, studentas.pazymiai);
+                            GeneruotiPazymius(pazymiuSk, studentas.getPazymiai());
                             break;
                         } catch (const invalid_argument& e) {
                             cerr << "Ivyko klaida: " << e.what() << endl;
@@ -100,10 +104,12 @@ int main() {
                     try {
                         auto inputStart = std::chrono::high_resolution_clock::now(); // pradeda input laukimo laika
                         cout << "Iveskite studento egzamino pazymi: ";
-                        cin >> studentas.egzaminas;
+                        int egzaminas;
+                        cin >> egzaminas;
+                        studentas.setEgzaminas(egzaminas);
                         inputWaitDuration += std::chrono::high_resolution_clock::now() - inputStart; // pridea input laukimo laika
 
-                        if (cin.fail() || studentas.egzaminas < 0 || studentas.egzaminas > 10) {
+                        if (cin.fail() || studentas.getEgzaminas() < 0 || studentas.getEgzaminas() > 10) {
                             throw invalid_argument("Neteisinga ivestis");
                         }
                         studentai.push_back(studentas);
@@ -260,9 +266,9 @@ int main() {
             size_t end = min(i + chunkSize, totalStudents);
             for (size_t j = i; j < end; ++j, ++it) {
                 if (iFaila) {
-                    out << left << setw(15) << it->vardas << setw(20) << it->pavarde << fixed << setprecision(2) << it->galutinis << endl;
+                    out << left << setw(15) << it->getVardas() << setw(20) << it->getPavarde() << fixed << setprecision(2) << it->getGalutinis() << endl;
                 } else {
-                    cout << left << setw(15) << it->vardas << setw(20) << it->pavarde << fixed << setprecision(2) << it->galutinis << endl;
+                    cout << left << setw(15) << it->getVardas() << setw(20) << it->getPavarde() << fixed << setprecision(2) << it->getGalutinis() << endl;
                 }
             }
         }
