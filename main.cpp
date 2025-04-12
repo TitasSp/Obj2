@@ -5,9 +5,9 @@ int main() {
     
 
     try {
-        //vector<Studentas> studentai; 
+        vector<Studentas> studentai; 
         //deque<Studentas> studentai; 
-        list<Studentas> studentai;
+        //list<Studentas> studentai;
         
         auto start = std::chrono::high_resolution_clock::now(); // Start timer
         std::chrono::duration<double> inputWaitDuration(0); // input laukimo laikas
