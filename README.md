@@ -13,16 +13,19 @@ cd build)
 3) Paleiskite CMake, norint sugeneruoti build failus (cmake ..)
 4) Kompiliuokite projekta (cmake --build .)
 5) Paleiskite faila (.\ObjCppProject.exe)
+
 ---------------------------------------------------------------------------------------------
 Testavimo sistemos parametrai:
+---------------------------------------------------------------------------------------------
 Processor	12th Gen Intel(R) Core(TM) i5-1235U, 1300 Mhz, 10 Core(s), 12 Logical Processor(s)
 
 Installed Physical Memory (RAM)	16.0 GB
 
 SSD	512 GB NVMe Micron_2400_MTFDKBA512QFM
+
 ---------------------------------------------------------------------------------------------
 Testai su klasemis (naudojant vector)
-
+---------------------------------------------------------------------------------------------
 studentai100000.txt
 Studentu nuskaitymas is failo uztruko: 3689 ms
 Studentu rikiavimas uztruko: 158 ms
@@ -58,9 +61,10 @@ Studentu nuskaitymas is failo uztruko: 19429 ms
 Studentu rikiavimas uztruko: 820 ms
 Studentu skaidymas ir irasymas i failus uztruko: 15109 ms
 Is viso uztruko: 40092 ms
+
 ---------------------------------------------------------------------------------------------
 Testai su strukturomis (naudojant vector)
-
+---------------------------------------------------------------------------------------------
 studentai100000.txt
 Studentu nuskaitymas is failo uztruko: 3392 ms
 Studentu rikiavimas uztruko: 159 ms
