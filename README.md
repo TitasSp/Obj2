@@ -101,3 +101,45 @@ Studentu rikiavimas uztruko: 938 ms
 Studentu skaidymas ir irasymas i failus uztruko: 8911 ms
 Is viso uztruko: 38931 ms
 
+Flag testai:
+---------------------------------------------------------------------------------------------
+O1 flag:
+---------------------------------------------------------------------------------------------
+studentai100000.txt
+Studentu nuskaitymas is failo uztruko: 261 ms
+Studentu rikiavimas uztruko: 31 ms
+Studentu skaidymas ir irasymas i failus uztruko: 1184 ms
+Is viso uztruko: 3311 ms
+
+studentai1000000.txt
+Studentu nuskaitymas is failo uztruko: 1393 ms
+Studentu rikiavimas uztruko: 158 ms
+Studentu skaidymas ir irasymas i failus uztruko: 9316 ms
+Is viso uztruko: 13442 ms
+
+studentai100000.txt
+Studentu nuskaitymas is failo uztruko: 319 ms
+Studentu rikiavimas uztruko: 22 ms
+Studentu skaidymas ir irasymas i failus uztruko: 1481 ms
+Is viso uztruko: 2275 ms
+
+studentai1000000.txt
+Studentu nuskaitymas is failo uztruko: 1406 ms
+Studentu rikiavimas uztruko: 180 ms
+Studentu skaidymas ir irasymas i failus uztruko: 9146 ms
+Is viso uztruko: 13562 ms
+
+studentai100000.txt
+Studentu nuskaitymas is failo uztruko: 238 ms
+Studentu rikiavimas uztruko: 22 ms
+Studentu skaidymas ir irasymas i failus uztruko: 1150 ms
+Is viso uztruko: 1909 ms
+
+studentai1000000.txt
+Studentu nuskaitymas is failo uztruko: 1671 ms
+Studentu rikiavimas uztruko: 208 ms
+Studentu skaidymas ir irasymas i failus uztruko: 9555 ms
+Is viso uztruko: 15102 ms
+
+O2 flag:
+---------------------------------------------------------------------------------------------

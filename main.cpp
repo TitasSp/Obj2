@@ -9,6 +9,10 @@ int main() {
         //deque<Studentas> studentai; 
         //list<Studentas> studentai;
         
+        for(int i = 0; i < 3; i++){
+            Test3(); 
+        }
+        
 
         auto start = std::chrono::high_resolution_clock::now(); // Start timer
         std::chrono::duration<double> inputWaitDuration(0); // input laukimo laikas
