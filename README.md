@@ -143,3 +143,77 @@ Is viso uztruko: 15102 ms
 
 O2 flag:
 ---------------------------------------------------------------------------------------------
+studentai100000.txt
+Studentu nuskaitymas is failo uztruko: 278 ms
+Studentu rikiavimas uztruko: 31 ms
+Studentu skaidymas ir irasymas i failus uztruko: 1210 ms
+Is viso uztruko: 3395 ms
+
+studentai1000000.txt
+Studentu nuskaitymas is failo uztruko: 1385 ms
+Studentu rikiavimas uztruko: 217 ms
+Studentu skaidymas ir irasymas i failus uztruko: 9109 ms
+Is viso uztruko: 13341 ms
+
+studentai100000.txt
+Studentu nuskaitymas is failo uztruko: 239 ms
+Studentu rikiavimas uztruko: 31 ms
+Studentu skaidymas ir irasymas i failus uztruko: 1452 ms
+Is viso uztruko: 2166 ms
+
+studentai1000000.txt
+Studentu nuskaitymas is failo uztruko: 1384 ms
+Studentu rikiavimas uztruko: 202 ms
+Studentu skaidymas ir irasymas i failus uztruko: 8809 ms
+Is viso uztruko: 12908 ms
+
+studentai100000.txt
+Studentu nuskaitymas is failo uztruko: 247 ms
+Studentu rikiavimas uztruko: 33 ms
+Studentu skaidymas ir irasymas i failus uztruko: 1376 ms
+Is viso uztruko: 2131 ms
+
+studentai1000000.txt
+Studentu nuskaitymas is failo uztruko: 1365 ms
+Studentu rikiavimas uztruko: 198 ms
+Studentu skaidymas ir irasymas i failus uztruko: 8973 ms
+Is viso uztruko: 13254 ms
+
+O3 flag:
+---------------------------------------------------------------------------------------------
+studentai100000.txt
+Studentu nuskaitymas is failo uztruko: 240 ms
+Studentu rikiavimas uztruko: 24 ms
+Studentu skaidymas ir irasymas i failus uztruko: 1286 ms
+Is viso uztruko: 3045 ms
+
+studentai1000000.txt
+Studentu nuskaitymas is failo uztruko: 1463 ms
+Studentu rikiavimas uztruko: 293 ms
+Studentu skaidymas ir irasymas i failus uztruko: 9018 ms
+Is viso uztruko: 13703 ms
+
+studentai100000.txt
+Studentu nuskaitymas is failo uztruko: 251 ms
+Studentu rikiavimas uztruko: 24 ms
+Studentu skaidymas ir irasymas i failus uztruko: 1298 ms
+Is viso uztruko: 2056 ms
+
+studentai1000000.txt
+Studentu nuskaitymas is failo uztruko: 1362 ms
+Studentu rikiavimas uztruko: 179 ms
+Studentu skaidymas ir irasymas i failus uztruko: 8984 ms
+Is viso uztruko: 13076 ms
+
+studentai100000.txt
+Studentu nuskaitymas is failo uztruko: 249 ms
+Studentu rikiavimas uztruko: 23 ms
+Studentu skaidymas ir irasymas i failus uztruko: 1282 ms
+Is viso uztruko: 2034 ms
+
+studentai1000000.txt
+Studentu nuskaitymas is failo uztruko: 1403 ms
+Studentu rikiavimas uztruko: 179 ms
+Studentu skaidymas ir irasymas i failus uztruko: 8881 ms
+Is viso uztruko: 13072 ms
+
