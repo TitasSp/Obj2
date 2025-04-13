@@ -1,5 +1,9 @@
 #include "mano_lib.h"
 
+void GeneruotiPazymius(int pazymiuSk, vector<int>& pazymiai);
+float Vidurkis(vector<int> pazymiai);
+float Mediana(vector<int> pazymiai);
+
 class Studentas {
     private:
         string vardas;
@@ -18,6 +22,7 @@ class Studentas {
         string getVardas() const { return vardas; }
         string getPavarde() const { return pavarde; }
         vector<int> getPazymiai() const { return pazymiai; }
+        vector<int>& getPazymiaiRef() { return pazymiai; }
         int getEgzaminas() const { return egzaminas; }
         float getGalutinis() const { return galutinis; }
     
@@ -256,9 +261,9 @@ void SkaidytiStudentus3Strategija(Container& studentai) {
     cout << "Studentu skaidymas ir irasymas i failus uztruko: " << duration.count() << " ms" << endl;
 }
 
-float Vidurkis(vector<int> pazymiai);
-float Mediana(vector<int> pazymiai);
-void GeneruotiPazymius(int pazymiuSk, vector<int>& pazymiai);
+//float Vidurkis(vector<int> pazymiai);
+//float Mediana(vector<int> pazymiai);
+//void GeneruotiPazymius(int pazymiuSk, vector<int>& pazymiai);
 //template <typename Container>
 //void GeneruotiStudentus(int studentuSk, Container& studentai);
 //template <typename Container>
