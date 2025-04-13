@@ -18,6 +18,11 @@ class Studentas {
         Studentas(const string& vardas, const string& pavarde, const vector<int>& pazymiai, int egzaminas)
             : vardas(vardas), pavarde(pavarde), pazymiai(pazymiai), egzaminas(egzaminas), galutinis(0.0f) {}
     
+
+        // Destructor
+        ~Studentas() {
+            // cleaner kodas
+        }
         // Getters
         string getVardas() const { return vardas; }
         string getPavarde() const { return pavarde; }
