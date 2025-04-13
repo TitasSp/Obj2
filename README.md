@@ -179,7 +179,7 @@ Studentu rikiavimas uztruko: 198 ms
 Studentu skaidymas ir irasymas i failus uztruko: 8973 ms
 Is viso uztruko: 13254 ms
 
-O3 flag:
+O3 flag, .exe failo dydis: 318 KB
 ---------------------------------------------------------------------------------------------
 studentai100000.txt
 Studentu nuskaitymas is failo uztruko: 240 ms
