@@ -141,7 +141,7 @@ Studentu rikiavimas uztruko: 208 ms
 Studentu skaidymas ir irasymas i failus uztruko: 9555 ms
 Is viso uztruko: 15102 ms
 
-O2 flag:
+O2 flag, .exe failo dydis: 273 KB
 ---------------------------------------------------------------------------------------------
 studentai100000.txt
 Studentu nuskaitymas is failo uztruko: 278 ms
