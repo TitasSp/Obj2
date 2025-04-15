@@ -293,8 +293,9 @@ int main() {
         }
         auto end = std::chrono::high_resolution_clock::now(); // baigia laiko skaiciavima
         std::chrono::duration<double> duration = end - start - inputWaitDuration; // atema input laukimo laika
-        cout << "Programos vykdymo trukme (be input laukimo): " << duration.count() << " sekundes" << endl;
-
+       // cout << "Programos vykdymo trukme (be input laukimo): " << duration.count() << " sekundes" << endl;
+        studentai.clear(); // Explicitly clear the vector to destroy Studentas objects; // sunaikina studentu objekta
+        cout << "isvalytas studentas obj" << endl;
     // pagauna klaida
     } catch (const exception& e) {
         cerr << "Ivyko klaida: " << e.what() << endl;
