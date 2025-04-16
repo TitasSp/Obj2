@@ -6,13 +6,27 @@ int main() {
 
     try {
         vector<Studentas> studentai; 
+
+        int konteinerioTipas; 
+        cout << "Pasirinkite konteinerio tipa(1 - deque, 2 - list, 3 - vector):\n";
+        cin >> konteinerioTipas;
+        if (konteinerioTipas == 1) {
+            cout << "Naudojamas deque" << endl;
+            deque<Studentas> studentai; 
+        } else if (konteinerioTipas == 2) {
+            cout << "Naudojama list" << endl;
+            list<Studentas> studentai;
+        } else {
+            cout << "Naudojamas vector" << endl;
+            vector<Studentas> studentai; 
+        }
         //deque<Studentas> studentai; 
         //list<Studentas> studentai;
         
-        for(int i = 0; i < 3; i++){
+        /*for(int i = 0; i < 3; i++){
             Test3(); 
         }
-        
+        */
 
         auto start = std::chrono::high_resolution_clock::now(); // Start timer
         std::chrono::duration<double> inputWaitDuration(0); // input laukimo laikas
@@ -294,8 +308,7 @@ int main() {
         auto end = std::chrono::high_resolution_clock::now(); // baigia laiko skaiciavima
         std::chrono::duration<double> duration = end - start - inputWaitDuration; // atema input laukimo laika
        // cout << "Programos vykdymo trukme (be input laukimo): " << duration.count() << " sekundes" << endl;
-        studentai.clear(); // Explicitly clear the vector to destroy Studentas objects; // sunaikina studentu objekta
-        cout << "isvalytas studentas obj" << endl;
+       
     // pagauna klaida
     } catch (const exception& e) {
         cerr << "Ivyko klaida: " << e.what() << endl;

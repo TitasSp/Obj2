@@ -14,14 +14,18 @@ class Studentas {
     
     public:
         // Constructors
-        Studentas() : egzaminas(0), galutinis(0.0f) {}
+        Studentas() : egzaminas(0), galutinis(0.0f) {} // Default constructor
         Studentas(const string& vardas, const string& pavarde, const vector<int>& pazymiai, int egzaminas)
             : vardas(vardas), pavarde(pavarde), pazymiai(pazymiai), egzaminas(egzaminas), galutinis(0.0f) {}
     
 
         // Destructor
         ~Studentas() {
-            // cleaner kodas
+            vardas.clear();
+            pavarde.clear();
+            pazymiai.clear();
+            egzaminas = 0;
+            galutinis = 0.0f;
         }
         // Getters
         string getVardas() const { return vardas; }
