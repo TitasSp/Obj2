@@ -191,21 +191,21 @@ void StudentuAtskirimas(Container& studentai) {
     ofstream outVargsiukai("stud_b.txt");
     ofstream outKieti("stud_g.txt");
 
-    ostringstream bufferVargsiukai;
-    ostringstream bufferKieti;
+    if (!outVargsiukai.is_open() || !outKieti.is_open()) {
+        throw runtime_error("Nepavyko atidaryti failo");
+    }
 
-    bufferVargsiukai << left << setw(15) << "Vardas" << setw(20) << "Pavarde" << "Galutinis" << endl;
-    bufferKieti << left << setw(15) << "Vardas" << setw(20) << "Pavarde" << "Galutinis" << endl;
+    vector<Studentas> vargsiukai;
+    vector<Studentas> kieti;
 
     auto start = high_resolution_clock::now();
 
+    // Separate students into two vectors
     for (const auto& studentas : studentai) {
         if (studentas.getGalutinis() < 5) {
-            bufferVargsiukai << left << setw(15) << studentas.getVardas() << setw(20) << studentas.getPavarde()
-                             << fixed << setprecision(2) << studentas.getGalutinis() << endl;
+            vargsiukai.push_back(studentas);
         } else {
-            bufferKieti << left << setw(15) << studentas.getVardas() << setw(20) << studentas.getPavarde()
-                        << fixed << setprecision(2) << studentas.getGalutinis() << endl;
+            kieti.push_back(studentas);
         }
     }
 
@@ -215,8 +215,41 @@ void StudentuAtskirimas(Container& studentai) {
 
     auto start2 = high_resolution_clock::now();
 
-    outVargsiukai << bufferVargsiukai.str();
-    outKieti << bufferKieti.str();
+    // Write "vargsiukai" to file
+    outVargsiukai << left << setw(15) << "Vardas" << setw(20) << "Pavarde";
+    if (!vargsiukai.empty()) {
+        for (size_t i = 1; i <= vargsiukai[0].getPazymiai().size(); i++) {
+            outVargsiukai << setw(10) << ("ND " + to_string(i));
+        }
+    }
+    outVargsiukai << setw(10) << "Egz." << endl;
+
+    for (const auto& studentas : vargsiukai) {
+        outVargsiukai << left << setw(15) << studentas.getVardas()
+                      << setw(20) << studentas.getPavarde();
+        for (const auto& pazymys : studentas.getPazymiai()) {
+            outVargsiukai << setw(10) << pazymys;
+        }
+        outVargsiukai << setw(10) << studentas.getEgzaminas() << endl;
+    }
+
+    // Write "kieti" to file
+    outKieti << left << setw(15) << "Vardas" << setw(20) << "Pavarde";
+    if (!kieti.empty()) {
+        for (size_t i = 1; i <= kieti[0].getPazymiai().size(); i++) {
+            outKieti << setw(10) << ("ND " + to_string(i));
+        }
+    }
+    outKieti << setw(10) << "Egz." << endl;
+
+    for (const auto& studentas : kieti) {
+        outKieti << left << setw(15) << studentas.getVardas()
+                 << setw(20) << studentas.getPavarde();
+        for (const auto& pazymys : studentas.getPazymiai()) {
+            outKieti << setw(10) << pazymys;
+        }
+        outKieti << setw(10) << studentas.getEgzaminas() << endl;
+    }
 
     auto end2 = high_resolution_clock::now();
     auto duration2 = duration_cast<milliseconds>(end2 - start2);
