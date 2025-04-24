@@ -63,7 +63,7 @@ class Studentas {
             other.galutinis = 0.0f;
             return *this;
         }
-        
+
         // Getters
         string getVardas() const { return vardas; }
         string getPavarde() const { return pavarde; }
@@ -82,6 +82,33 @@ class Studentas {
         void addPazymys(int pazymys) {
             pazymiai.push_back(pazymys);
         }
+
+        // Input operator
+        friend istream& operator>>(istream& in, Studentas& studentas) {
+        in >> studentas.vardas >> studentas.pavarde;
+        int pazymys;
+        studentas.pazymiai.clear();
+        while (in >> pazymys) {
+            studentas.pazymiai.push_back(pazymys);
+        }
+        if (!studentas.pazymiai.empty()) {
+            studentas.egzaminas = studentas.pazymiai.back();
+            studentas.pazymiai.pop_back();
+        }
+        return in;
+        }
+
+        // Output operator
+    friend ostream& operator<<(ostream& out, const Studentas& studentas) {
+        out << left << setw(15) << studentas.vardas
+            << setw(20) << studentas.pavarde;
+        for (const auto& pazymys : studentas.pazymiai) {
+            out << setw(10) << pazymys;
+        }
+        out << setw(10) << studentas.egzaminas
+            << fixed << setprecision(2) << studentas.galutinis;
+        return out;
+    }
     };
 
 
