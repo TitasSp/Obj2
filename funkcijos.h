@@ -38,7 +38,18 @@ class Studentas {
                 egzaminas(other.egzaminas), galutinis(other.galutinis) {
             other.egzaminas = 0;
             other.galutinis = 0.0f;
-}
+            }
+            // Copy assignment operator
+        Studentas& operator=(const Studentas& other) {
+            if (this == &other) return *this; // Self-assignment check
+            vardas = other.vardas;
+            pavarde = other.pavarde;
+            pazymiai = other.pazymiai;
+            egzaminas = other.egzaminas;
+            galutinis = other.galutinis;
+            return *this;
+        }
+
 
         // Getters
         string getVardas() const { return vardas; }
