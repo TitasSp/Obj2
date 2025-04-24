@@ -27,6 +27,13 @@ class Studentas {
             egzaminas = 0;
             galutinis = 0.0f;
         }
+        
+         // Copy constructor
+        Studentas(const Studentas& other)
+            : vardas(other.vardas), pavarde(other.pavarde), pazymiai(other.pazymiai),
+                 egzaminas(other.egzaminas), galutinis(other.galutinis) {}
+
+
         // Getters
         string getVardas() const { return vardas; }
         string getPavarde() const { return pavarde; }
