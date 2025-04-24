@@ -39,6 +39,7 @@ class Studentas {
             other.egzaminas = 0;
             other.galutinis = 0.0f;
             }
+
             // Copy assignment operator
         Studentas& operator=(const Studentas& other) {
             if (this == &other) return *this; // Self-assignment check
@@ -50,7 +51,19 @@ class Studentas {
             return *this;
         }
 
-
+         // Move assignment operator
+        Studentas& operator=(Studentas&& other) noexcept {
+            if (this == &other) return *this; // Self-assignment check
+            vardas = move(other.vardas);
+            pavarde = move(other.pavarde);
+            pazymiai = move(other.pazymiai);
+            egzaminas = other.egzaminas;
+            galutinis = other.galutinis;
+            other.egzaminas = 0;
+            other.galutinis = 0.0f;
+            return *this;
+        }
+        
         // Getters
         string getVardas() const { return vardas; }
         string getPavarde() const { return pavarde; }
