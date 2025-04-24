@@ -32,7 +32,13 @@ class Studentas {
         Studentas(const Studentas& other)
             : vardas(other.vardas), pavarde(other.pavarde), pazymiai(other.pazymiai),
                  egzaminas(other.egzaminas), galutinis(other.galutinis) {}
-
+          // Move constructor
+        Studentas(Studentas&& other) noexcept
+            : vardas(move(other.vardas)), pavarde(move(other.pavarde)), pazymiai(move(other.pazymiai)),
+                egzaminas(other.egzaminas), galutinis(other.galutinis) {
+            other.egzaminas = 0;
+            other.galutinis = 0.0f;
+}
 
         // Getters
         string getVardas() const { return vardas; }
