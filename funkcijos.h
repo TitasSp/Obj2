@@ -381,3 +381,4 @@ void FailuGeneravimas(int studentuSk, int pazymiuSk);
 void Test1();
 void Test2();
 void Test3();
+void TestStudentas();

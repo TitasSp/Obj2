@@ -3,6 +3,7 @@
 
 int main() {
     
+    TestStudentas(); // testuoja Studentas klase
 
     try {
         vector<Studentas> studentai; 

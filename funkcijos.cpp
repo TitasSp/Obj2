@@ -242,3 +242,82 @@ void Test3() {
     }
 
 }
+
+void TestStudentas() {
+    // Test default constructor
+    Studentas s1;
+    assert(s1.getVardas().empty());
+    assert(s1.getPavarde().empty());
+    assert(s1.getPazymiai().empty());
+    assert(s1.getEgzaminas() == 0);
+    assert(s1.getGalutinis() == 0.0f);
+
+    // Test parameterized constructor
+    vector<int> pazymiai = {8, 9, 10};
+    Studentas s2("Jonas", "Jonaitis", pazymiai, 9);
+    assert(s2.getVardas() == "Jonas");
+    assert(s2.getPavarde() == "Jonaitis");
+    assert(s2.getPazymiai() == pazymiai);
+    assert(s2.getEgzaminas() == 9);
+
+    // Test copy constructor
+    Studentas s3(s2);
+    assert(s3.getVardas() == "Jonas");
+    assert(s3.getPavarde() == "Jonaitis");
+    assert(s3.getPazymiai() == pazymiai);
+    assert(s3.getEgzaminas() == 9);
+
+    // Test move constructor
+    Studentas s4(std::move(s3));
+    assert(s4.getVardas() == "Jonas");
+    assert(s4.getPavarde() == "Jonaitis");
+    assert(s4.getPazymiai() == pazymiai);
+    assert(s4.getEgzaminas() == 9);
+    assert(s3.getVardas().empty()); // s3 should be empty after move
+
+    // Test copy assignment operator
+    Studentas s5;
+    s5 = s2;
+    assert(s5.getVardas() == "Jonas");
+    assert(s5.getPavarde() == "Jonaitis");
+    assert(s5.getPazymiai() == pazymiai);
+    assert(s5.getEgzaminas() == 9);
+
+    // Test move assignment operator
+    Studentas s6;
+    s6 = std::move(s5);
+    assert(s6.getVardas() == "Jonas");
+    assert(s6.getPavarde() == "Jonaitis");
+    assert(s6.getPazymiai() == pazymiai);
+    assert(s6.getEgzaminas() == 9);
+    assert(s5.getVardas().empty()); // s5 should be empty after move
+
+    // Test setters
+    s1.setVardas("Petras");
+    s1.setPavarde("Petraitis");
+    s1.setPazymiai({7, 8, 9});
+    s1.setEgzaminas(10);
+    s1.setGalutinis(8.5f);
+    assert(s1.getVardas() == "Petras");
+    assert(s1.getPavarde() == "Petraitis");
+    assert(s1.getPazymiai() == vector<int>({7, 8, 9}));
+    assert(s1.getEgzaminas() == 10);
+    assert(s1.getGalutinis() == 8.5f);
+
+    // Test input operator
+    std::istringstream input("Antanas Antanaitis 7 8 9 10");
+    Studentas s7;
+    input >> s7;
+    assert(s7.getVardas() == "Antanas");
+    assert(s7.getPavarde() == "Antanaitis");
+    assert(s7.getPazymiai() == vector<int>({7, 8, 9}));
+    assert(s7.getEgzaminas() == 10);
+
+    // Test output operator
+    std::ostringstream output;
+    output << s7;
+    std::string expectedOutput = "Antanas        Antanaitis          7         8         9         10        0.00";
+    assert(output.str().find("Antanas") != std::string::npos); // Check if output contains expected data
+
+    std::cout << "Viskas veikia" << std::endl;
+}

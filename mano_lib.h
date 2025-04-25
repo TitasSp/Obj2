@@ -15,6 +15,7 @@
 #include <limits>
 #include <exception>
 #include <variant>
+#include <cassert>
 
 using std::deque;
 using std::list;
@@ -56,3 +57,4 @@ using std::max;
 using std::is_same;
 using std::ostream;
 using std::istream;
+using std::variant;
