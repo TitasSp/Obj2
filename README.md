@@ -14,6 +14,48 @@ cd build)
 4) Kompiliuokite projekta (cmake --build .)
 5) Paleiskite faila (.\ObjCppProject.exe)
 
+-------------------------------------------------------------------
+## Perdengtų metodų aprašymas
+
+### Duomenų įvestis
+
+Programoje yra keli būdai įvesti duomenis apie studentus:
+
+1. **Rankiniu būdu**:
+   - Naudojant `istream& operator>>(istream& in, Studentas& studentas)` metodą, galima įvesti studento vardą, pavardę, pažymius ir egzamino rezultatą rankiniu būdu per konsolę.
+   - Pavyzdys:
+     ```
+     Jonas Jonaitis 8 9 10 7 6 5
+     ```
+     Čia paskutinis skaičius (5) yra egzamino rezultatas, o likę skaičiai – pažymiai.
+
+2. **Automatiniu būdu**:
+   - Naudojant  funkciją, galima sugeneruoti atsitiktinius studentų duomenis. Ši funkcija priima studentų skaičių ir konteinerį, į kurį bus įrašyti sugeneruoti studentai.
+   - Pavyzdys:
+     ```cpp
+     vector<Studentas> studentai;
+     GeneruotiStudentus(100, studentai);
+     ```
+
+3. **Iš failo**:
+   - Naudojant  funkciją, galima nuskaityti studentų duomenis iš failo. Failas turi būti tinkamai suformatuotas (pirmoje eilutėje – antraštės, o toliau – studentų duomenys).
+   - Pavyzdys:
+     ```cpp
+     vector<Studentas> studentai;
+     NuskaitytiStudentusIsFailo("studentai1000.txt", studentai);
+     ```
+
+---
+
+### Duomenų išvestis
+
+Programoje taip pat yra keli būdai išvesti duomenis apie studentus:
+
+1. **Į ekraną**
+
+2. **Į failą**
+
+
 ---------------------------------------------------------------------------------------------
 Testavimo sistemos parametrai:
 ---------------------------------------------------------------------------------------------
