@@ -85,17 +85,34 @@ class Studentas {
 
         // Input operator
         friend istream& operator>>(istream& in, Studentas& studentas) {
-        in >> studentas.vardas >> studentas.pavarde;
-        int pazymys;
-        studentas.pazymiai.clear();
-        while (in >> pazymys) {
-            studentas.pazymiai.push_back(pazymys);
-        }
-        if (!studentas.pazymiai.empty()) {
-            studentas.egzaminas = studentas.pazymiai.back();
-            studentas.pazymiai.pop_back();
-        }
-        return in;
+            studentas.pazymiai.clear(); // Clear previous data
+
+            // Read vardas and pavarde
+            in >> studentas.vardas >> studentas.pavarde;
+            if (in.fail()) return in; // Return if reading failed
+
+            // Read grades and exam score
+            int pazymys;
+            vector<int> tempPazymiai;
+            while (in >> pazymys) {
+                tempPazymiai.push_back(pazymys);
+            }
+
+            // Handle the case where no grades or exam score are provided
+            if (tempPazymiai.empty()) {
+                in.clear(); // Clear fail state
+                return in;
+            }
+
+            // Treat the last integer as the exam score
+            studentas.egzaminas = tempPazymiai.back();
+            tempPazymiai.pop_back(); // Remove the exam score from the grades
+            studentas.pazymiai = tempPazymiai;
+
+            // Clear the stream state for the next read
+            in.clear(); // Clear fail state but do not ignore the next line
+
+            return in;
         }
 
         // Output operator
@@ -136,46 +153,38 @@ class Studentas {
     template <typename Container>
     void NuskaitytiStudentusIsFailo(string failas, Container& studentai) {
         auto start = high_resolution_clock::now();
-    
+
         ifstream in(failas);
         if (!in.is_open()) {
             throw runtime_error("Nepavyko atidaryti failo");
         }
-    
+
+        cout << "Reading file: " << failas << endl;
         string line;
         getline(in, line); // Skip the header line
-    
+
         if constexpr (is_same<Container, vector<Studentas>>::value) {
             studentai.reserve(10000000); // Reserve memory for vector or deque
         }
-    
-        while (getline(in, line)) {
-            istringstream iss(line);
+
+        int studentCount = 0; // Counter to track the number of students read
+        while (true) {
             Studentas studentas;
-            string vardas, pavarde;
-            iss >> vardas >> pavarde;
-            studentas.setVardas(vardas);
-            studentas.setPavarde(pavarde);
-    
-            vector<int> pazymiai;
-            int pazymys;
-            while (iss >> pazymys) {
-                pazymiai.push_back(pazymys);
+            in >> studentas; // Use input operator
+            if (in.fail()) {
+                break; // Stop reading if the stream is in a fail state
             }
-    
-            if (!pazymiai.empty()) {
-                studentas.setEgzaminas(pazymiai.back());
-                pazymiai.pop_back();
-            }
-            studentas.setPazymiai(pazymiai);
-    
-            studentai.push_back(studentas);
+            studentai.push_back(std::move(studentas)); // Use move semantics
+            studentCount++;
         }
-    
+
         in.close();
         auto end = high_resolution_clock::now();
         auto duration = duration_cast<milliseconds>(end - start);
         cout << "Studentu nuskaitymas is failo uztruko: " << duration.count() << " ms" << endl;
+
+        // Print the total number of students read
+        cout << "Total students read: " << studentCount << endl; 
     }
 
 template <typename Container>
@@ -332,13 +341,13 @@ void SkaidytiStudentus3Strategija(Container& studentai) {
         return studentas.getGalutinis() >= 5; // Use getter
     });
 
-    // Kopijuojame "vargšiukus" į naują konteinerį
+    // Kopijuojame "vargšyku" į naują konteinerį
     vargsiukai.insert(vargsiukai.end(), it, studentai.end());
 
-    // Pašaliname "vargšiukus" iš pradinio konteinerio
+    // Pašaliname "vargšyku" iš pradinio konteinerio
     studentai.erase(it, studentai.end());
 
-    // Įrašome "vargšiukus" į failą
+    // Įrašome "vargšyku" į failą
     ofstream outVargsiukai("stud_b.txt");
     if (!outVargsiukai.is_open()) {
         throw runtime_error("Nepavyko atidaryti failo");
