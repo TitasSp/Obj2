@@ -12,3 +12,6 @@ add_executable(ObjCppProject
     main.cpp
     funkcijos.cpp
 )
+
+target_compile_options(ObjCppProject PRIVATE
+    -Wall)
