@@ -4,10 +4,28 @@ void GeneruotiPazymius(int pazymiuSk, vector<int>& pazymiai);
 float Vidurkis(vector<int> pazymiai);
 float Mediana(vector<int> pazymiai);
 
-class Studentas {
+class Zmogus {
     private:
         string vardas;
         string pavarde;
+    
+    public:
+        Zmogus() : vardas(""), pavarde("") {} // Default constructor
+        Zmogus(const string& v, const string& p) : vardas(v), pavarde(p) {} // Parameterized constructor
+        ~Zmogu() { vardas.clear(); pavarde.clear(); } // Destructor
+
+        // Getters
+        string getVardas() const { return vardas; }
+        string getPavarde() const { return pavarde; }
+    
+        // Setters
+        void setVardas(const string& v) { vardas = v; }
+        void setPavarde(const string& p) { pavarde = p; }
+};
+
+class Studentas: public Zmogus {
+    private:
+       
         vector<int> pazymiai;
         int egzaminas;
         float galutinis;
