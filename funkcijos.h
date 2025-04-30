@@ -5,22 +5,14 @@ float Vidurkis(vector<int> pazymiai);
 float Mediana(vector<int> pazymiai);
 
 class Zmogus {
-    private:
+    protected:
         string vardas;
         string pavarde;
     
     public:
         Zmogus() : vardas(""), pavarde("") {} // Default constructor
         Zmogus(const string& v, const string& p) : vardas(v), pavarde(p) {} // Parameterized constructor
-        ~Zmogu() { vardas.clear(); pavarde.clear(); } // Destructor
-
-        // Getters
-        string getVardas() const { return vardas; }
-        string getPavarde() const { return pavarde; }
-    
-        // Setters
-        void setVardas(const string& v) { vardas = v; }
-        void setPavarde(const string& p) { pavarde = p; }
+        
 };
 
 class Studentas: public Zmogus {
@@ -34,7 +26,7 @@ class Studentas: public Zmogus {
         // Constructors
         Studentas() : egzaminas(0), galutinis(0.0f) {} // Default constructor
         Studentas(const string& vardas, const string& pavarde, const vector<int>& pazymiai, int egzaminas)
-            : vardas(vardas), pavarde(pavarde), pazymiai(pazymiai), egzaminas(egzaminas), galutinis(0.0f) {}
+            : Zmogus(vardas, pavarde), pazymiai(pazymiai), egzaminas(egzaminas), galutinis(0.0f) {}
     
 
         // Destructor
@@ -48,11 +40,11 @@ class Studentas: public Zmogus {
         
          // Copy constructor
         Studentas(const Studentas& other)
-            : vardas(other.vardas), pavarde(other.pavarde), pazymiai(other.pazymiai),
+            : Zmogus(other.vardas, other.pavarde), pazymiai(other.pazymiai),
                  egzaminas(other.egzaminas), galutinis(other.galutinis) {}
           // Move constructor
         Studentas(Studentas&& other) noexcept
-            : vardas(move(other.vardas)), pavarde(move(other.pavarde)), pazymiai(move(other.pazymiai)),
+            : Zmogus(move(other.vardas), move(other.pavarde)), pazymiai(move(other.pazymiai)),
                 egzaminas(other.egzaminas), galutinis(other.galutinis) {
             other.egzaminas = 0;
             other.galutinis = 0.0f;
