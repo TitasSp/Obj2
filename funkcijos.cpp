@@ -85,59 +85,7 @@ void FailuGeneravimas(int studentuSk, int pazymiuSk) {
     cout << "Studentu irasymas i faila uztruko: " << totalIrasymasDuration.count() << " ms" << endl;
     cout << "Is viso uztruko: " << durationVisas.count() << " ms" << endl;
 }
-/*void StudentuAtskirimas() {
 
-    ifstream in("rezultatai.txt");
-    if (!in.is_open()) {
-        throw runtime_error("Nepavyko atidaryti failo");
-    }
-
-    ofstream outVargsiukai("stud_b.txt");
-    ofstream outKieti("stud_g.txt");
-
-    ostringstream bufferVargsiukai;
-    ostringstream bufferKieti;
-
-    bufferVargsiukai.str(""); // isvalo bufferi
-    bufferKieti.str(""); // isvalo bufferi
-
-    bufferVargsiukai << left << setw(15) << "Vardas" << setw(20) << "Pavarde" << "Galutinis" << endl;
-    bufferKieti << left << setw(15) << "Vardas" << setw(20) << "Pavarde" << "Galutinis" << endl;
-
-    string vardas, pavarde;
-    float galutinis;
-
-    // praleidzia pirma eilute
-    string pirmaEilute;
-    getline(in, pirmaEilute);
-
-    auto start = high_resolution_clock::now();
-
-    while (in >> vardas >> pavarde >> galutinis) {
-        if (galutinis < 5) {
-            bufferVargsiukai << left << setw(15) << vardas << setw(20) << pavarde << fixed << setprecision(2) << galutinis << endl;
-        } else {
-            bufferKieti << left << setw(15) << vardas << setw(20) << pavarde << fixed << setprecision(2) << galutinis << endl;
-        }
-    }
-    auto end = high_resolution_clock::now();
-    auto duration = duration_cast<milliseconds>(end - start);
-    cout << "Studentu suskirstymas uztruko: " << duration.count() << " ms" << endl;
-
-    auto start2 = high_resolution_clock::now();
-
-    outVargsiukai << bufferVargsiukai.str();
-    outKieti << bufferKieti.str();
-
-    auto end2 = high_resolution_clock::now();
-    auto duration2 = duration_cast<milliseconds>(end2 - start2);
-    cout << "Studentu irasymas i failus uztruko: " << duration2.count() << " ms" << endl;
-
-    outVargsiukai.close();
-    outKieti.close();
-    in.close();
-} 
-*/
 ///////////////////////////////////////////////////////////////////////////
 void Test1() {
     vector<int> studentuSkaiciai = {1000, 10000, 100000, 1000000, 10000000};
