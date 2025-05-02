@@ -4,16 +4,28 @@ void GeneruotiPazymius(int pazymiuSk, vector<int>& pazymiai);
 float Vidurkis(vector<int> pazymiai);
 float Mediana(vector<int> pazymiai);
 
+// Abstrakti bazinė klasė
 class Zmogus {
     protected:
         string vardas;
         string pavarde;
     
     public:
-        Zmogus() : vardas(""), pavarde("") {} // Default constructor
-        Zmogus(const string& v, const string& p) : vardas(v), pavarde(p) {} // Parameterized constructor
-        
-};
+        Zmogus() : vardas(""), pavarde("") {}
+        Zmogus(const string& v, const string& p) : vardas(v), pavarde(p) {}
+        virtual ~Zmogus() = default;
+    
+        // virtuali funkcija kad klase butu abstarkti
+        virtual void spausdinti() const = 0;
+    
+        // Getteriai
+        string getVardas() const { return vardas; }
+        string getPavarde() const { return pavarde; }
+    
+        // Setteriai
+        void setVardas(const string& v) { vardas = v; }
+        void setPavarde(const string& p) { pavarde = p; }
+    };
 
 class Studentas: public Zmogus {
     private:
@@ -91,6 +103,17 @@ class Studentas: public Zmogus {
     
         void addPazymys(int pazymys) {
             pazymiai.push_back(pazymys);
+        }
+
+        // Implementuojame abstrakčią funkciją
+        void spausdinti() const override {
+            cout << left << setw(15) << vardas << setw(20) << pavarde;
+
+                for (const auto& pazymys : pazymiai) {
+                    cout << setw(10) << pazymys;
+                }
+                
+            cout << setw(10) << egzaminas << fixed << setprecision(2) << galutinis << endl;
         }
 
         // Input operator
