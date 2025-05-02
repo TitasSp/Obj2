@@ -112,7 +112,7 @@ class Studentas: public Zmogus {
                 for (const auto& pazymys : pazymiai) {
                     cout << setw(10) << pazymys;
                 }
-                
+
             cout << setw(10) << egzaminas << fixed << setprecision(2) << galutinis << endl;
         }
 
@@ -409,17 +409,8 @@ void SkaidytiStudentus3Strategija(Container& studentai) {
     cout << "Studentu skaidymas ir irasymas i failus uztruko: " << duration.count() << " ms" << endl;
 }
 
-//float Vidurkis(vector<int> pazymiai);
-//float Mediana(vector<int> pazymiai);
-//void GeneruotiPazymius(int pazymiuSk, vector<int>& pazymiai);
-//template <typename Container>
-//void GeneruotiStudentus(int studentuSk, Container& studentai);
-//template <typename Container>
-//void NuskaitytiStudentusIsFailo(string failas, Container& studentai);
-//template <typename Container>
-//void RikiuotiStudentus(Container& studentai, int pasirinkimas);
+
 void FailuGeneravimas(int studentuSk, int pazymiuSk);
-//void StudentuAtskirimas();
 void Test1();
 void Test2();
 void Test3();
