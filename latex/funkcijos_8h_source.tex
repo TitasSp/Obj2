@@ -1,0 +1,422 @@
+\doxysection{funkcijos.\+h}
+\hypertarget{funkcijos_8h_source}{}\label{funkcijos_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include\ "{}mano\_lib.h"{}}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{keywordtype}{void}\ GeneruotiPazymius(\textcolor{keywordtype}{int}\ pazymiuSk,\ vector<int>\&\ pazymiai);}
+\DoxyCodeLine{00004\ \textcolor{keywordtype}{float}\ Vidurkis(vector<int>\ pazymiai);}
+\DoxyCodeLine{00005\ \textcolor{keywordtype}{float}\ Mediana(vector<int>\ pazymiai);}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ Abstrakti\ bazinė\ klasė}}
+\DoxyCodeLine{00008\ \textcolor{keyword}{class\ }Zmogus\ \{}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00010\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ vardas;}
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ pavarde;}
+\DoxyCodeLine{00012\ \ \ \ \ }
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ Zmogus()\ :\ vardas(\textcolor{stringliteral}{"{}"{}}),\ pavarde(\textcolor{stringliteral}{"{}"{}})\ \{\}}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ Zmogus(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ v,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ p)\ :\ vardas(v),\ pavarde(p)\ \{\}}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \string~Zmogus()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00017\ \ \ \ \ }
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ virtuali\ funkcija\ kad\ klase\ butu\ abstarkti}}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ spausdinti()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00020\ \ \ \ \ }
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Getteriai}}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ getVardas()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ vardas;\ \}}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ getPavarde()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ pavarde;\ \}}
+\DoxyCodeLine{00024\ \ \ \ \ }
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Setteriai}}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ setVardas(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ v)\ \{\ vardas\ =\ v;\ \}}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ setPavarde(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ p)\ \{\ pavarde\ =\ p;\ \}}
+\DoxyCodeLine{00028\ \ \ \ \ \};}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{class\ }Studentas:\ \textcolor{keyword}{public}\ Zmogus\ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ vector<int>\ pazymiai;}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ egzaminas;}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ galutinis;}
+\DoxyCodeLine{00036\ \ \ \ \ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Constructors}}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ Studentas()\ :\ egzaminas(0),\ galutinis(0.0f)\ \{\}\ \textcolor{comment}{//\ Default\ constructor}}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ Studentas(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ vardas,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ pavarde,\ \textcolor{keyword}{const}\ vector<int>\&\ pazymiai,\ \textcolor{keywordtype}{int}\ egzaminas)}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ :\ Zmogus(vardas,\ pavarde),\ pazymiai(pazymiai),\ egzaminas(egzaminas),\ galutinis(0.0f)\ \{\}}
+\DoxyCodeLine{00042\ \ \ \ \ }
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Destructor}}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \string~Studentas()\ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ vardas.clear();}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ pavarde.clear();}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ pazymiai.clear();}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ egzaminas\ =\ 0;}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ galutinis\ =\ 0.0f;}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Copy\ constructor}}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ Studentas(\textcolor{keyword}{const}\ Studentas\&\ other)}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ :\ Zmogus(other.vardas,\ other.pavarde),\ pazymiai(other.pazymiai),}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ egzaminas(other.egzaminas),\ galutinis(other.galutinis)\ \{\}}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Move\ constructor}}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ Studentas(Studentas\&\&\ other)\ noexcept}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ :\ Zmogus(move(other.vardas),\ move(other.pavarde)),\ pazymiai(move(other.pazymiai)),}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ egzaminas(other.egzaminas),\ galutinis(other.galutinis)\ \{}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ other.egzaminas\ =\ 0;}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ other.galutinis\ =\ 0.0f;}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Copy\ assignment\ operator}}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ Studentas\&\ operator=(\textcolor{keyword}{const}\ Studentas\&\ other)\ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{this}\ ==\ \&other)\ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};\ \textcolor{comment}{//\ Self-\/assignment\ check}}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ vardas\ =\ other.vardas;}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ pavarde\ =\ other.pavarde;}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ pazymiai\ =\ other.pazymiai;}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ egzaminas\ =\ other.egzaminas;}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ galutinis\ =\ other.galutinis;}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Move\ assignment\ operator}}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ Studentas\&\ operator=(Studentas\&\&\ other)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{this}\ ==\ \&other)\ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};\ \textcolor{comment}{//\ Self-\/assignment\ check}}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ vardas\ =\ move(other.vardas);}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ pavarde\ =\ move(other.pavarde);}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ pazymiai\ =\ move(other.pazymiai);}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ egzaminas\ =\ other.egzaminas;}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ galutinis\ =\ other.galutinis;}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ other.egzaminas\ =\ 0;}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ other.galutinis\ =\ 0.0f;}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Getters}}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ getVardas()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ vardas;\ \}}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ getPavarde()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ pavarde;\ \}}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ vector<int>\ getPazymiai()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ pazymiai;\ \}}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ vector<int>\&\ getPazymiaiRef()\ \{\ \textcolor{keywordflow}{return}\ pazymiai;\ \}}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ getEgzaminas()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ egzaminas;\ \}}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ getGalutinis()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ galutinis;\ \}}
+\DoxyCodeLine{00096\ \ \ \ \ }
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Setters}}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ setVardas(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ v)\ \{\ vardas\ =\ v;\ \}}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ setPavarde(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ p)\ \{\ pavarde\ =\ p;\ \}}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ setPazymiai(\textcolor{keyword}{const}\ vector<int>\&\ p)\ \{\ pazymiai\ =\ p;\ \}}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ setEgzaminas(\textcolor{keywordtype}{int}\ e)\ \{\ egzaminas\ =\ e;\ \}}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ setGalutinis(\textcolor{keywordtype}{float}\ g)\ \{\ galutinis\ =\ g;\ \}}
+\DoxyCodeLine{00103\ \ \ \ \ }
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ addPazymys(\textcolor{keywordtype}{int}\ pazymys)\ \{}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ pazymiai.push\_back(pazymys);}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Implementuojame\ abstrakčią\ funkciją}}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ spausdinti()\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ cout\ <<\ left\ <<\ setw(15)\ <<\ vardas\ <<\ setw(20)\ <<\ pavarde;}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ pazymys\ :\ pazymiai)\ \{}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout\ <<\ setw(10)\ <<\ pazymys;}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ cout\ <<\ setw(10)\ <<\ egzaminas\ <<\ fixed\ <<\ setprecision(2)\ <<\ galutinis\ <<\ endl;}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Input\ operator}}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \textcolor{keyword}{friend}\ istream\&\ operator>>(istream\&\ in,\ Studentas\&\ studentas)\ \{}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ studentas.pazymiai.clear();\ \textcolor{comment}{//\ Clear\ previous\ data}}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Read\ vardas\ and\ pavarde}}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ in\ >>\ studentas.vardas\ >>\ studentas.pavarde;}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (in.fail())\ \textcolor{keywordflow}{return}\ in;\ \textcolor{comment}{//\ Return\ if\ reading\ failed}}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Read\ grades\ and\ exam\ score}}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ pazymys;}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ vector<int>\ tempPazymiai;}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (in\ >>\ pazymys)\ \{}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tempPazymiai.push\_back(pazymys);}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Handle\ the\ case\ where\ no\ grades\ or\ exam\ score\ are\ provided}}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (tempPazymiai.empty())\ \{}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ in.clear();\ \textcolor{comment}{//\ Clear\ fail\ state}}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ in;}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Treat\ the\ last\ integer\ as\ the\ exam\ score}}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ studentas.egzaminas\ =\ tempPazymiai.back();}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ tempPazymiai.pop\_back();\ \textcolor{comment}{//\ Remove\ the\ exam\ score\ from\ the\ grades}}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ studentas.pazymiai\ =\ tempPazymiai;}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Clear\ the\ stream\ state\ for\ the\ next\ read}}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ in.clear();\ \textcolor{comment}{//\ Clear\ fail\ state\ but\ do\ not\ ignore\ the\ next\ line}}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ in;}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Output\ operator}}
+\DoxyCodeLine{00152\ \ \ \ \ \textcolor{keyword}{friend}\ ostream\&\ operator<<(ostream\&\ out,\ \textcolor{keyword}{const}\ Studentas\&\ studentas)\ \{}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ out\ <<\ left\ <<\ setw(15)\ <<\ studentas.vardas}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ <<\ setw(20)\ <<\ studentas.pavarde;}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ pazymys\ :\ studentas.pazymiai)\ \{}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ out\ <<\ setw(10)\ <<\ pazymys;}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ out\ <<\ setw(10)\ <<\ studentas.egzaminas}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ <<\ fixed\ <<\ setprecision(2)\ <<\ studentas.galutinis;}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ out;}
+\DoxyCodeLine{00161\ \ \ \ \ \}}
+\DoxyCodeLine{00162\ \ \ \ \ \};}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Container>}
+\DoxyCodeLine{00166\ \ \ \ \ \textcolor{keywordtype}{void}\ GeneruotiStudentus(\textcolor{keywordtype}{int}\ studentuSk,\ Container\&\ studentai)\ \{}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (studentuSk\ <=\ 0)\ \{}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ invalid\_argument(\textcolor{stringliteral}{"{}Studentu\ skaicius\ turi\ buti\ teigiamas"{}});}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ vector<string>\ vardai\ =\ \{\textcolor{stringliteral}{"{}Jonas"{}},\ \textcolor{stringliteral}{"{}Petras"{}},\ \textcolor{stringliteral}{"{}Antanas"{}},\ \textcolor{stringliteral}{"{}Tomas"{}},\ \textcolor{stringliteral}{"{}Marius"{}}\};}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ vector<string>\ pavardes\ =\ \{\textcolor{stringliteral}{"{}Jonaitis"{}},\ \textcolor{stringliteral}{"{}Petraitis"{}},\ \textcolor{stringliteral}{"{}Antanaitis"{}},\ \textcolor{stringliteral}{"{}Tomaitis"{}},\ \textcolor{stringliteral}{"{}Maraitis"{}}\};}
+\DoxyCodeLine{00172\ \ \ \ \ }
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ studentuSk;\ i++)\ \{}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_studentas}{Studentas}}\ studentas;}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ studentas.setVardas(vardai[rand()\ \%\ vardai.size()]);}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ studentas.setPavarde(pavardes[rand()\ \%\ pavardes.size()]);}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ vector<int>\ pazymiai;}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ GeneruotiPazymius(rand()\ \%\ 10\ +\ 1,\ pazymiai);}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \ \ \ \ studentas.setPazymiai(pazymiai);}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ studentas.setEgzaminas(rand()\ \%\ 10\ +\ 1);}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ studentai.push\_back(studentas);}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00185\ \ \ \ \ \}}
+\DoxyCodeLine{00186\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Container>}
+\DoxyCodeLine{00187\ \ \ \ \ \textcolor{keywordtype}{void}\ NuskaitytiStudentusIsFailo(\textcolor{keywordtype}{string}\ failas,\ Container\&\ studentai)\ \{}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ start\ =\ high\_resolution\_clock::now();}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ ifstream\ in(failas);}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!in.is\_open())\ \{}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}Nepavyko\ atidaryti\ failo"{}});}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Reading\ file:\ "{}}\ <<\ failas\ <<\ endl;}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ line;}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ getline(in,\ line);\ \textcolor{comment}{//\ Skip\ the\ header\ line}}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (is\_same<Container,\ vector<Studentas>>::value)\ \{}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ studentai.reserve(10000000);\ \textcolor{comment}{//\ Reserve\ memory\ for\ vector\ or\ deque}}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ studentCount\ =\ 0;\ \textcolor{comment}{//\ Counter\ to\ track\ the\ number\ of\ students\ read}}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (\textcolor{keyword}{true})\ \{}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_studentas}{Studentas}}\ studentas;}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ in\ >>\ studentas;\ \textcolor{comment}{//\ Use\ input\ operator}}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (in.fail())\ \{}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};\ \textcolor{comment}{//\ Stop\ reading\ if\ the\ stream\ is\ in\ a\ fail\ state}}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ studentai.push\_back(std::move(studentas));\ \textcolor{comment}{//\ Use\ move\ semantics}}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ studentCount++;}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ in.close();}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ end\ =\ high\_resolution\_clock::now();}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ duration\ =\ duration\_cast<milliseconds>(end\ -\/\ start);}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Studentu\ nuskaitymas\ is\ failo\ uztruko:\ "{}}\ <<\ duration.count()\ <<\ \textcolor{stringliteral}{"{}\ ms"{}}\ <<\ endl;}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Print\ the\ total\ number\ of\ students\ read}}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Total\ students\ read:\ "{}}\ <<\ studentCount\ <<\ endl;\ }
+\DoxyCodeLine{00221\ \ \ \ \ \}}
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00223\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Container>}
+\DoxyCodeLine{00224\ \textcolor{keywordtype}{void}\ RikiuotiStudentus(Container\&\ studentai,\ \textcolor{keywordtype}{int}\ pasirinkimas)\ \{}
+\DoxyCodeLine{00225\ \ \ \ \ \textcolor{keyword}{auto}\ start\ =\ high\_resolution\_clock::now();}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ \ \ \ \ \textcolor{keywordflow}{switch}\ (pasirinkimas)\ \{}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 0:}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ nerikiuoti}}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (is\_same<Container,\ list<Studentas>>::value)\ \{}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ studentai.sort([](\textcolor{keyword}{const}\ \mbox{\hyperlink{class_studentas}{Studentas}}\&\ a,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_studentas}{Studentas}}\&\ b)\ \{}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ a.getVardas()\ <\ b.getVardas();}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sort(studentai.begin(),\ studentai.end(),\ [](\textcolor{keyword}{const}\ \mbox{\hyperlink{class_studentas}{Studentas}}\&\ a,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_studentas}{Studentas}}\&\ b)\ \{}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ a.getVardas()\ <\ b.getVardas();}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (is\_same<Container,\ list<Studentas>>::value)\ \{}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ studentai.sort([](\textcolor{keyword}{const}\ \mbox{\hyperlink{class_studentas}{Studentas}}\&\ a,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_studentas}{Studentas}}\&\ b)\ \{}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ a.getPavarde()\ <\ b.getPavarde();}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sort(studentai.begin(),\ studentai.end(),\ [](\textcolor{keyword}{const}\ \mbox{\hyperlink{class_studentas}{Studentas}}\&\ a,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_studentas}{Studentas}}\&\ b)\ \{}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ a.getPavarde()\ <\ b.getPavarde();}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 3:}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (is\_same<Container,\ list<Studentas>>::value)\ \{}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ studentai.sort([](\textcolor{keyword}{const}\ \mbox{\hyperlink{class_studentas}{Studentas}}\&\ a,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_studentas}{Studentas}}\&\ b)\ \{}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ a.getGalutinis()\ <\ b.getGalutinis();}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sort(studentai.begin(),\ studentai.end(),\ [](\textcolor{keyword}{const}\ \mbox{\hyperlink{class_studentas}{Studentas}}\&\ a,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_studentas}{Studentas}}\&\ b)\ \{}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ a.getGalutinis()\ <\ b.getGalutinis();}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 4:}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (is\_same<Container,\ list<Studentas>>::value)\ \{}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ studentai.sort([](\textcolor{keyword}{const}\ \mbox{\hyperlink{class_studentas}{Studentas}}\&\ a,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_studentas}{Studentas}}\&\ b)\ \{}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ a.getGalutinis()\ >\ b.getGalutinis();}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sort(studentai.begin(),\ studentai.end(),\ [](\textcolor{keyword}{const}\ \mbox{\hyperlink{class_studentas}{Studentas}}\&\ a,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_studentas}{Studentas}}\&\ b)\ \{}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ a.getGalutinis()\ >\ b.getGalutinis();}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ invalid\_argument(\textcolor{stringliteral}{"{}Neteisingas\ rikiavimo\ pasirinkimas"{}});}
+\DoxyCodeLine{00277\ \ \ \ \ \}}
+\DoxyCodeLine{00278\ }
+\DoxyCodeLine{00279\ \ \ \ \ \textcolor{keyword}{auto}\ end\ =\ high\_resolution\_clock::now();}
+\DoxyCodeLine{00280\ \ \ \ \ \textcolor{keyword}{auto}\ duration\ =\ duration\_cast<milliseconds>(end\ -\/\ start);}
+\DoxyCodeLine{00281\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Studentu\ rikiavimas\ uztruko:\ "{}}\ <<\ duration.count()\ <<\ \textcolor{stringliteral}{"{}\ ms"{}}\ <<\ endl;}
+\DoxyCodeLine{00282\ \}}
+\DoxyCodeLine{00283\ }
+\DoxyCodeLine{00284\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Container>}
+\DoxyCodeLine{00285\ \textcolor{keywordtype}{void}\ SkaiciuotiGalutini(Container\&\ studentai,\ \textcolor{keywordtype}{bool}\ vid)\ \{}
+\DoxyCodeLine{00286\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\ studentas\ :\ studentai)\ \{}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (vid)\ \{}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \ \ \ \ studentas.setGalutinis(0.4\ *\ Vidurkis(studentas.getPazymiai())\ +\ 0.6\ *\ studentas.getEgzaminas());}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \ \ \ \ studentas.setGalutinis(0.4\ *\ Mediana(studentas.getPazymiai())\ +\ 0.6\ *\ studentas.getEgzaminas());}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00292\ \ \ \ \ \}}
+\DoxyCodeLine{00293\ \}}
+\DoxyCodeLine{00294\ }
+\DoxyCodeLine{00295\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Container>}
+\DoxyCodeLine{00296\ \textcolor{keywordtype}{void}\ StudentuAtskirimas(Container\&\ studentai)\ \{}
+\DoxyCodeLine{00297\ \ \ \ \ ofstream\ outVargsiukai(\textcolor{stringliteral}{"{}stud\_b.txt"{}});}
+\DoxyCodeLine{00298\ \ \ \ \ ofstream\ outKieti(\textcolor{stringliteral}{"{}stud\_g.txt"{}});}
+\DoxyCodeLine{00299\ }
+\DoxyCodeLine{00300\ \ \ \ \ \textcolor{keywordflow}{if}\ (!outVargsiukai.is\_open()\ ||\ !outKieti.is\_open())\ \{}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}Nepavyko\ atidaryti\ failo"{}});}
+\DoxyCodeLine{00302\ \ \ \ \ \}}
+\DoxyCodeLine{00303\ }
+\DoxyCodeLine{00304\ \ \ \ \ vector<Studentas>\ vargsiukai;}
+\DoxyCodeLine{00305\ \ \ \ \ vector<Studentas>\ kieti;}
+\DoxyCodeLine{00306\ }
+\DoxyCodeLine{00307\ \ \ \ \ \textcolor{keyword}{auto}\ start\ =\ high\_resolution\_clock::now();}
+\DoxyCodeLine{00308\ }
+\DoxyCodeLine{00309\ \ \ \ \ \textcolor{comment}{//\ Separate\ students\ into\ two\ vectors}}
+\DoxyCodeLine{00310\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ studentas\ :\ studentai)\ \{}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (studentas.getGalutinis()\ <\ 5)\ \{}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \ \ \ \ vargsiukai.push\_back(studentas);}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \ \ \ \ kieti.push\_back(studentas);}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00316\ \ \ \ \ \}}
+\DoxyCodeLine{00317\ }
+\DoxyCodeLine{00318\ \ \ \ \ \textcolor{keyword}{auto}\ end\ =\ high\_resolution\_clock::now();}
+\DoxyCodeLine{00319\ \ \ \ \ \textcolor{keyword}{auto}\ duration\ =\ duration\_cast<milliseconds>(end\ -\/\ start);}
+\DoxyCodeLine{00320\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Studentu\ suskirstymas\ uztruko:\ "{}}\ <<\ duration.count()\ <<\ \textcolor{stringliteral}{"{}\ ms"{}}\ <<\ endl;}
+\DoxyCodeLine{00321\ }
+\DoxyCodeLine{00322\ \ \ \ \ \textcolor{keyword}{auto}\ start2\ =\ high\_resolution\_clock::now();}
+\DoxyCodeLine{00323\ }
+\DoxyCodeLine{00324\ \ \ \ \ \textcolor{comment}{//\ Write\ "{}vargsiukai"{}\ to\ file}}
+\DoxyCodeLine{00325\ \ \ \ \ outVargsiukai\ <<\ left\ <<\ setw(15)\ <<\ \textcolor{stringliteral}{"{}Vardas"{}}\ <<\ setw(20)\ <<\ \textcolor{stringliteral}{"{}Pavarde"{}};}
+\DoxyCodeLine{00326\ \ \ \ \ \textcolor{keywordflow}{if}\ (!vargsiukai.empty())\ \{}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 1;\ i\ <=\ vargsiukai[0].getPazymiai().size();\ i++)\ \{}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \ \ \ \ outVargsiukai\ <<\ setw(10)\ <<\ (\textcolor{stringliteral}{"{}ND\ "{}}\ +\ to\_string(i));}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00330\ \ \ \ \ \}}
+\DoxyCodeLine{00331\ \ \ \ \ outVargsiukai\ <<\ setw(10)\ <<\ \textcolor{stringliteral}{"{}Egz."{}}\ <<\ endl;}
+\DoxyCodeLine{00332\ }
+\DoxyCodeLine{00333\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ studentas\ :\ vargsiukai)\ \{}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ outVargsiukai\ <<\ left\ <<\ setw(15)\ <<\ studentas.getVardas()}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ setw(20)\ <<\ studentas.getPavarde();}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ pazymys\ :\ studentas.getPazymiai())\ \{}
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ \ \ \ \ outVargsiukai\ <<\ setw(10)\ <<\ pazymys;}
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ outVargsiukai\ <<\ setw(10)\ <<\ studentas.getEgzaminas()\ <<\ endl;}
+\DoxyCodeLine{00340\ \ \ \ \ \}}
+\DoxyCodeLine{00341\ }
+\DoxyCodeLine{00342\ \ \ \ \ \textcolor{comment}{//\ Write\ "{}kieti"{}\ to\ file}}
+\DoxyCodeLine{00343\ \ \ \ \ outKieti\ <<\ left\ <<\ setw(15)\ <<\ \textcolor{stringliteral}{"{}Vardas"{}}\ <<\ setw(20)\ <<\ \textcolor{stringliteral}{"{}Pavarde"{}};}
+\DoxyCodeLine{00344\ \ \ \ \ \textcolor{keywordflow}{if}\ (!kieti.empty())\ \{}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 1;\ i\ <=\ kieti[0].getPazymiai().size();\ i++)\ \{}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \ \ \ \ outKieti\ <<\ setw(10)\ <<\ (\textcolor{stringliteral}{"{}ND\ "{}}\ +\ to\_string(i));}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00348\ \ \ \ \ \}}
+\DoxyCodeLine{00349\ \ \ \ \ outKieti\ <<\ setw(10)\ <<\ \textcolor{stringliteral}{"{}Egz."{}}\ <<\ endl;}
+\DoxyCodeLine{00350\ }
+\DoxyCodeLine{00351\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ studentas\ :\ kieti)\ \{}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ outKieti\ <<\ left\ <<\ setw(15)\ <<\ studentas.getVardas()}
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ setw(20)\ <<\ studentas.getPavarde();}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ pazymys\ :\ studentas.getPazymiai())\ \{}
+\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ \ \ \ \ outKieti\ <<\ setw(10)\ <<\ pazymys;}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ outKieti\ <<\ setw(10)\ <<\ studentas.getEgzaminas()\ <<\ endl;}
+\DoxyCodeLine{00358\ \ \ \ \ \}}
+\DoxyCodeLine{00359\ }
+\DoxyCodeLine{00360\ \ \ \ \ \textcolor{keyword}{auto}\ end2\ =\ high\_resolution\_clock::now();}
+\DoxyCodeLine{00361\ \ \ \ \ \textcolor{keyword}{auto}\ duration2\ =\ duration\_cast<milliseconds>(end2\ -\/\ start2);}
+\DoxyCodeLine{00362\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Studentu\ irasymas\ i\ failus\ uztruko:\ "{}}\ <<\ duration2.count()\ <<\ \textcolor{stringliteral}{"{}\ ms"{}}\ <<\ endl;}
+\DoxyCodeLine{00363\ }
+\DoxyCodeLine{00364\ \ \ \ \ outVargsiukai.close();}
+\DoxyCodeLine{00365\ \ \ \ \ outKieti.close();}
+\DoxyCodeLine{00366\ \}}
+\DoxyCodeLine{00367\ }
+\DoxyCodeLine{00368\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Container>}
+\DoxyCodeLine{00369\ \textcolor{keywordtype}{void}\ SkaidytiStudentus3Strategija(Container\&\ studentai)\ \{}
+\DoxyCodeLine{00370\ \ \ \ \ \textcolor{keyword}{auto}\ start\ =\ high\_resolution\_clock::now();}
+\DoxyCodeLine{00371\ \ \ \ \ Container\ vargsiukai;}
+\DoxyCodeLine{00372\ \ \ \ \ \textcolor{comment}{//\ Naudojame\ std::partition,\ kad\ "{}vargšiukai"{}\ būtų\ konteinerio\ gale}}
+\DoxyCodeLine{00373\ \ \ \ \ \textcolor{keyword}{auto}\ it\ =\ std::partition(studentai.begin(),\ studentai.end(),\ [](\textcolor{keyword}{const}\ \mbox{\hyperlink{class_studentas}{Studentas}}\&\ studentas)\ \{}
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ return\ studentas.getGalutinis()\ >=\ 5;\ \textcolor{comment}{//\ Use\ getter}}
+\DoxyCodeLine{00375\ \ \ \ \ \});}
+\DoxyCodeLine{00376\ }
+\DoxyCodeLine{00377\ \ \ \ \ \textcolor{comment}{//\ Kopijuojame\ "{}vargšyku"{}\ į\ naują\ konteinerį}}
+\DoxyCodeLine{00378\ \ \ \ \ vargsiukai.insert(vargsiukai.end(),\ it,\ studentai.end());}
+\DoxyCodeLine{00379\ }
+\DoxyCodeLine{00380\ \ \ \ \ \textcolor{comment}{//\ Pašaliname\ "{}vargšyku"{}\ iš\ pradinio\ konteinerio}}
+\DoxyCodeLine{00381\ \ \ \ \ studentai.erase(it,\ studentai.end());}
+\DoxyCodeLine{00382\ }
+\DoxyCodeLine{00383\ \ \ \ \ \textcolor{comment}{//\ Įrašome\ "{}vargšyku"{}\ į\ failą}}
+\DoxyCodeLine{00384\ \ \ \ \ ofstream\ outVargsiukai(\textcolor{stringliteral}{"{}stud\_b.txt"{}});}
+\DoxyCodeLine{00385\ \ \ \ \ \textcolor{keywordflow}{if}\ (!outVargsiukai.is\_open())\ \{}
+\DoxyCodeLine{00386\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}Nepavyko\ atidaryti\ failo"{}});}
+\DoxyCodeLine{00387\ \ \ \ \ \}}
+\DoxyCodeLine{00388\ \ \ \ \ outVargsiukai\ <<\ left\ <<\ setw(15)\ <<\ \textcolor{stringliteral}{"{}Vardas"{}}\ <<\ setw(20)\ <<\ \textcolor{stringliteral}{"{}Pavarde"{}}\ <<\ \textcolor{stringliteral}{"{}Galutinis"{}}\ <<\ endl;}
+\DoxyCodeLine{00389\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ studentas\ :\ vargsiukai)\ \{}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ \ \ outVargsiukai\ <<\ left\ <<\ setw(15)\ <<\ studentas.getVardas()\ <<\ setw(20)\ <<\ studentas.getPavarde()}
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ fixed\ <<\ setprecision(2)\ <<\ studentas.getGalutinis()\ <<\ endl;}
+\DoxyCodeLine{00392\ \ \ \ \ \}}
+\DoxyCodeLine{00393\ \ \ \ \ outVargsiukai.close();}
+\DoxyCodeLine{00394\ }
+\DoxyCodeLine{00395\ \ \ \ \ \textcolor{comment}{//\ Įrašome\ "{}kietiakus"{}\ į\ failą}}
+\DoxyCodeLine{00396\ \ \ \ \ ofstream\ outKietiakai(\textcolor{stringliteral}{"{}stud\_g.txt"{}});}
+\DoxyCodeLine{00397\ \ \ \ \ \textcolor{keywordflow}{if}\ (!outKietiakai.is\_open())\ \{}
+\DoxyCodeLine{00398\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}Nepavyko\ atidaryti\ failo"{}});}
+\DoxyCodeLine{00399\ \ \ \ \ \}}
+\DoxyCodeLine{00400\ \ \ \ \ outKietiakai\ <<\ left\ <<\ setw(15)\ <<\ \textcolor{stringliteral}{"{}Vardas"{}}\ <<\ setw(20)\ <<\ \textcolor{stringliteral}{"{}Pavarde"{}}\ <<\ \textcolor{stringliteral}{"{}Galutinis"{}}\ <<\ endl;}
+\DoxyCodeLine{00401\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ studentas\ :\ studentai)\ \{}
+\DoxyCodeLine{00402\ \ \ \ \ \ \ \ \ outKietiakai\ <<\ left\ <<\ setw(15)\ <<\ studentas.getVardas()\ <<\ setw(20)\ <<\ studentas.getPavarde()}
+\DoxyCodeLine{00403\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ fixed\ <<\ setprecision(2)\ <<\ studentas.getGalutinis()\ <<\ endl;}
+\DoxyCodeLine{00404\ \ \ \ \ \}}
+\DoxyCodeLine{00405\ \ \ \ \ outKietiakai.close();}
+\DoxyCodeLine{00406\ }
+\DoxyCodeLine{00407\ \ \ \ \ \textcolor{keyword}{auto}\ end\ =\ high\_resolution\_clock::now();}
+\DoxyCodeLine{00408\ \ \ \ \ \textcolor{keyword}{auto}\ duration\ =\ duration\_cast<milliseconds>(end\ -\/\ start);}
+\DoxyCodeLine{00409\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Studentu\ skaidymas\ ir\ irasymas\ i\ failus\ uztruko:\ "{}}\ <<\ duration.count()\ <<\ \textcolor{stringliteral}{"{}\ ms"{}}\ <<\ endl;}
+\DoxyCodeLine{00410\ \}}
+\DoxyCodeLine{00411\ }
+\DoxyCodeLine{00412\ }
+\DoxyCodeLine{00413\ \textcolor{keywordtype}{void}\ FailuGeneravimas(\textcolor{keywordtype}{int}\ studentuSk,\ \textcolor{keywordtype}{int}\ pazymiuSk);}
+\DoxyCodeLine{00414\ \textcolor{keywordtype}{void}\ Test1();}
+\DoxyCodeLine{00415\ \textcolor{keywordtype}{void}\ Test2();}
+\DoxyCodeLine{00416\ \textcolor{keywordtype}{void}\ Test3();}
+\DoxyCodeLine{00417\ \textcolor{keywordtype}{void}\ TestStudentas();}
+
+\end{DoxyCode}
