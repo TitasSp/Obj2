@@ -21,16 +21,24 @@ Diegimas ir paleidimas
 ----------------------------------------------------------------
 
 1. Klonuokite repozitoriją:
-**git clone https://github.com/TitasSp/Obj2.git**
+```
+git clone https://github.com/TitasSp/Obj2.git
+```
 
 2. Pereikite į programos direktoriją:
-**cd C:\"projekto direktorija"**
+```
+cd C:\"projekto direktorija"
+```
 
 3. Sukompiliuokite programą:
-**g++ -o program main.cpp funkcijos.cpp -std=c++17**
+```
+g++ -o program main.cpp funkcijos.cpp -std=c++17
+```
 
 4. Paleiskite programą:
-**./programa**
+```
+./programa
+```
 
 Arba naudojant CMake
 ----------------------------------------------------------------
@@ -39,15 +47,25 @@ Arba naudojant CMake
 cd C:\"projekto direktorija"
 ```
 2. Sukurkite build direktoriją:
-**mkdir build**
+```
+mkdir build
+```
 3. Pereikite į build direktoriją:
-**cd build**
+```
+cd build
+```
 4. Paleiskite CMake, norint sugeneruoti build failus:
-**cmake ..**
+```
+cmake ..
+```
 5. Kompiliuokite projekta:
-**cmake --build .**
+```
+cmake --build .
+```
 6. Paleiskite faila: 
-**.\ObjCppProject.exe**
+```
+.\ObjCppProject.exe
+```
 
 Naudojimas
 ----------------------------------------------------------------
