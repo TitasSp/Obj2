@@ -34,17 +34,19 @@ Diegimas ir paleidimas
 
 Arba naudojant CMake
 ----------------------------------------------------------------
-1. Atidarykite projekto direktoriją terminale
-**cd C:\"projekto direktorija"**
-2. Sukurkite build direktoriją
+1. Atidarykite projekto direktoriją terminale:
+```
+cd C:\"projekto direktorija"
+```
+2. Sukurkite build direktoriją:
 **mkdir build**
-3. Pereikite į build direktoriją
+3. Pereikite į build direktoriją:
 **cd build**
-4. Paleiskite CMake, norint sugeneruoti build failus 
+4. Paleiskite CMake, norint sugeneruoti build failus:
 **cmake ..**
-5. Kompiliuokite projekta 
+5. Kompiliuokite projekta:
 **cmake --build .**
-6. Paleiskite faila 
+6. Paleiskite faila: 
 **.\ObjCppProject.exe**
 
 Naudojimas
