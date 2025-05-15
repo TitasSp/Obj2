@@ -84,23 +84,33 @@ Pasirinkite skaičiavimo būdą (vidurkis arba mediana)
 Pasirinkite rezultatų išvesties tipą (konsolė arba failas)
 Pasirinkite rūšiavimo būdą
 
-Klasių struktūra
-----------------------------------------------------------------
-Zmogus (abstrakti bazinė klasė)
+Releasai
 ----------------------------------------------------------------
 
-Bazinė klasė, kuri saugo pagrindinę informaciją apie asmenį
-Atributai: vardas, pavarde
-Virtualūs metodai: spausdinti()
+## 🔹 v2.0
+- Pridėtas Unit testavimas naudojant catch.
 
-Studentas (išvestinė klasė)
-----------------------------------------------------------------
+---
 
-Paveldi iš klasės Zmogus
-Papildomi atributai: pazymiai, egzaminas, galutinis
-Metodai darbui su studento duomenimis
-Pilnai įgyvendinta "Rule of Five" (kopijavimo ir perkėlimo konstruktoriai, priskyrimo operatoriai)
-Perdengti operatoriai: >>, <<
+## 🔹 v1.5
+- `Studentas` klasė paveldi iš abstrakčios `Žmogus` klasės.
+
+---
+
+## 🔹 v1.2
+- Įdiegti „Rule of Five“ metodai klasei `Studentas`.
+
+---
+
+## 🔹 v1.1
+- `Studentas` perdarytas iš struktūros į klasę.
+- Pridėti getteriai ir setteriai.
+
+---
+
+## 🔹 v1.0
+- Palaikomi `vector`, `list`, `deque` konteineriai.
+- Pridėtas `CMakeLists.txt` diegimui.
 
 ---------------------------------------------------------------------------------------------
 Testavimo sistemos parametrai:
